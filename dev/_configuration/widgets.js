@@ -182,7 +182,7 @@ var Widgets = {
             i18n: {
                 "default": "/devwidgets/mpassmodule/bundles/default.json",
                 "en_US": "/devwidgets/mpassmodule/bundles/en_US.json",
-                "zh_CN": "/devwidgets/mpassmodule/bundles/zh_CN.json"
+                "fr_CA": "/devwidgets/mpassmodule/bundles/fr_CA.json"
             },
             id:"mpassmodule",
             name:"T\u00e2ches actuelles",

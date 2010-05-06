@@ -27,7 +27,7 @@
 .mpasssupport .support_titlebar_inner
 { background:transparent url(/dev/_images/block_tl.png) no-repeat scroll left top; padding: 5px 0 0 17px; height:45px; }
 .mpasssupport .support_title
-{ background:transparent url(/devwidgets/mpasssupport/images/assignments_icon.png) no-repeat scroll left top; color:#878A8C; font-size:1em; padding-left: 25px; }
+{ background:transparent url(/devwidgets/mpasssupport/images/resources_icon.png) no-repeat scroll left top; color:#878A8C; font-size:1em; padding-left: 25px; }
 
 /* CONTENT */
 .mpasssupport .support_content
@@ -35,7 +35,7 @@
 .mpasssupport .support_content ul
 { margin: 0; padding: 0; }
 .mpasssupport .support_content ul li
-{ list-style-type: none; }
+{ list-style-type:none; padding:5px 0;}
 .mpasssupport .support_content ul li a
 { color: #058EC4; font-weight: normal; font-size: 10pt; }
 

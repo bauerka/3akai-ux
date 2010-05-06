@@ -245,6 +245,10 @@ sakai.mpassmodule = function(tuid, showSettings){
             "tasks": [],
             "settings": widgetSettings
         };
+        if (typeof  foundReflections === "undefined") {
+        	foundReflections = [];
+        	foundReflections.results = [];
+        }
         // Loops through all the reflections and does the necessary changes to render the JSON-object
         // Do not show more than maxNumberElementsPerPart reflections in the task navigation
         var nrRefl = maxNumberElementsPerPart;

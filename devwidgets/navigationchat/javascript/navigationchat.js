@@ -381,7 +381,7 @@ sakai.navigationchat = function(tuid, placement, showSettings){
         $(nav + " " + navSelectedNavItemClass).removeClass(navSelectedNavItemClass);
         
         // MPASS
-        if ((windowLocationPath.indexOf(sakai.config.URL.MPASS_URL) !== -1) || (windowLocationPath.indexOf(sakai.config.URL.PUBLIC_MPASS_PAGE) !== -1)) {
+        if ((windowLocationPath.indexOf(sakai.config.URL.MPASS_URL) !== -1) || (windowLocationPath.indexOf(sakai.config.URL.PUBLIC_MPASS_URL) !== -1)) {
             $(navMpassLink).addClass(navSelectedNavItemClass);
             return;
         }
@@ -1546,11 +1546,11 @@ sakai.navigationchat = function(tuid, placement, showSettings){
 
         // Set up public nav links
         $("#nav_my_sakai_link a").attr("href", sakai.config.URL.PUBLIC_MY_DASHBOARD_URL);
-        $("#nav_content_media_link a").attr("href", sakai.config.URL.PUBLIC_CONTENT_MEDIA_URL_PAGE);
+        $("#nav_content_media_link a").attr("href", sakai.config.URL.PUBLIC_CONTENT_MEDIA_URL);
         $("#nav_people_link a").attr("href", sakai.config.URL.PUBLIC_PEOPLE_URL);
         $("#nav_courses_sites_link a").attr("href", sakai.config.URL.PUBLIC_COURSES_SITES_URL);
-        $("#nav_search_link a").attr("href", sakai.config.URL.PUBLIC_SEARCH_URL_PAGE);
-        $("#nav_mpass_link a").attr("href", sakai.config.URL.PUBLIC_MPASS_PAGE);
+        $("#nav_search_link a").attr("href", sakai.config.URL.PUBLIC_SEARCH_URL);
+        $("#nav_mpass_link a").attr("href", sakai.config.URL.PUBLIC_MPASS_URL);
 
         // Bind Log in button
         $("#login_button_container .log_in").bind("click", function(){

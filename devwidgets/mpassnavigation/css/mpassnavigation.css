@@ -33,9 +33,9 @@
 .mpassnavigation .navigation_content
 { border-left: 3px solid #D4DADE; border-right: 3px solid #D4DADE; padding: 10px 5px 10px 20px; margin: 0; }
 .mpassnavigation .navigation_content ul
-{ margin: 0; padding: 0; }
+{ margin:0; padding:0; }
 .mpassnavigation .navigation_content ul li
-{ list-style-type: none; }
+{ list-style-type:none; padding:5px 0;}
 .mpassnavigation .navigation_content ul li a
 { color: #058EC4; font-weight: normal; font-size: 10pt; }
 
