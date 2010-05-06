@@ -175,6 +175,52 @@ var Widgets = {
             name:"Hello World GWT",
             url:"/devwidgets/helloworldwow/war/Helloworldwow.html"
         },
+        mpassmodule: {
+        	ca:true,
+            description:"MPASS Module",
+            hasSettings:true,
+            i18n: {
+                "default": "/devwidgets/mpassmodule/bundles/default.json",
+                "en_US": "/devwidgets/mpassmodule/bundles/en_US.json",
+                "zh_CN": "/devwidgets/mpassmodule/bundles/zh_CN.json"
+            },
+            id:"mpassmodule",
+            name:"T\u00e2ches actuelles",
+            personalportal:true,
+            showinsakaigoodies:true,
+            siteportal:true,
+            url:"/devwidgets/mpassmodule/mpassmodule_task.html"
+        },
+        mpassnavigation: {
+        	ca:true,
+            description:"MPASS General Navigation Widget",
+            name:"MPASS General Navigation",
+            id:"mpassnavigation",
+            hasSettings: false,
+            i18n: {
+                "default": "/devwidgets/mpassnavigation/bundles/default.json",
+                "en_US": "/devwidgets/mpassnavigation/bundles/en_US.json",
+                "fr_CA": "/devwidgets/mpassnavigation/bundles/fr_CA.json"
+            },
+            img:"/devwidgets/mpassnavigation/images/icon.png",
+            showinsidebar:true,
+            url:"/devwidgets/mpassnavigation/mpassnavigation.html"
+        },
+        mpasssupport: {
+        	ca:true,
+            description:"MPASS Support Navigation Widget",
+            name:"MPASS Support Navigation",
+            id:"mpasssupport",
+            hasSettings: false,
+            i18n: {
+                "default": "/devwidgets/mpasssupport/bundles/default.json",
+                "en_US": "/devwidgets/mpasssupport/bundles/en_US.json",
+                "fr_CA": "/devwidgets/mpasssupport/bundles/fr_CA.json"
+            },
+            img:"/devwidgets/mpasssupport/images/icon.png",
+            showinsidebar:true,
+            url:"/devwidgets/mpasssupport/mpasssupport.html"
+		},
         myfiles: {
             description:"A list of my files",
             id:"myfiles",

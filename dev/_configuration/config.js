@@ -29,11 +29,13 @@ var Config = {
         GENERAL_SEARCH_SERVICE: "/var/search/page.json",
         GATEWAY_URL: "/dev/index.html",
         LOGOUT_URL: "/dev/logout.html",
+        MPASS_URL: "/sites/microprogramme-i---cours-1",
         MY_DASHBOARD: "/dev/my_sakai.html",
         PATCH_PROFILE_URL: "/_user/public/__USERID__/authprofile",
         PEOPLE_URL: "/dev/peoplewow.html",
         PROFILE_URL: "/dev/profile.html",
         PUBLIC_INSTITUTIONAL_LOGIN_PAGE: "/dev/i_index.html",
+        PUBLIC_MPASS_PAGE: "/dev/public_mpass.html",
         PUBLIC_MY_SAKAI_PAGE: "/dev/public_my_sakai.html",
         PUBLIC_PEOPLE_PAGE: "/dev/public_people.html",
         PUBLIC_COURSES_SITES_PAGE: "/dev/public_courses_sites.html",
@@ -142,6 +144,11 @@ var Config = {
                 name: "Cambridge University theme",
                 image: "/dev/_skins/camuniversity/images/camuniversity.png",
                 URL: "/dev/_skins/camuniversity/camuniversity.html"
+            },
+            mpass: {
+                name: "MPASS theme",
+                image: "_images/sakai_grey.png",
+                URL: "/dev/_skins/mpass/mpass.html"
             }
         }
     },
