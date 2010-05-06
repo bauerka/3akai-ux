@@ -1,0 +1,119 @@
+.mytasks_req {
+  background-color: #E4DB1B;
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.mytasks_task_wrap {
+  float: left;
+  width: 50%;
+}
+
+.mytasks_task {
+  height: 5.5em;
+  margin: 3px;
+}
+
+.mytasks_highlight {
+  background-color: #E7EAA6;
+  border-style: solid;
+  border-width: medium;
+  border-color: #E4DB1B;
+  margin-top: -3px;
+  margin-bottom: -3px;
+}
+
+.mytasks_completed {
+  background-color: #E5E5E5;
+  border-style: solid;
+  border-width: thin;
+  border-color: #DFDFDF;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  background-image: url('/devwidgets/mytasks/images/accept.png');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+
+.mytasks_info_wrap {
+  float: left;
+  width: 33%;
+  margin: 0.25em;
+  background-color: #FFF;
+}
+
+.mytasks_task_info {
+  text-align: center;
+  border-style: solid;
+  border-width: thin;
+  border-color: #CCC;
+  height: 5em;
+}
+
+.mytasks_task_info_header {
+  border-bottom-style: solid;
+  border-width: thin;
+  border-color: #CCC;
+  display: block;
+  width: 100%;
+  height: 33%;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.mytasks_task_info_cs {
+  display: block;
+  border-bottom-style: solid;
+  border-width: thin;
+  border-color: #CCC;
+  height: 33%;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.mytasks_month {
+  margin-top: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #950000;
+  color: #FFF;
+  display: block;
+  width: 60%;
+  font-size: x-small;
+  font-weight: bold;
+  border-style: solid solid none solid;
+  border-color: #CCC;
+  border-width: thin;
+}
+
+.mytasks_day {
+  font-weight: bold;
+  border-style: none solid solid solid;
+  border-color: #CCC;
+  border-width: thin;
+  width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mytasks_past_month {
+  margin-top: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #36393D;
+  color: #FFF;
+  display: block;
+  width: 60%;
+  font-size: x-small;
+  font-weight: bold;
+  border-style: solid solid none solid;
+  border-color: #CCC;
+  border-width: thin;
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sakai 3 R&amp;D - Events</title>
+
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fss-base.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.base.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.core.2.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.3.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.events.css" />
+    <link rel="stylesheet" type="text/css" href="/devwidgets/navigationchat/css/navigationchat.css" />
+    <link rel="stylesheet" type="text/css" href="_lib/Jquery/css/jquery.ui.datepicker.css" />
+
+    <script type="text/javascript" language="JavaScript" src="_configuration/widgets.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_configuration/config.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Fluid/InfusionAll.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/trimpath.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jquery.corners.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jqModal.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/sdata.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/i18n.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/date.format.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jquery.ui.datepicker.js"></script>
+
+</head>
+
+<body class="fl-centered events i18nable">
+
+    <!-- EXPLORE BAR -->
+    <div id="widget_navigationchat" class="widget_inline"></div>
+
+    <!-- HEADER -->
+    <div class="fl-container-flex header">
+        <div class="fl-fix fl-centered fixed-container">
+            <div class="decor"><!-- --></div>
+
+            <!-- TITLE BAR  -->
+            <div class="site_heading">
+                <h1 id="sitetitle">Events</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="events_container_sub_header" class="fl-fix fl-centered fixed-container">
+
+        <!-- MAIN PAGE -->
+        <div class="fl-col-mixed main_container">
+
+            <!-- SETTINGS -->
+            <div class="fl-col events_side_panel">
+
+                <div class="events_side_titlebar">
+                    <div class="events_side_titlebar_inner"><h2 class="events_side_title">Show me talks</h2></div>
+                </div>
+                <div class="events_side_content">
+                    <form id="events_form_filter" method="post" action="javascript:;">
+                        <p>
+                            <label class="events_label_block" for="events_start_date">Show talks between:</label>
+                            <input class="events_datepicker" id="events_start_date" type="text" /> <span class="events_datepicker_split"> and </span>
+                            <input class="events_datepicker" id="events_end_date" type="text" />
+                        </p>
+                        <p>
+                            <span id="events_start_date_formatted" class="events_datepicker_formatted">&nbsp;</span>
+                            <span id="events_end_date_formatted" class="events_datepicker_formatted">&nbsp;</span>
+                        </p>
+                        <p class="events_form_divider fl-push">
+                            <label id="events_limit_before" for="events_limit_seconds_before_today">Previous range:</label>
+                            <label id="events_limit_after" for="events_limit_seconds_after_today">Talks coming up:</label>
+
+                            <select id="events_limit_seconds_before_today">
+                                <option selected="selected" value="" class="events_option_deselect">No past limit</option>
+                                <option value="86400">Day</option>
+                                <option value="604800">Week</option>
+                                <option value="604800">Two weeks</option>
+                                <option value="2592000">Month</option>
+                                <option value="5184000">Two months</option>
+                                <option value="7776000">Three months</option>
+                                <option value="31557600">Year</option>
+                            </select>
+                            <select id="events_limit_seconds_after_today">
+                                <option selected="selected" value="" class="events_option_deselect">No future limit</option>
+                                <option value="86400">Day</option>
+                                <option value="604800">Week</option>
+                                <option value="604800">Two weeks</option>
+                                <option value="2592000">Month</option>
+                                <option value="5184000">Two months</option>
+                                <option value="7776000">Three months</option>
+                                <option value="31557600">Year</option>
+                            </select>
+                        </p>
+                        <p class="events_form_divider fl-push">
+                            <input type="checkbox" id="events_only_this_term" /> <label for="events_only_this_term">Show only this term's talks</label>
+                        </p>
+                        <p class="events_form_divider fl-push" id="events_show_talks_container">
+                            <button class="s3d-button s3d-button-primary" type="submit" id="events_show_talks"><span class="s3d-button-inner">Show talks</span></button>
+                        </p>
+                    </form>
+                </div>
+                <div class="events_side_bottom">
+                    <div class="events_side_bottom_inner"><!-- --></div>
+                </div>
+            </div>
+
+            <!-- Main -->
+            <div class="col-main">
+
+                <!-- MAIN events -->
+                <div id="events_pane_events" class="events_pane">
+
+                    <div class="top_decor"><!-- --></div>
+
+                    <!-- events -->
+                    <div id="events_container_content">
+                        <h2 class="fl-force-left">Featured talks</h2>
+                        <div class="fl-force-right">
+                            <select>
+                                <option value="1">Display 1 per page</option>
+                                <option value="5">Display 5 per page</option>
+                                <option value="10" selected="selected">Display 10 per page</option>
+                                <option value="20">Display 20 per page</option>
+                                <option value="50" >Display 50 per page</option>
+                            </select>
+                        </div>
+                        <div id="events_container_list" class="fl-push">
+                            
+                        </div>
+                        <div id="events_container_list_template"><!--
+                            {for talk in vevents}
+                                <div class="event_talks">
+                                    <p class="event_talks_series">${talk.CATEGORIES}</p>
+                                    <h2 class="event_talks_summary">
+                                        <a href="${talk.URL}" target="_blank">${talk.TITLE}</a>
+                                    </h2>
+                                    <p class="event_talks_details">
+                                        ${talk.SPEAKER}
+                                    </p>
+                                    <p class="event_talks_location">
+                                        ${talk.LOCATION}
+                                    </p>
+                                    <p class="event_talks_date">
+                                        <span>${talk.DTPARSE}</span>
+                                    </p>
+                                </div>
+                            {forelse}
+                                <p class="events_error">There are no talks available with your filter settings.</p>
+                            {/for}
+                        --></div>
+                    </div>
+
+                    <div class="bottom_decor"><!-- --></div>
+
+                </div>
+
+            </div>
+        </div>
+       
+    </div>
+
+    <!-- FOOTER WIDGET -->
+    <div id="widget_footer" class="widget_inline footercontainer"></div>
+
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="_javascript/events.js"></script>
+</body>
+</html>

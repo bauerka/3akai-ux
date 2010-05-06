@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="fl-layout-">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>People - Create a group</title>
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fss-base.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.core.2.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.search.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.search_b.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.people.css" />
+    <link rel="stylesheet" type="text/css" href="/devwidgets/navigationchat/css/navigationchat.css"/>
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.core.2.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.3.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.content_drawer.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.create_groupwow.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.base.css" />
+
+    <script type="text/javascript" language="JavaScript" src="_configuration/widgets.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_configuration/config.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Fluid/InfusionAll.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/trimpath.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jquery.corners.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/ui.droppable.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jqModal.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/modal_dialog.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/sdata.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/i18n.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/content_drawer.js"></script>
+
+</head>
+
+<body class="fl-centered account_preferences">
+
+    <!-- EXPLORE BAR -->
+    <div id="widget_navigationchat" class="widget_inline"></div>
+
+    <!-- HEADER -->
+    <div class="fl-container-flex header">
+        <div class="fl-fix fl-centered fixed-container">
+            <div class="decor"></div>
+
+                <!-- TITLE BAR  -->
+                <div class="site_heading">
+                    <h1>Create a group</h1>
+                </div>
+
+                <div id="error_msg" class="fl-container fl-force-left error_msg" style="display: none;">
+                    To create a group please add people - click on "Add group members link"
+                </div>
+
+                <div class="fl-container fl-force-right top_toolbar">
+                    <div href="javascript:;">Auto saved 3 mins ago</div>
+                    <div class="button-lightgrey" id="group_save_button_container"><input type="button" id="group_save_button" value="Cancel" /></div>
+                    <div class="button-lightgrey" id="group_save_button_container"><input type="button" id="group_save_button" value="Save" /></div>
+                    <div class="button-grey" id="group_create_container"><input type="button" id="group_create_button" value="+ Create My Group" /></div>
+                </div>
+
+        </div>
+    </div>
+
+    <!-- Create group -->
+    <div class="fl-container-flex">
+        <div class="fl-fix fl-centered fixed-container main-container">
+            <div class="outline-top"><div class="outline-top-inner"></div></div>
+            <div class="outline">
+
+
+                <div id="create_group_container" class="fl-container create_group_container">
+                    <a class="header" href="javascript:;">Group detail and settings</a>
+                    <div id="group_settings" class="fl-container content">
+
+                        <form id="group_settings_form">
+
+                            <ul class="form_elements">
+                                <li>
+                                    <label for="group_title">Group title</label>
+                                    <input type="text" id="group_title" />
+                                </li>
+
+                                <li>
+                                    <label for="group_type">Group type</label>
+                                    <span class="section_container">
+                                        <input type="checkbox" id="public" />
+                                        Publicly accessed
+                                        <br />
+                                        <span class="type_description">
+                                            This means anyone in the general public can view your community an comment
+                                        </span>
+                                    </span>
+                                    <span class="section_container">
+                                        <input type="checkbox" id="open" />
+                                        Open Community
+                                        <br />
+                                        <span class="type_description">
+                                            This means the community is an open group and anyone can join within the institution
+                                        </span>
+                                    </span>
+                                    <span class="section_container">
+                                        <input type="checkbox" id="request" />
+                                        Request for membership
+                                        <br />
+                                        <span class="type_description">
+                                            This means people wishing to join must request permission from you
+                                        </span>
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <label for="group_description">Group description</label>
+                                    <input type="textarea" id="group_description" />
+                                </li>
+                            </ul>
+
+                        </form>
+
+                    </div>
+
+                    <a class="header" href="javascript:;">Add members</a>
+                    <div id="group_members" class="fl-container content group_members">
+
+
+                                <div id="org_import">
+                                    <div class="button-lightgrey" id="group_org_import_button_container"><input type="button" id="group_org_import_button" value="Import members from registrar" /></div>
+                                </div>
+
+                                <div id="org_cat"class="fl-force-right">
+                                    <div class="button-lightgrey" id="group_org_cat_button_container"><input type="button" id="group_org_cat_button" value="+ Organisation category" /></div>
+                                </div>
+
+                                <div id="org_cat_description" class="fl-force-right">
+                                    Create categories within your group and manage advanced sorting of group members
+                                </div>
+
+
+
+                                <div id="members_drag_target_container">
+                                    <div id="members_drag_target_description">Or drag courses, groups or individuals from the "My People" window into this area: </div>
+
+                                    <div id="members_drag_target_title"></div>
+
+                                    <div id="members_drag_target" class="dragdrop_container hotspot">
+
+                                    </div>
+
+                                </div>
+                    </div>
+
+
+                    <!-- Organisational Category -->
+                    <div id="group_members_org_cat" class="fl-container fl-fix content group_members_org_cat" style="display: none;">
+
+                        <div id="add_category">
+                            <span>Organisation Categories</span>
+                            <div class="button-lightgrey" id="group_add_category_button_container"><input type="button" id="group_add_category_button" value="+ Add Category" /></div>
+                            <a id="back_to_members_button" class="fl-force-right" href="javascript:;">Back to Add Members</a>
+                        </div>
+
+                        <div id="category_container" class="fl-container clearboth category_container">
+
+                            <div id="category_title"><input id="org_cat_name_input" type="text" /></div>
+
+                            <div id="collections_container">
+
+                                <div id="members_container" class="category_section">
+                                    <div id="members_header" class="category_section_header">
+                                        <span class="category_title">All members<span>
+                                        <a href="javascript:;" class="fl-force-right">View all members</a>
+                                    </div>
+
+                                    <div id="members_options" class="category_section_subheader">
+                                        <a href="javascript:;" id="select_all_members_button">Select all</a>
+                                        <span>|</span>
+                                        <a href="javascript:;" id="select_none_members_button">Select none</a>
+                                        <span>|</span>
+                                        <a href="javascript:;">Hide selected</a>
+                                    </div>
+
+                                    <div id="members" class="category_section_content">
+
+
+
+
+
+                                    </div>
+                                </div>
+
+                                <div id="collections_container" class="category_section">
+                                    <div id="collections_header" class="category_section_header">
+                                        <span class="category_title">Collections<span>
+                                        <a id="add_new_collection" href="javascript:;" class="fl-force-right" >Add new collection</a>
+                                    </div>
+
+                                    <div id="collections_options" class="category_section_subheader">
+                                        <a href="javascript:;" id="collection_select_all_button">Select all</a>
+                                        <span>|</span>
+                                        <a href="javascript:;" id="collection_select_none_button">Select none</a>
+                                        <span>|</span>
+                                        <a href="javascript:;" id="collection_delete_selected_button">Delete selected</a>
+                                    </div>
+
+                                    <div id="collections" class="category_section_content">
+                                        <div id="add_collection_container">
+                                            <input type="text" id="collection_name_input" value="Collection name" />
+                                            <div class="button-lightgrey fl-force-right" id="group_add_collection_container"><input type="button" id="group_add_collection_button" value="+ Add" /></div>
+                                        </div>
+
+                                        <div id="add_collection_description" class="clearboth">
+                                            A new collection is a sub-set of people within the main group category you have creted.<br />
+                                            By holding down the shift button and clicking on multiple collections you can see multiple collection memebers at the same time.
+                                        </div>
+
+                                        <div id="collection_display">
+
+                                        </div>
+
+                                        <!-- Template for 1 collection element -->
+                                        <div id="collection_template" style="display: none;">
+                                            <div class="t_collection">
+                                                <span class="collection_name">Chromosomal DNA </span><span class="collection_size">(50)</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div id="collection_members_container" class="category_section">
+                                    <div id="collection_members_header" class="category_section_header">
+                                        <span class="category_title">Collection members<span>
+                                    </div>
+
+                                    <div id="collection_members_options" class="category_section_subheader">
+                                        <a href="javascript:;" id="collection_members_select_all">Select all</a>
+                                        <span>|</span>
+                                        <a href="javascript:;" id="collection_members_select_none">Select none</a>
+                                        <span>|</span>
+                                        <a href="javascript:;" id="collection_members_delete_selected">Delete selected</a>
+                                    </div>
+
+                                    <div id="collections" class="category_section_content">
+
+                                        <div id="collection_members_description">
+                                            Add people to this column by dragging people from the "All members" column on the far left to this column
+                                            <br/>
+                                            By holding "Shift" and clicking multiple people you can drag over many people at once
+                                        </div>
+
+                                        <div id="collection_members_display" class="collection_members">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            <div class="clearboth"></div>
+            </div>
+            <div class="outline-bottom"><div class="outline-bottom-inner"></div></div>
+        </div>
+    </div>
+
+    <!-- FOOTER WIDGET -->
+    <div id="widget_footer_footercontainer" class="widget_inline footercontainer"></div>
+
+
+
+    <!-- DOCUMENT DRAWER -->
+        <div id="doc_drawer" class="fl-container" style="display:none">
+
+            <!-- HEADER -->
+            <div id="doc_drawer_header">
+
+                <ul class="tabs">
+
+                    <li id="tab_content"><a href="javascript:;">My Content</a></li>
+
+                    <li id="tab_tasks"><a href="javascript:;">Tasks and Assignements</a></li>
+
+                    <li class="active_tab" id="tab_people"><a href="javascript:;">My People</a></li>
+
+                    <li id="tab_preview"><a href="javascript:;">Preview Selection</a></li>
+
+                </ul>
+
+                <ul class="option_list fl-force-right">
+                    <li><a id="position_bottom_button" href="javascript:;">Bottom</a></li>
+                    <li><a id="position_left_button" href="javascript:;">Left</a></li>
+                    <li><a id="position_right_button" href="javascript:;">Right</a></li>
+                </ul>
+
+            </div>
+
+
+            <!-- CONTENT -->
+            <div id="doc_drawer_content">
+
+                <!-- MY CONTENT - TAB -->
+                <div id="tab_people_content" class="fl-container tab_content" style="display: none;">
+
+
+
+                </div>
+
+                <!-- ASSIGNEMENTS - TAB -->
+                <div id="tab_tasks_content" class="tab_content" style="display: none;">
+                    Assignements Content
+                </div>
+
+                <!-- PEOPLE - TAB -->
+                <div id="tab_content_content" class="fl-container tab_content active_tab_content">
+
+
+                    <div id="browser_nav" class="fl-fix">
+                        <ul id="main_level_browser">
+                            <li><a href="javascript:;" class="draggable_people_group" id="all_contacts_filter">All My Contacts</a></li>
+                            <li><a href="javascript:;" class="draggable_people_group" id="courses_filter">Courses & Sites Contacts</a></li>
+                            <li>
+                                <ul id="sub_level_browser">
+                                    <li><a href="javascript:;" id="mol_bio_filter" class="draggable_people_group">Molecular Biology</a></li>
+                                    <li><a href="javascript:;" id="bio_med_filter" class="draggable_people_group">Biomedical Engineering</a></li>
+                                    <li><a href="javascript:;" class="draggable_people_group">Evolutionary Biology</a></li>
+                                    <li><a href="javascript:;" class="draggable_people_group">Molecular Pharmacology</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="javascript:;" class="draggable_people_group">My List of People</a></li>
+                            <li><a href="javascript:;" class="draggable_people_group">Institutional Registrar</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="view_container" class="fl-container">
+
+                        <div id="view_options">
+
+                                <!-- VIEW OPTIONS -->
+                                <ul class="option_list">
+
+                                    <li>View by:
+                                        <select >
+                                        <option value="type">Type</option>
+                                        <option value="coursesandsites">Courses &amp; Sites</option>
+                                        <option value="tags">Tags</option>
+                                        </select>
+                                    </li>
+
+                                    <li><a href="javascript:;" id="select_all_button">Select All</a></li>
+                                    <li><a href="javascript:;" id="select_none_button">Select None</a></li>
+                                    <li><a href="javascript:;" id="icon_view_button">Icon view</a></li>
+                                    <li><a href="javascript:;" id="list_view_button">List View</a></li>
+                                </ul>
+
+                        </div>
+
+                        <!-- DOCUMENT VIEW AREA (icon/list) -->
+                        <div id="document_view" class="dragdrop_container"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- PREVIEW SELECTION - TAB -->
+                <div id="tab_preview_content" class="tab_content" style="display: none;">
+                    Preview Selection Content
+                </div>
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+            <div id="doc_drawer_footer">
+
+                <div id="doc_drawer_search_container">
+                    <input type="text" id="doc_drawer_search_input" name="doc_drawer_search_input" value="xxx" />
+                    <a href="javascript:;" id="doc_drawer_search_submit">Search</a>
+                </div>
+
+                <div id="doc_drawer_tags_container">
+
+                    <a href="javascript:;" id="doc_drawer_see_more_tags_button">Tags ></a>
+                    <ul class="tag_list">
+                        <li>Very smart (2) x </li>
+                        <li>To Contact (5) x </li>
+                        <li>Helpful (3) x </li>
+                        <li>Study partners (2) x </li>
+                    </ul>
+
+                </div>
+
+                <div id="doc_drawer_extra_tags" style="display: none;">
+
+                    <ul class="tag_list">
+                        <li>Tag 2</li>
+                        <li>Tag 2</li>
+                        <li>Tag 2</li>
+                        <li>Tag 2</li>
+                        <li>Tag 2</li>
+                        <li>Tag 2</li>
+                        <li>Tag 2</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    <script type="text/javascript" language="JavaScript" src="_javascript/create_groupwow.js"></script>
+</body>
+</html>

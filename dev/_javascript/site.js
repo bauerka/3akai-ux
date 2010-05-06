@@ -18,6 +18,7 @@
 
 /*global $, Config, History, Querystring, sdata, jQuery, Widgets */
 var sakai = sakai || {};
+
 sakai.site = function(){
 
 
@@ -102,7 +103,7 @@ sakai.site = function(){
     var $initialcontent = $("#initialcontent");
     var $page_nav_content = $("#page_nav_content");
     var $sitetitle = $("#sitetitle");
-    var $widget_chat = $("#widget_chat");
+    var $widget_navigationchat = $("#widget_navigationchat");
     var $loginLink = $("#loginLink");
     var $insert_more_menu = $("#insert_more_menu");
     var $more_menu = $("#more_menu");
@@ -1384,6 +1385,239 @@ sakai.site = function(){
         printPage();
     });
 
+    var doPrototype = function(){
+        
+        if (sakai.site.selectedpage === "lecture-05") {
+            $(".site_prototype_edited").css("border", "1px solid #ddd");
+            $(".site_prototype_edited").css("background-color", "#ffffed");
+            $(".site_prototype_edited").css("margin-left","416px");
+
+            var cssEditedBar1 = {
+                "-moz-border-radius": "4px",
+                "background-color": "#F1E495",
+                "font-size": "12px",
+                "font-weight": "bold",
+                "margin": "14px 0 0 -77px",
+                "padding": "4px 8px",
+                "text-align": "center",
+                "float": "left"
+            };
+
+            $("#site_prototype_edited_bar1").css(cssEditedBar1);
+            $("#site_prototype_edited_bar1").show();
+            $(".add_a_new_container").css("visibility", "hidden");
+            
+            var qs = new Querystring();
+              if (qs.contains("added")) {
+                $(".site_prototype_edited").show();
+                
+                $("#site_prototype_apply").click(function(){
+                    $("#site_prototype_apply").hide();
+                    $("#site_prototype_clear").hide();
+                    
+                    $(".site_prototype_edited").css("padding-bottom", 10);
+                    
+                    $("#site_prototype_edited_bar1").html('Task added to page | <a href="javascript:;">Save</a>');
+                    
+                    $("#site_prototype_edited_bar1").css("margin-left", 10);
+                });
+            }
+        }
+        
+        if(sakai.site.selectedpage === "introduction"){
+            if(document.location.hash === "#introduction"){
+                var simpleEdit = fluid.inlineEdit("#show_view_container", {
+                    selectors : {
+                        text: ".site_input"
+                    },
+                    defaultViewText : "The Division of Biology and Medicine is composed of Alpert Medical School, the Program in Biology (which includes study at the undergraduate and graduate levels), and the Public Health Program. It is home to five basic biology departments and fourteen clinical departments, and is affiliated with seven diverse teaching hospitals in and around Providence. The multidepartmental graduate program in Molecular Biology, Cell Biology and Biochemistry (MCB) has held a predoctoral training grant from NIH for more than 29 years.",
+                    useTooltip : true,
+                    tooltipText : "Click item to edit",
+                    tooltipDelay : 500
+                });
+                
+                var saveChanges = '<div id="prototype_saveChanges" class="button-grey" style="margin-left: 568px; margin-bottom: 1px;"><input type="button" value="Save Changes"></div>';
+                
+                $("#content_page_options").before(saveChanges);
+                
+                $("#prototype_saveChanges").click(function(){
+                    window.location = "/dev/my_sites_confirmed.html";
+                });
+                
+                
+                
+            }else{
+                $(".site_input").removeClass("site_input");
+            }
+            
+        }
+        
+        if(sakai.site.selectedpage === "syllabus/lecture-04"){
+            $(".site_prototype_edited").css("border", "1px solid #ddd");
+            $(".site_prototype_edited").css("background-color", "#ffffed");
+            $(".site_prototype_edited").css("margin-left","416px");
+
+            var cssEditedBar = {
+                "-moz-border-radius": "4px",
+                "background-color": "#F1E495",
+                "font-size": "12px",
+                "font-weight": "bold",
+                "margin": "16px 13px 0 13px",
+                "padding": "4px 8px",
+                "text-align": "center",
+                "float": "left"
+            };
+
+            $("#site_prototype_edited_bar").css(cssEditedBar);
+            $("#site_prototype_edited_bar").show();
+
+        }
+        
+        if (sakai.site.selectedpage === "syllabus/lecture-03") {
+            $("#nav_people_link").trigger("click");
+
+            $(".fixed-container .dropdown_contacts").css("width", "310px");
+            
+            setTimeout(function () {
+                $("#people_dropdown_my_contacts_list").parent().find("h2").text("My Contacts - Drag & drop");
+                $("#people_dropdown_my_contacts_list").html('<ul>' + 
+                '<li class="fl-force-left"><a href="javascript:;"><img alt="" src="/dev/_images/person_icon.jpg"/><br/><strong>Adrian</strong></p></a></li>' + 
+                '<li class="fl-force-left"><a href="javascript:;"><img alt="" src="/dev/_images/person_icon.jpg"/><br/><strong>James</strong></a></p></li>' + 
+                '<li class="fl-force-left"><a href="javascript:;"><img alt="" src="/dev/_images/person_icon.jpg"/><br/><strong>John</strong></a></p></li>' + 
+                '<li class="fl-force-left"><a href="javascript:;"><img alt="" src="/dev/_images/person_icon.jpg"/><br/><strong>Sam</strong></a></p></li>' + 
+                '<li class="fl-force-left"><a href="javascript:;"><img alt="" src="/dev/_images/person_icon.jpg"/><br/><strong>Clay</strong></a></p></li>' + 
+                '</ul>');
+                
+                $("#people_dropdown_my_contacts_list li").css("margin-right", "10px");
+                $("#people_dropdown_my_contacts_list li").css("font-size", "11px");
+                $("#people_dropdown_my_contacts_list li strong").css("color", "#666666");
+                $("#people_dropdown_my_contacts_list").closest(".fl-col-flex2").removeClass("fl-col-flex2").addClass("fl-col-flex3");
+                
+                $(".dropdown .dropdown_search_people").before('<div class="fl-col" style="width:280px; border-right:1px solid #878A8C; margin-bottom:15px; margin-top:20px;"><h2>Select contact</h2>' +
+                '<select style="width: 99%;"><option value="John">John</option><option value="Clay">Clay</option><option value="Thomas">Thomas</option><option value="Raad">Raad</option><option value="Sam">Sam</option></select>' +
+                '</div>');
+                
+                $(".dropdown .dropdown_search_people").css("margin-left", "0");
+                $(".dropdown .dropdown_search_people").addClass("fl-col");
+            }, 500);
+            
+        }
+        
+        if (sakai.site.selectedpage === "syllabus/lecture-02" || document.location.hash === "#introduction") {
+            
+            $("#content_page_options ul").css("width", "650px");
+            
+            $("#content_page_options ul").prepend('<li><a href="javascript:;" id="prototype_page_access_dropdown">Page access <img src="/dev/_images/arrow_down_sm2.png" alt="Open page access section" /></a></li><li>|</li><li><a href="javascript:;" id="prototype_page_permissions_dropdown">Page permissions <img src="/dev/_images/arrow_down_sm2.png" alt="Open page access section" /></a></a></li>' + 
+            '</li><li></li><li></li><li></li><li></li><li></li>');
+            
+            $(".sakai_site .content_page_options").css("padding", 0);
+            
+            $("#prototype_page_permissions_dropdown").click(function(){
+                
+                if ($("#prototype_page_access_container").is(":visible")) {
+                    $("#prototype_page_access_dropdown").trigger("click");
+                }
+                
+                if(!$("#prototype_page_permissions_container").is(":visible")){
+                    $("#prototype_page_permissions_dropdown").css("background-color", "#fff");
+                    $(".fl-col-mixed2 .fl-col-main").css("margin-top", "80px");
+                    
+                    $("#content_page_options ul").after('<div class="fl-force-right" id="prototype_page_permissions_container">'
+                    + '<div class="fl-force-left"><p style="font-weight: bold;">Set a page author</p><form><label for="prototype_page_permissions">My contacts: </label><select id="prototype_page_permissions"><option>Eli Cochran</option><option>Frank Harrison</option><option>Lance Speelmon</option><option>Christian Vuerings</option></select><a href="javascript:;">Add a new contact</a></form></div>'
+                    + '<div class="fl-force-left" style="margin-left: 20px"><p style="font-weight: bold;">Authoring rights</p><form><input type="checkbox" id="prototype_page_permissions_edit_content" /><label for="prototype_page_permissions_edit_content">Edit page content</label><input type="checkbox" id="prototype_page_permissions_gradebook" /><label for="prototype_page_permissions_gradebook">Gradebook access</label></form></div>'
+                    + '</div>');
+                    
+                    $("#prototype_page_permissions_container").css({
+                        "background-color": "#fff",
+                        "border":"3px solid #D3DBDE",
+                        "border-top":"none",
+                        "color":"#565c61",
+                        "width": "634px",
+                        "padding": "15px"
+                    });
+                    $("#prototype_page_permissions_container a").css({
+                        "color" : "#0587ba",
+                        "font-weight" : "normal",
+                        "margin-left": "5px"
+                    });
+                    $("#prototype_page_permissions_container a").hover(function(){
+                        $(this).css("text-decoration" , "underline");
+                    },function(){
+                        $(this).css("text-decoration" , "none");
+                    });
+        
+                    $("#prototype_page_permissions_container form").css({
+                        "font-size" : "11px"
+                    });
+                    
+                    $("#prototype_page_permissions_container input[type=checkbox]").css({
+                        "margin" : "0 5px"
+                    });
+
+                }else{
+                    $("#prototype_page_permissions_container").hide();
+                    $(".fl-col-mixed2 .fl-col-main").css("margin-top", "0");
+                    $("#prototype_page_permissions_dropdown").css("background-color", "");
+                }
+                
+                
+            });
+
+            $("#prototype_page_access_dropdown").click(function(){
+                
+                if ($("#prototype_page_permissions_container").is(":visible")) {
+                    $("#prototype_page_permissions_dropdown").trigger("click");
+                }
+
+                if (!$("#prototype_page_access_container").is(":visible")) {
+                    $("#prototype_page_access_dropdown").css("background-color", "#fff");
+                    $(".fl-col-mixed2 .fl-col-main").css("margin-top", "80px");
+                    
+                    $("#content_page_options ul").after('<div class="fl-force-right" id="prototype_page_access_container">'
+                    + '<div class="fl-force-left"><p style="font-weight: bold;">Who can view or access this page?</p><form><input type="checkbox" id="prototype_page_access_public" /><label for="prototype_page_access_public">General public</label><input type="checkbox" id="prototype_page_access_students" /><label for="prototype_page_access_students">Students/participants</label></form></div>'
+                    + '<div class="fl-force-left" style="margin-left: 5px"><form><p><label for="prototype_page_access_my_contacts">My Contacts </label><select id="prototype_page_access_my_contacts"><option>Eli Cochran</option><option>Frank Harrison</option><option>Lance Speelmon</option><option>Christian Vuerings</option></select></p><label for="prototype_page_access_my_groups">My Groups </label><select id="prototype_page_access_my_groups"><option>Biology group</option><option>Football groups</option><option>Tennis group</option><option>xSakai group</option></select></form></div>'
+                    + '<div class="fl-force-left" style="margin-left: 5px"><form><p style="font-weight: bold;">Access includes submission of work?</p><input type="radio" id="prototype_page_access_submission_yes" name="prototype_page_access_submission" /><label for="prototype_page_access_submission_yes">Yes</label><input type="radio" id="prototype_page_access_submission_no" name="prototype_page_access_submission" /><label for="prototype_page_access_submission_no">No</label></form></div>'
+                    + '</div>');
+                    
+                    $("#prototype_page_access_container").css({
+                        "background-color": "#fff",
+                        "border":"3px solid #D3DBDE",
+                        "border-top":"none",
+                        "color":"#565c61",
+                        "width": "634px",
+                        "padding": "15px"
+                    });
+                    $("#prototype_page_access_container a").css({
+                        "color" : "#0587ba",
+                        "font-weight" : "normal",
+                        "margin-left": "5px"
+                    });
+                    $("#prototype_page_access_container a").hover(function(){
+                        $(this).css("text-decoration" , "underline");
+                    },function(){
+                        $(this).css("text-decoration" , "none");
+                    });
+        
+                    $("#prototype_page_access_container form").css({
+                        "font-size" : "11px"
+                    });
+                    
+                    $("#prototype_page_access_container input[type=checkbox]").css({
+                        "margin" : "0 5px"
+                    });
+                    
+                }else{
+                    $("#prototype_page_access_container").hide();
+                    $(".fl-col-mixed2 .fl-col-main").css("margin-top", "0");
+                    $("#prototype_page_access_dropdown").css("background-color", "");
+                }
+                    
+            });
+
+        }
+        
+    };
+
 
     //////////
     // INIT //
@@ -1392,6 +1626,8 @@ sakai.site = function(){
 
         // Start loading page
         loadControl();
+
+        setTimeout(function () {doPrototype();}, 500);
 
     };
 

@@ -75,12 +75,13 @@
     cursor      : pointer;
     /*margin      : -1px;*/
 }
-.inlineEdit-tooltip {
+.fl-inlineEdit-tooltip {
     position    : absolute;
-    background  : #CCC;
+    background  : #fff;
     border      : 1px solid #999;
     font        : normal 75% sans-serif;
     padding     : 3px 5px;
+	z-index		: 900;
 }
 .inlineEdit-field {
 }

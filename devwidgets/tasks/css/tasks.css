@@ -1,0 +1,167 @@
+/*
+ * Licensed to the Sakai Foundation (SF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The SF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+
+/* CONTAINER */
+.tasks a:hover
+{ text-decoration: underline }
+.tasks_main_container 
+{ width: 835px; margin: 30px; position: relative;}
+
+/* TOP TABS */
+.tasks .tasks_main_tabs
+{ background: url('/devwidgets/tasks/images/tabs_tl.png') top left no-repeat; margin:-25px 0 0; height: 25px; border: none; padding-left: 5px; display: block; width:470px;}
+
+.tasks .tasks_main_tabs ul
+{ background: url('/devwidgets/tasks/images/tabs_tr.png') top right no-repeat; padding-top: 3px; margin: 0; border-bottom: none; }
+
+.tasks .tasks_main_tabs ul li
+{ margin: 0; padding: 0; background: transparent; border: none; display: block; float: left; }
+
+.tasks .tasks_main_tabs ul li a
+{ padding: 4px 25px; line-height: 20px; background: transparent; border: none; color: #454a4e; display: block; float: left; margin: 0; position: relative; bottom: 0px !important; }
+
+.tasks .tasks_main_tabs ul li.fl-activeTab
+{ background: #FFF url('/dev/_images/tab_corner_tl.png') top left no-repeat; height: 28px; padding-left: 5px; position: relative; bottom: 0px !important;  }
+
+.tasks .tasks_main_tabs ul li.fl-activeTab a
+{ background: #FFF url('/dev/_images/tab_corner_tr.png') top right no-repeat; font-weight: normal; padding-left: 15px; margin: 0; position: relative; bottom: 0px !important; }
+
+/*
+.tasks .tasks_main_tabs #tasks_tab_course
+{ padding-right: 15px; background: url('/dev/_images/arrow_down_sm2.png') right 12px no-repeat; }*/
+
+/* DROPDOWN */
+.tasks .tasks_dropdown
+{ background-color: #fff; border: 1px solid #cbd0d4; border-top: none; font-size:12px;padding:5px; position: absolute; right: 8px; top: 3px; z-index:4;}
+.tasks .tasks_dropdown ul li
+{ list-style-type: none;}
+
+/* CONTENT */
+.tasks .tasks_content_top
+{ background: url('/dev/_images/content_tr.gif') top right no-repeat; padding: 0 5px 0 0; margin: 0; }
+
+.tasks .tasks_content_top_inner
+{ background: url('/dev/_images/content_tl.gif') 0 0 no-repeat; margin: 0; height: 6px; }
+
+.tasks .tasks_content_bottom
+{ background: url('/dev/_images/content_br.png') top right no-repeat; padding: 0 5px 0 0; margin: 0; }
+
+.tasks .tasks_content_bottom_inner
+{ background: url('/dev/_images/content_bl.png') 0 0 no-repeat; margin: 0; height: 6px; }
+
+.tasks .tasks_content_main
+{ border-left: 3px solid #D3DBDE; border-right: 3px solid #D3DBDE; margin: 0; padding:20px 0 5px; position:relative; }
+
+.tasks .tasks_content_main h3.tasks_icon
+{ color: #878a8c; background: url('/devwidgets/tasks/images/tasks_assignments_icon.png') 0 0 no-repeat; font-size:1.05em; font-weight:normal; margin: 0 15px 5px 15px; padding:4px 28px;}
+
+.tasks .tasks_content_main a
+{ color: #016d96; font-weight: bold }
+
+/* LIST */
+.tasks .tasks_list
+{ overflow: auto; height: 400px; }
+.tasks .tasks_list ul
+{}
+.tasks .tasks_list ul li
+{ border-top: 1px solid #d3d7d9; clear: both; list-style-type:none}
+.tasks .tasks_list ul li div.tasks_list_item
+{ background-color:#fff; border: 2px solid #fff; height:50px; padding:2px}
+.tasks .tasks_list ul li div.tasks_list_grey_container
+{ background-color: #f5f6f6; border: 2px solid #f5f6f6;}
+.tasks .tasks_list ul li div.tasks_list_yellow_container
+{ background-color: #ffffed; border: 2px solid #f1e495;}
+
+.tasks .tasks_list .tasks_list_due
+{ float: left; width: 36px}
+.tasks .tasks_list .tasks_list_due span
+{ display: block}
+.tasks .tasks_list .tasks_list_due .tasks_list_due_past
+{ color: #fff; font-size: 10px; margin-top: 10px;}
+.tasks .tasks_list .tasks_list_due .tasks_list_due_in
+{ font-size: 10px; font-weight: bold; text-transform:uppercase;}
+.tasks .tasks_list .tasks_list_due .tasks_list_due_time
+{ font-weight: bold; text-align: center;}
+.tasks .tasks_list .tasks_list_due .tasks_list_due_time .task_list_due_time_number
+{ color: #000; font-size: 14px; padding-top:1px; }
+.tasks .tasks_list .tasks_list_due .tasks_list_due_time .task_list_due_time_format
+{ color: #fff; font-size: 8px; padding-top: 1px}
+.tasks .tasks_list .tasks_list_due_red_complete .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_red_complete.png') 0 0 no-repeat; }
+.tasks .tasks_list .tasks_list_due_red_complete .tasks_list_due_time .task_list_due_time_number
+{ color: #fff}
+.tasks .tasks_list .tasks_list_due_red_part .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_red_part.png') 0 0 no-repeat; }
+.tasks .tasks_list .tasks_list_due_brown_part .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_brown_part.png') 0 0 no-repeat; }
+.tasks .tasks_list .tasks_list_due_black_part .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_black_part.png') 0 0 no-repeat; }
+.tasks .tasks_list .tasks_list_due_black_complete .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_black_complete.png') 0 0 no-repeat; }
+.tasks .tasks_list .tasks_list_due_grey_part .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_grey_part.png') 0 0 no-repeat; }
+.tasks .tasks_list .tasks_list_due_grey_complete .tasks_list_due_time 
+{ background: url('/devwidgets/tasks/images/due_grey_complete.png') 0 0 no-repeat; }
+
+.tasks .tasks_list .tasks_list_info
+{ float:left; margin: 8px 0 0 15px; width: 500px }
+.tasks .tasks_list .tasks_list_info p 
+{ padding: 0; margin: 0px }
+.tasks .tasks_list .tasks_list_info .tasks_list_info_big
+{ color: #006e96; font-size: 13px; font-weight: bold }
+.tasks .tasks_list .tasks_list_info .tasks_list_info_small
+{ color: #85898A; font-size: 11px; }
+.tasks .tasks_list .tasks_list_info .tasks_list_info_small .tasks_list_info_bold
+{ color: #454a4f; font-size: 10px; font-weight: bold }
+.tasks .tasks_list .tasks_list_info .tasks_list_info_small .tasks_list_info_small_new
+{ margin-right: 5px; position:relative; top:3px; }
+
+.tasks .tasks_list .tasks_list_buttons
+{ float: left; margin-top: 12px}
+.tasks .tasks_list .tasks_list_buttons div
+{ float: left; margin-left: 5px}
+.tasks .tasks_list .tasks_list_buttons span
+{ display:block; color: #85898a; font-size: 10px; padding: 7px 5px 5px 28px }
+.tasks .tasks_list .tasks_list_buttons .task_list_button_discussion
+{ background: url('/devwidgets/tasks/images/button_discussion_bg.png') 0 0 no-repeat; height:29px; width: 54px}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_submission
+{ background: url('/devwidgets/tasks/images/button_submission_bg.png') 0 0 no-repeat; height:29px; width: 107px}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_submission_re
+{ background: url('/devwidgets/tasks/images/button_submissionre_bg.png') 0 0 no-repeat; height:29px; width: 107px}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_submission_re span
+{ padding-left: 44px;}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_submission_ok
+{ background: url('/devwidgets/tasks/images/button_submissionok_bg.png') 0 0 no-repeat; height:29px; width: 107px}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_submission_ok span
+{ padding-left: 40px;}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_submission_gr
+{ background: url('/devwidgets/tasks/images/button_submissiongr_bg.png') 0 0 no-repeat; height:29px; width: 107px}
+.tasks .tasks_list .tasks_list_buttons .task_list_button_feedback
+{ background: url('/devwidgets/tasks/images/button_feedback_bg.png') 0 0 no-repeat; height:29px; width: 54px}
+
+/* WARNING & INFO */
+.tasks .tasks_warning
+{ color:#BB2929; font-weight:bold;}
+.tasks .tasks_warning_container 
+{ background-color:#F6E0E0; color:#BB2929; left:275px; padding:2px; position:absolute; top:2px; width:auto; }
+.tasks .tasks_info_container
+{ background-color:#f1e495; color:#000; left:310px; padding:2px; position:absolute; top:2px; width:auto; }
+.tasks .tasks_info2_container
+{ background-color:#f8f1ca; color:#000; left:190px; padding:2px; position:absolute; top:2px; width:auto; }
+.tasks .tasks_list ul li div.tasks_list_warning_container
+{ background-color:#F6E0E0; }

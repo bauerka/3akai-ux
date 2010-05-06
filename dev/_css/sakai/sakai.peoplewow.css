@@ -1,0 +1,634 @@
+/* HEADER */
+.content_peoplewow a {
+    color: #006E96;
+}
+
+.peoplewow-container .content_peoplewow .fixed-container {
+    background: #fff url('../../_images/header_l.png') top left no-repeat;
+    padding: 0 20px 20px 20px
+}
+
+.peoplewow-container .content_peoplewow .fixed-container .decor {
+    background: url('../../_images/header_r.png') top right no-repeat;
+    height: 5px;
+    margin-right: -20px;
+}
+
+.content_peoplewow h1.title {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 15px 0 0 0;
+    padding: 0;
+}
+
+.content_peoplewow .breadcrumb {
+    font-size: .85em;
+    padding: 15px 0 0 0;
+    color: #444;
+}
+
+.breadcrumb .pipe-divider {
+    padding: 0 6px;
+    color: #AAA;
+}
+
+/** PEOPLEWOW TABS **/
+.content_peoplewow .peoplewow_tab_nav {
+    background: url('../../_images/search_tab_bg.png') top right no-repeat;
+    height: 25px;
+    padding: 3px 10px 0 0;
+    margin: 0;
+}
+
+.content_peoplewow .peoplewow_tab_nav ul {
+    padding: 0;
+    margin: 0;
+    border-bottom: none;
+    float: right;
+}
+
+.content_peoplewow .peoplewow_tab_nav ul li {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: block;
+    float: left;
+}
+
+.content_peoplewow .peoplewow_tab_nav ul li a {
+    padding: 3px 18px 4px 13px;
+    line-height: 20px;
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    color: #000;
+    display: block;
+    float: left;
+}
+
+.content_peoplewow .peoplewow_tab_nav ul li.fl-activeTab {
+    background: #FFF url('../../_images/tab_corner_tl.png') top left no-repeat;
+    padding-left: 5px;
+    height: 30px;
+}
+
+.content_peoplewow .peoplewow_tab_nav .fl-activeTab a {
+    background: url('../../_images/tab_corner_tr.png') top right no-repeat;
+    font-weight: normal;
+}
+
+.peoplewow_content_wrapper {
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.peoplewow_tab_content_top {
+    background: url('../../_images/content_tr.gif') top right no-repeat;
+    padding: 0 5px 0 0;
+    margin: 0;
+}
+
+.peoplewow_tab_content_top_inner {
+    background: url('../../_images/content_tl.gif') 0 0 no-repeat;
+    margin: 0;
+    height: 6px;
+}
+
+.peoplewow_tab_content_bottom {
+    background: url('../../_images/content_br.png') top right no-repeat;
+    padding: 0 5px 0 0;
+    margin: 0;
+}
+
+.peoplewow_tab_content_bottom_inner {
+    background: url('../../_images/content_bl.png') 0 0 no-repeat;
+    margin: 0;
+    height: 6px;
+}
+
+.peoplewow_bar {
+    clear: both;
+}
+
+.peoplewow_content_main {
+    border-left: 3px solid #D3DBDE;
+    border-right: 3px solid #D3DBDE;
+    margin: 0;
+    padding: 10px;
+}
+
+.peoplewow_content_main .peoplewow_toolbar {
+    padding: 15px;
+    background-color: #eeeeee;
+}
+
+/* My contacts and groups menu bar */
+.peoplewow_content_main .peoplewow_items_list {
+    color: #006e96;
+    float: left;
+    width: 160px;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.peoplewow_items_list .simpleTree .folder-open {
+    background: url(../../_images/arrow_down_sm2_blue.png) 2px 7px no-repeat #fff;
+}
+
+.peoplewow_items_list .simpleTree .folder-open-last {
+    background: url(../../_images/arrow_down_sm2_blue.png) 2px 7px no-repeat #fff;
+}
+
+.peoplewow_items_list .simpleTree .folder-close {
+    background: url(../../_images/arrow_right_sm2_blue.png) 3px 4px no-repeat #fff;
+}
+
+.peoplewow_items_list .simpleTree .folder-close-last {
+    background: url(../../_images/arrow_right_sm2_blue.png) 3px 4px no-repeat #fff;
+}
+
+.peoplewow_items_list .simpleTree .doc {
+    background: url(../../_images/arrow_right_sm2_blue.png) 6px center no-repeat #fff;
+    /*background-position:center left;*/
+}
+
+.peoplewow_items_list .simpleTree .doc-last {
+    background: url(../../_images/arrow_right_sm2_blue.png) 6px center no-repeat #fff;
+}
+
+.peoplewow_items_list .simpleTree #contact_list .line {
+    background: none;
+}
+
+.peoplewow_items_list .simpleTree #contact_list .line-last {
+    background: none;
+}
+
+/* Container */
+.peoplewow_content_main .peoplewow_item_content {
+    float: left;
+    width: 670px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid #eee;
+}
+
+/* MY GROUPS PAGE */
+.peoplewow_mygroups_header {
+    font-size: 14px;
+    display: inline;
+}
+
+.peoplewow_mygroups_header span {
+    float: left;
+}
+
+#peoplewow_options {
+    float: right;
+}
+
+#peoplewow_options ul {
+    display: inline;
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+
+#peoplewow_options ul li {
+    display: inline;
+    list-style-type: none;
+}
+
+#peoplewow_options_select a:hover {
+    text-decoration: underline;
+}
+
+#peoplewow_options_select li {
+    margin-right: 10px;
+}
+
+#peoplewow_options_select li a {
+    position: relative;
+    top: 3px;
+}
+
+#peoplewow_options_view li a {
+    background-image: url("../../_images/prototype_view_icons.png");
+    background-repeat: no-repeat;
+    float: left;
+    height: 0;
+    overflow: hidden;
+    padding-top: 21px;
+    width: 22px;
+}
+
+#peoplewow_options_view_thumbnail a:hover {
+    background-position: 0 -21px;
+}
+
+#peoplewow_options_view_thumbnail a:active, #peoplewow_options_view_thumbnail .peoplewow_options_view_selected {
+    background-position: 0 -42px;
+}
+
+#peoplewow_options_view_category a {
+    width: 20px !important;
+    background-position: -22px 0;
+}
+
+#peoplewow_options_view_category a:hover {
+    background-position: -22px -21px;
+}
+
+#peoplewow_options_view_category a:active, #peoplewow_options_view_category .peoplewow_options_view_selected {
+    background-position: -22px -42px;
+}
+
+#peoplewow_options_view_list a {
+    background-position: -44px 0;
+}
+
+#peoplewow_options_view_list a:hover {
+    background-position: -44px -21px;
+}
+
+#peoplewow_options_view_list a:active, #peoplewow_options_view_list .peoplewow_options_view_selected {
+    background-position: -44px -42px;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_list {
+    margin: 50px 0 0 0;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_list_group {
+    margin-top: 5px;
+    overflow:auto;
+    padding: 5px 0;
+}
+.peoplewow_item_content .peoplewow_mygroups_list li {
+    clear: both;
+    list-style-type: none;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_list_group:hover {
+    background-color: #eeeeee;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_group_img {
+    width: 105px;
+    float: left;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_group_info {
+    padding-left: 5px;
+    width: 450px;
+    float: left;
+    display: block;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_group_info p {
+    margin-bottom: 0px;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_group_info a:hover {
+    text-decoration: underline;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_group_stats {
+    font-size: 10px;
+    color: #999999;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_list_group a {
+    font-weight: bold;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_list_group .button {
+    margin-top: 10px;
+}
+
+.peoplewow_item_content .peoplewow_mygroups_group_modify_button {
+    margin-top: 34px;
+}
+
+/* MY CONTACTS PAGE */
+.peoplewow_recent_widgets .fl-widget .fl-widget-titlebar .widget_title {
+    padding-left: 15px;
+}
+
+.peoplewow_recent_widgets .fl-widget .fl-widget-content {
+    height: 150px;
+    padding: 10px;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_outer {
+    margin: 25px 0 0 0;
+    float: left;
+    padding: 15px 15px 40px 15px;
+    border: 20px solid #eee;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_grid {
+    padding-left: 20px;
+    float: left;
+    width: 380px;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_list {
+    float: left;
+    width: 80px;
+    margin-left: 12px;
+    margin-bottom: 15px;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_list img {
+    display: block;
+    margin: 4px;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_list a {
+    font-weight: bold;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_buttons {
+    margin-left: 420px;
+    width: 120px;
+}
+.peoplewow_item_content .peoplewow_mycontacts_buttons a {
+    margin-bottom: 10px;
+}
+
+.peoplewow_item_content .peoplewow_mycontacts_links {
+    padding-top: 130px;
+    padding-left: 420px;
+}
+
+
+/* MY GROUPS GROUP DETAILS PAGE */
+.peoplewow_item_content .peoplewow_groups_tab_nav {
+    border-bottom: 1px solid #ddd;
+    background: url('../../_images/search_tab_bg.png') 14px 0px no-repeat;
+    height: 25px;
+    padding: 1px 0 0 15px;
+    margin: 0;
+}
+
+.peoplewow_item_content .peoplewow_groups_tab_nav ul {
+    padding: 0;
+    margin: 0;
+    border-bottom: none;
+    float: left;
+}
+
+.peoplewow_item_content .peoplewow_groups_tab_nav ul li {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: block;
+    float: left;
+}
+
+.peoplewow_item_content .peoplewow_groups_tab_nav ul li a {
+    padding: 3px 18px 4px 13px;
+    line-height: 20px;
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    color: #000;
+    display: block;
+    float: left;
+}
+
+.peoplewow_item_content .peoplewow_groups_tab_nav ul li.fl-activeTab {
+    background: #FFF url('../../_images/tab_corner_tl.png') top left no-repeat;
+    padding-left: 5px;
+    height: 30px;
+}
+
+.peoplewow_item_content .peoplewow_groups_tab_nav .fl-activeTab a {
+    background: url('../../_images/tab_corner_tr.png') top right no-repeat;
+    font-weight: normal;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_info {
+    padding-top: 10px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_info p {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_info a {
+    margin-top: 10px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_info .peoplewow_groupdetails_title {
+    font-size: 22px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity {
+    margin-top: 60px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity .peoplewow_groupdetails_joined {
+    /*background-color: #ddd;*/
+    /*background-color: #eee;*/
+    width: 400px;
+    float: left;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity .peoplewow_groupdetails_activity_heading {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_joined_grid {
+    float: left;
+    width: 450px;
+}
+.peoplewow_item_content .peoplewow_groupdetails_joined_list {
+    float: left;
+    width: 65px;
+    margin-right: 12px;
+    margin-bottom: 15px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_joined_list img {
+    display: block;
+    margin: 4px;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_joined_list a {
+    font-weight: bold;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity .peoplewow_groupdetails_sideinfo {
+    margin-bottom: 200px;
+    width: 180px;
+    float: right;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity .peoplewow_groupdetails_recentactivity {
+    float: left;
+    width: 450px;
+    /*background-color: #ddd;*/
+    /*background-color: #eee;*/
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity .peoplewow_groupdetails_recentactivity_list_item img {
+    float: left;
+}
+
+.peoplewow_item_content .peoplewow_groupdetails_activity .peoplewow_groupdetails_recentactivity_list_item p {
+    margin: 0 0 0 60px;
+}
+
+.peoplewow_seperator {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.peoplewow_groupdetails_members ul {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.peoplewow_groupdetails_members li {
+    padding: 5px 0;
+    padding-left: 20px;
+    margin-left: -25px;
+    list-style-type: none;
+    /*list-style-image: url(../../_images/webchuck/vcard_icon.png);*/
+    background: url('../../_images/webchuck/vcard_icon.png') center left no-repeat;
+    border-bottom: 1px solid #ddd;
+}
+
+.peoplewow_groupdetails_events {
+    margin-top: 29px;
+}
+
+.peoplewow_groupdetails_events p {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.peoplewow_groupdetails_events_event_date {
+    background: url('../../_images/webchuck/calendar_icon.png') 0px 0px no-repeat;
+}
+
+.peoplewow_groupdetails_events_event_date p {
+    margin-left: 22px;
+}
+
+.peoplewow_groupdetails_events_event span {
+    font-weight: bold;
+}
+
+
+/* MY GROUPS MEMBERS DETAILS PAGE */
+
+.peoplewow_groupmembers_info {
+    margin-top: 10px;
+}
+
+.peoplewow_item_content .peoplewow_groupmembers_info .peoplewow_mygroups_group_stats {
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+.peoplewow_item_content .peoplewow_groupmembers_info .peoplewow_mygroups_group_stats a.peoplewow_a_seperator {
+    border-right: 1px solid #ddd;
+    padding-right: 8px;
+    margin-right: 8px;
+}
+
+.peoplewow_groupmembers_list_top {
+    font-size: 14px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.peoplewow_groupmembers_list {
+    font-size: 14px;
+}
+
+.peoplewow_groupmembers_list_top span {
+    color: #999999;
+}
+
+.peoplewow_groupmembers_list span {
+    color: #999999;
+}
+
+.peoplewow_groupmembers_group {
+    /*border-top: 1px solid #ddd;*/
+    margin-bottom: 20px;
+    /*padding: 10px 0;*/
+    /*background-color: #CCCCFF;*/
+}
+
+.peoplewow_groupmembers_group_border {
+    margin: 5px 0;
+    border-top: 1px solid #ddd;
+}
+
+.peoplewow_groupmembers_group_member {
+    background: url('../../_images/webchuck/vcard_icon.png') 0px 5px no-repeat;
+    width: 215px;
+    float: left;
+    padding: 3px;
+}
+
+.peoplewow_groupmembers_group_member a {
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+
+/* HEADING */
+.site_heading {
+    border-bottom: none;
+}
+
+.site_heading {
+    padding: 20px 0 5px 15px;
+}
+
+.site_heading h1 {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* TABS */
+.fl-tabs {
+    border-bottom: 1px solid #ddd;
+}
+
+.fl-tabs li a {
+    background-color: #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
+    color: #3399CC;
+    padding: 6px 20px 5px;
+    margin-left: -1px;
+    margin-bottom: -9px;
+}
+
+.fl-tabs .fl-activeTab a {
+    background-color: #eee;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
+    color: #333333;
+    font-weight: bold;
+}
+
+.fl-tab-content {
+    border: none;
+    margin: 0px;
+}

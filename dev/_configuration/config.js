@@ -21,14 +21,29 @@ var sakai = sakai || {};
 sakai.config = {
 
     URL: {
+<<<<<<< HEAD
         // Static URLs
+=======
+        API_GOOGLE_CHARTS: "http://chart.apis.google.com/chart",
+        BATCH_GET: "/system/batch/get",
+        BUNDLE_ROOT : "/dev/_bundle/",
+        CONTENT_MEDIA_URL : "/dev/content_media_wow.html",
+        BATCH_GET: "/system/batch/get",
+        BUNDLE_ROOT: "/dev/_bundle/",
+>>>>>>> christianv/prototype
         CONTENT_MEDIA_URL: "/dev/content_media.html",
         COURSES_SITES_URL: "/dev/courses_sites.html",
         GATEWAY_URL: "/dev/index.html",
         I18N_BUNDLE_ROOT: "/dev/_bundle/",
         LOGOUT_URL: "/dev/logout.html",
+<<<<<<< HEAD
         MY_DASHBOARD_URL: "/dev/my_sakai.html",
         PEOPLE_URL: "/dev/people.html",
+=======
+        MY_DASHBOARD: "/dev/my_sakai.html",
+        PATCH_PROFILE_URL: "/_user/public/__USERID__/authprofile",
+        PEOPLE_URL: "/dev/peoplewow.html",
+>>>>>>> christianv/prototype
         PROFILE_URL: "/dev/profile.html",
         PUBLIC_CONTENT_MEDIA_URL: "/dev/public_content_media.html",
         PUBLIC_COURSES_SITES_URL: "/dev/public_courses_sites.html",

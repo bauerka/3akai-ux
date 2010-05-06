@@ -19,7 +19,6 @@
 .sakai_site .content_page_options #print_page
 { background: transparent url(../../_images/printer_18.png) top left no-repeat; padding: 2px 15px 0 20px; border-right: 1px solid #888888; }
 
-
 /** ADD MORE MENU **/
 .sakai_site .content_page_options #more_link
 { background: transparent url(../../_images/more_bg_18.png) top left no-repeat; padding: 1px 21px 2px 12px; }
@@ -225,6 +224,20 @@
 { float: left; }
 
 
+<<<<<<< HEAD
+/* PROTOTYPE */
+.site_input
+{ border: 1px dashed #ccc; color: #38393d; margin-left:225px; padding:6px !important}
+
+.fl-inlineEdit-edit
+{ border: 1px solid #ccc; color: #000; padding:6px !important}
+
+.fl-inlineEdit-invitation
+{ background-color: #FFECB3; }
+
+.fl-inlineEdit-invitation-text
+{ color: #999 }
+=======
 
 
 
@@ -269,3 +282,4 @@
 .layout_picker_item_column_unselected {border-right: 1px solid #dddfe1;}
 .layout_picker_item_radio_unselected {margin-left:50px; margin-top: 10px;}
 #layouts_list {display:block;}
+>>>>>>> master

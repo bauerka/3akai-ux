@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sakai 3 R&amp;D - People</title>
+
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fluid.reset.css" />
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fluid.theme.mist.css" />
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fluid.theme.hc.css" />
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fluid.theme.rust.css" />
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fluid.layout.css" />
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fluid.text.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.core.2.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.peoplewow.css" />
+    <link type="text/css" rel="stylesheet" href="_css/sakai/sakai.3.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.base.css" />
+    <link type="text/css" rel="stylesheet" href="/devwidgets/navigationchat/css/navigationchat.css"/>
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.components.jq_pager.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.treeview.css" />
+    
+    <script type="text/javascript" language="JavaScript" src="_configuration/widgets.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_configuration/config.js"></script>
+    <script src="_lib/Fluid/InfusionAll.js" type="text/javascript"></script>
+    <script src="_lib/sakai_util/trimpath.js" type="text/javascript"></script>
+    <script src="_lib/sakai_util/SHA.js" type="text/javascript" language="JavaScript"></script>
+    <script src="_javascript/_history/rsh.js" type="text/javascript" language="JavaScript"></script>
+    <script src="_javascript/_history/search_history.js" type="text/javascript" language="JavaScript"></script>
+    <script src="_lib/Jquery/jqModal.js" type="text/javascript"></script>
+    <script src="_lib/Jquery/jquery.cookie.js" type="text/javascript"></script>
+    <script src="_lib/Jquery/jquery.corners.js" type="text/javascript"></script>
+    <script src="_lib/Jquery/jquery.pager.js" type="text/javascript"></script>
+    <script src="_lib/OpenSocial/message.js" type="text/javascript" language="JavaScript"></script>
+    <script src="_lib/AutoComplete/jquery.autocomplete.min.js" type="text/javascript" language="JavaScript"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/sdata.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/sakai_util/i18n.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_lib/Jquery/jquery.simple.tree.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_javascript/peoplewow.js"></script>
+
+</head>
+<body id="root" class="fl-centered fl-container i18nable peoplewow-container">
+
+    <!-- EXPLORE BAR -->
+    <div id="widget_navigationchat" class="widget_inline"></div>
+    <div id="widget_filemanager" class="widget_inline"></div>
+
+    <!-- CONTENT -->
+    <div class="fl-container fl-fix fl-container-flex content content_peoplewow">
+        <div class="fl-fix fl-centered fixed-container">
+            <div class="decor"><!-- --></div>
+            <!-- TITLE -->
+            <h1 class="title">My people and groups</h1>
+            <!-- TAB NAVIGATION -->
+            <div class="peoplewow_tab_nav">
+                <ul class="fl-tabs fl-tabs-right">
+                    <li class="fl-activeTab"><a id="peoplewow_tab_my_people" href="peoplewow.html">My people and groups</a></li>
+                    <li><a href="peoplewow_browse.html" id="peoplewow_tab_browse_people">Browse people and groups</a></li>
+                </ul>
+            </div>
+            <!-- TAB CONTENT -->
+                <div class="fl-centered fl-container fl-tab-content peoplewow_content_wrapper">
+                    <div class="peoplewow_tab_content_top">
+                    <div class="peoplewow_tab_content_top_inner"><!-- --></div>
+                </div>
+                <div class="fl-container peoplewow_content_main">
+
+                    <!-- TOOL BAR -->
+                    <div class="fl-fix peoplewow_toolbar">
+                        <div class="fl-force-right"> <a href="create_groupwow.html" class="button"><span>Create a new group</span></a> </div>
+                    </div>
+
+                    <!-- ITEM LIST -->
+                    <div class="peoplewow_items_list">
+                        <!--<ul id="peoplewow_items_list_nav">
+                            <li class="peoplewow_items_list_top"><a href="#">My contacts</a>
+                                <ul class="peoplewow_items_list_contacts">
+                                    <li><a href="">Denzel Williams</a></li>
+                                    <li><a href="">Florencia Coretez</a></li>
+                                    <li><a href="">Victoriyanica Prilutski</a></li>
+                                    <li><a href="">Adrian Jackson</a></li>
+                                </ul>
+                            </li>
+                            <li class="peoplewow_items_list_top peoplewow_items_list_open"><a href="peoplewow_mygroups.html">My groups</a>
+                                <ul>
+                                    <li><a href="">Biology study group</a></li>
+                                    <li><a href="">DNA research group</a></li>
+                                    <li><a href="">University social group</a></li>
+                                </ul>
+                            </li>
+                        </ul>-->
+                        <ul class="simpleTree">
+                            <li class="root">
+                                <span style="display:none">Tree Root 1</span>
+                                <ul>
+                                    <li class='closed' id="contact_list">
+                                        <span id="top_menu">My Contacts</span>
+                                        <ul>
+                                            <li class='open'>
+                                                <a href="javascript:;">Denzel Williams</a>
+                                            </li>
+                                            <li class='open'>
+                                                <a href="javascript:;">Florencia Coretez</a>
+                                            </li>
+                                            <li class='open'>
+                                                <a href="javascript:;">Victoriyanica Prilutski</a>
+                                            </li>
+                                            <li class='open'>
+                                                <a href="javascript:;">Adrian Jackson</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class='closed' id="group_list">
+                                        <a href="peoplewow_mygroups.html"><span>My Groups</span></a>
+                                        <ul>
+                                            <li class='open'>
+                                                <a href="peoplewow_mygroups_details.html">Biology study group</a>
+                                            </li>
+                                            <li class='open'>
+                                                <a href="peoplewow_mygroups_details.html">DNA research group</a>
+                                            </li>
+                                            <li class='open'>
+                                                <a href="peoplewow_mygroups_details.html">University social group</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="peoplewow_item_content">
+
+                        <!-- RECENT ACTIVITY WIDGITS -->
+                        <div class="peoplewow_recent_widgets">                    
+                            <div class="fl-container-flex widget-content">
+                                <div class="fl-col-flex3">
+                                    <div class="fl-col groupWrapper" id="column_uid_1">
+                                        <div class="fl-widget">
+                                            <div class="fl-widget-titlebar widget1-head fl-fix">
+                                                <div class="widget-titlebar-inner">
+                                                    <h2 class="widget_title">Recently added contacts</h2>
+                                                    <a href="javascript:;" class="fl-force-right fl-icon settings" style="display: none;">Settings</a>
+                                                </div>
+                                            </div>
+                                            <div class="inline_class_widget_nofloat">
+                                                <div>
+                                                    <!-- WIDGET CONTENT -->
+                                                    <div class="fl-widget-content">
+                                                        <span>Contacts</span>
+                                                    </div>
+                                                    <!-- FOOTER LINKS -->
+                                                    <div class="fl-widget-no-options fl-fix">
+                                                        <div class="widget-no-options-inner"><!-- --></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fl-col groupWrapper" id="column_uid_2">
+                                        <div class="fl-widget">
+                                            <div class="fl-widget-titlebar widget1-head fl-fix">
+                                                <div class="widget-titlebar-inner">
+                                                    <h2 class="widget_title">Recently joined groups</h2>
+                                                    <a href="javascript:;" class="fl-force-right fl-icon settings" style="display: none;">Settings</a>
+                                                </div>
+                                            </div>
+                                            <div class="inline_class_widget_nofloat">
+                                                <div>
+                                                    <!-- WIDGET CONTENT -->
+                                                    <div class="fl-widget-content">
+                                                        <span>Groups</span>
+                                                    </div>
+                                                    <!-- FOOTER LINKS -->
+                                                    <div class="fl-widget-no-options fl-fix">
+                                                        <div class="widget-no-options-inner"><!-- --></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fl-col groupWrapper" id="column_uid_3">
+                                        <div class="fl-widget">
+                                            <div class="fl-widget-titlebar widget1-head fl-fix">
+                                                <div class="widget-titlebar-inner">
+                                                    <h2 class="widget_title">Most active groups and people</h2>
+                                                    <a href="javascript:;" class="fl-force-right fl-icon settings" style="display: none;">Settings</a>
+                                                </div>
+                                            </div>
+                                            <div class="inline_class_widget_nofloat">
+                                                <div>
+                                                    <!-- WIDGET CONTENT -->
+                                                    <div class="fl-widget-content">
+                                                        <span>Groups &amp; People</span>
+                                                    </div>
+                                                    <!-- FOOTER LINKS -->
+                                                    <div class="fl-widget-no-options fl-fix">
+                                                        <div class="widget-no-options-inner"><!-- --></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                        <!-- RECENT ACTIVITY -->
+                        <!--<div class="peoplewow_mycontacts_recent">
+                            <p class="peoplewow_mycontacts_header">Recently added contacts</p>
+                        </div>
+                        <div class="peoplewow_mycontacts_recent">
+                            <p class="peoplewow_mycontacts_header">Recently joined groups</p>
+                        </div>
+                        <div class="peoplewow_mycontacts_recent">
+                            <p class="peoplewow_mycontacts_header">Most active groups and people</p>
+                        </div>-->
+
+                        <!-- CURRENT ACTIVITY -->
+                        <div class="peoplewow_mycontacts_outer">
+                            <p class="peoplewow_mycontacts_header">Your currently collected people</p>
+                            <div class="peoplewow_mycontacts_grid">
+                                <div class="peoplewow_mycontacts_list">
+                                    <a href=""><img src="_images/member_thumb_unselected.png" alt="Denzel Williams" />Denzel Williams</a>
+                                </div>
+                                <div class="peoplewow_mycontacts_list">
+                                    <a href=""><img src="_images/member_thumb_unselected.png" alt="Victoriyanica Prilutski" />Victoriyanica Prilutski</a>
+                                </div>
+                                <div class="peoplewow_mycontacts_list">
+                                    <a href=""><img src="_images/member_thumb_unselected.png" alt="Adrian Jackson" />Adrian Jackson</a>
+                                </div>
+                                <div class="peoplewow_mycontacts_list">
+                                    <a href=""><img src="_images/member_thumb_unselected.png" alt="Florencia Coretez" />Florencia Coretez</a>
+                                </div>
+                                <div class="peoplewow_mycontacts_list">
+                                    <a href=""><img src="_images/member_thumb_unselected.png" alt="Thomas Craig" />Thomas Craig</a>
+                                </div>
+                                <div class="peoplewow_mycontacts_list">
+                                    <a href=""><img src="_images/member_thumb_unselected.png" alt="Alexazvier Curtis" />Alexazvier Curtis</a>
+                                </div>
+                            </div>
+                            <div class="peoplewow_mycontacts_buttons">
+                                <a href="" class="button">Turn into a group</a>
+                                <a href="" class="button">Save as a list</a>
+                                <a href="" class="button">Tag collection</a>
+                            </div>
+                            <div class="peoplewow_mycontacts_links">
+                                <a href="">What can I do with collections?</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEARCH BAR -->
+                    <div class="peoplewow_bar">
+                    </div>
+                </div>
+
+
+                <div class="peoplewow_tab_content_bottom">
+                    <div class="peoplewow_tab_content_bottom_inner"><!-- --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER WIDGET -->
+    <div id="widget_footer_footercontainer" class="widget_inline footercontainer"></div>
+
+    <div id="sendmessagecontainer" style="display:none; width:100%">
+            <div id="widget_sendmessage" class="widget_inline" style="width:100%"></div>
+    </div>
+    <div id="addtocontactscontainer" style="width:100%">
+    <div id="widget_addtocontacts" class="widget_inline" style="width:100%"></div>
+    </div>
+    <div style="margin-bottom: 50px"><!-- --></div>
+    <script type="text/javascript" language="JavaScript" src="_javascript/search_main.js"></script>
+    <script type="text/javascript" language="JavaScript" src="_javascript/search.js"></script>
+</body>
+</html>

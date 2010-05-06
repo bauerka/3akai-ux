@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sakai 3 R&amp;D - My Content &amp; Media</title>
+    
+    <link rel="stylesheet" type="text/css" href="_css/FSS/fss-base.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.core.2.css" />
+    <link rel="stylesheet" type="text/css" href="/devwidgets/navigationchat/css/navigationchat.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.base.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.3.css" />
+    <link rel="stylesheet" type="text/css" href="_css/sakai/sakai.content_media_wow.css" />
+    
+    <script type="text/javascript" src="_configuration/widgets.js"></script>
+    <script type="text/javascript" src="_configuration/config.js"></script>
+    <script type="text/javascript" src="_lib/Fluid/InfusionAll.js"></script>
+    <script type="text/javascript" src="_lib/Jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_lib/sakai_util/trimpath.js"></script>
+    <script type="text/javascript" src="_lib/sakai_util/sdata.js"></script>
+    <script type="text/javascript" src="_lib/sakai_util/i18n.js"></script>
+
+</head>
+<body id="root" class="fl-centered fl-container i18nable content_media_container">
+
+<!-- EXPLORE BAR -->
+<div id="widget_navigationchat" class="widget_inline"></div>
+<!-- CONTENT -->
+<div class="fl-container-flex content header">
+    <div class="fl-fix fl-centered fixed-container">
+        <div class="decor"><!-- --></div>
+
+        <!-- TITLE -->
+        <h1 class="title" id="content_media_title">My Content &amp; Media</h1>
+
+        <!-- TAB NAVIGATION -->
+        <div class="tab_nav">
+            <ul class="fl-tabs fl-tabs-right">
+                <li class="fl-activeTab tab_selected"><a id="content_media_tab_documents" href="javascript:;">My Documents</a></li>
+                <li><a href="javascript:;" id="content_media_tab_tasks">My Tasks and Assignments</a></li>
+            </ul>
+        </div>
+
+        <!-- TAB CONTENT -->
+        <div class="fl-centered fl-container fl-tab-content">
+            <div class="content_top">
+                <div class="content_top_inner"><!-- --></div>
+            </div>
+            <div class="content_main">
+                <div id="content_media_main_left">
+                    <ul class="content_media_list">
+                        <li><a href="javascript:;">All content</a></li>
+                    </ul>
+                    <ul class="content_media_list">
+                        <li>
+                            <a href="javascript:;" title="close the My content dropdown" class="content_media_list_dropdown">
+                                <img src="/dev/_images/arrow_down_sm2_blue.png" alt="" />
+                            </a>
+                            <div class="content_media_list_selected">
+                                <a href="javascript:;">My content</a>
+                                <a href="javascript:;" class="content_media_list_remove" title="remove the My content filter">
+                                    <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><a href="javascript:;">Pages</a></li>
+                                <li><a href="javascript:;">Documents</a></li>
+                                <li><a href="javascript:;">Images</a></li>
+                                <li><a href="javascript:;">Media</a></li>
+                                <li><a href="javascript:;">References / Citations</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="content_media_list_container">
+                        <ul class="content_media_list">
+                            <li>
+                                <a href="javascript:;" title="close the My content dropdown" class="content_media_list_dropdown">
+                                    <img src="/dev/_images/arrow_down_sm2_blue.png" alt="" />
+                                </a>
+                                <a href="javascript:;" class="content_media_list_dropdown_text">My Courses and Sites content</a>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li><a href="javascript:;">Molecular Biology &amp; Biochemistry Of The Cell</a></li>
+                                    <li>
+                                        <span class="content_media_list_selected">
+                                            <a href="javascript:;">Biomedical Engineering</a>
+                                            <a href="javascript:;" class="content_media_list_remove" title="remove the Biomedical Engineering filter">
+                                                <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                            </a>
+                                        </span>
+                                    </li>
+                                    <li><a href="javascript:;">Ecology &amp; Evolutionary Biology</a></li>
+                                    <li><a href="javascript:;">Molecular Pharmacology &amp; Physiology</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content_media_list_container">
+                        <ul class="content_media_list">
+                            <li>
+                                <a href="javascript:;" title="open the My contact's dropdown" class="content_media_list_dropdown">
+                                    <img src="/dev/_images/arrow_right_sm2_blue.png" alt="" />
+                                </a>
+                                <a href="javascript:;" class="content_media_list_dropdown_text">My Contact's content</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content_media_list_container">
+                        <ul class="content_media_list">
+                            <li>
+                                <a href="javascript:;" title="close the Categories dropdown" class="content_media_list_dropdown">
+                                    <img src="/dev/_images/arrow_down_sm2_blue.png" alt="" />
+                                </a>
+                                <span class="content_media_list_header">Categories</span>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        <div class="content_media_list_selected">
+                                            <a href="javascript:;">DNA <span class="content_media_list_count">(42)</span></a>
+                                            <a href="javascript:;" class="content_media_list_remove" title="remove the DNA filter">
+                                                <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content_media_list_selected">
+                                            <a href="javascript:;">Cells <span class="content_media_list_count">(32)</span></a>
+                                            <a href="javascript:;" class="content_media_list_remove" title="remove the Cells filter">
+                                                <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li><a href="javascript:;">Carbohydrates <span class="content_media_list_count">(14)</span></a></li>
+                                    <li>
+                                        <div class="content_media_list_selected">
+                                            <a href="javascript:;">Molecules <span class="content_media_list_count">(227)</span></a>
+                                            <a href="javascript:;" class="content_media_list_remove" title="remove the Molecules filter">
+                                                <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content_media_list_selected">
+                                            <a href="javascript:;">Catalysts <span class="content_media_list_count">(68)</span></a>
+                                            <a href="javascript:;" class="content_media_list_remove" title="remove the Catalysts filter">
+                                                <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li><a href="javascript:;">Biology <span class="content_media_list_count">(75)</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content_media_list_container">
+                        <ul class="content_media_list">
+                            <li>
+                                <a href="javascript:;" title="close the Tags dropdown" class="content_media_list_dropdown">
+                                    <img src="/dev/_images/arrow_down_sm2_blue.png" alt="" />
+                                </a>
+                                <span class="content_media_list_header">Tags</span>
+                            </li>
+                            <li>
+                                <ul>
+                                    <li>
+                                        <div class="content_media_list_selected">
+                                            <a href="javascript:;">Homework <span class="content_media_list_count">(7)</span></a>
+                                            <a href="javascript:;" class="content_media_list_remove" title="remove the Homework filter">
+                                                <img src="/dev/_images/prototype_content_media_remove.png" alt="" />
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">Sam's stuff <span class="content_media_list_count">(2)</span></a>
+                                    </li>
+                                    <li class="content_media_list_container_form">
+                                        <input type="text" value="Add more tags" /><button type="submit">Add</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="content_media_main_right">
+                    <div id="content_media_search">
+                        <label for="content_media_search_input">Search Content and Media</label>
+                        <input id="content_media_search_input" type="text" />
+                        <button type="submit">Search</button>
+                    </div>
+                    <div id="content_media_options">
+                        <ul id="content_media_options_select">
+                            <li>
+                                <a href="javascript:;">Select all</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Select none</a>
+                            </li>
+                        </ul>
+                        <ul id ="content_media_options_view">
+                            <li id="content_media_options_view_thumbnail">
+                                <a href="javascript:;" title="Change to thumbnail view" class="content_media_options_view_selected">Thumbnail view</a>
+                            </li>
+                            <li id="content_media_options_view_category">
+                                <a href="javascript:;" title="Change to category view">Category view</a>
+                            </li>
+                            <li id="content_media_options_view_list">
+                                <a href="javascript:;" title="Change to list view">List view</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="content_media_main_right_sub">
+                        <ul id="content_media_options_view_sub">
+                            <li class="content_media_options_view_sub_first">
+                                <a href="javascript:;">View by type</a>
+                            </li>
+                            <li class="content_media_options_view_sub_selected">
+                                <a href="javascript:;">View by my courses and sites content</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">View by my tags</a>
+                            </li>
+                        </ul>
+                        <h2>Biomedical Engineering</h2>
+                        <ul class="content_media_results">
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <h3>Images:</h3>
+                        <ul class="content_media_results">
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="/dev/_images/prototype_placeholder_content_media.png" alt="Content and media placeholder" /><br />
+                                    <strong>DNA Structure</strong><br/>
+                                    <span>JPEG</span><br />
+                                    <span class="content_media_results_smaller">
+                                        Categories: <strong>DNA, Cells</strong><br />
+                                        Tags: <strong>Homework</strong>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <h3>Pages:</h3>
+                    </div>
+                </div>
+                <br class="fl-push" />
+            </div>
+            <div class="content_bottom">
+                <div class="content_bottom_inner"><!-- --></div>
+            </div>
+        </div>
+
+        <!-- CONTAINER FOR THE PAGER -->
+        <div class="jq_pager"><!-- --></div>
+    </div>
+</div>
+
+<!-- FOOTER WIDGET -->
+<div id="widget_footer_footercontainer" class="widget_inline footercontainer"></div>
+
+<script type="text/javascript" src="/dev/_javascript/content_media_wow.js"></script>
+
+</body>
+</html>

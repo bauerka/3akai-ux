@@ -54,6 +54,14 @@ var Widgets = {
             id:"addtocontacts",
             url:"/devwidgets/addtocontacts/addtocontacts.html"
         },
+        assignments: {
+            description:"Assignments",
+            hasSettings: false,
+            id:"assignments",
+            name:"Assignments",
+            siteportal:true,
+            url:"/devwidgets/assignments/assignments.html"
+        },
         changepic: {
             i18n: {
                 "default": "/devwidgets/changepic/bundles/default.json",
@@ -167,6 +175,14 @@ var Widgets = {
             name:"Hello World GWT",
             url:"/devwidgets/helloworldwow/war/Helloworldwow.html"
         },
+        myfiles: {
+            description:"A list of my files",
+            id:"myfiles",
+            img:"/dev/_images/prototype_placeholder_small.png",
+            name:"My Files",
+            personalportal:true,
+            url:"/devwidgets/myfiles/myfiles.html"
+        },
         myfriends: {
             description:"A list of my connections",
             id:"myfriends",
@@ -191,6 +207,15 @@ var Widgets = {
                 "zh_CN": "/devwidgets/myprofile/bundles/zh_CN.json"
             },
             url:"/devwidgets/myprofile/myprofile.html"
+        },
+        mytasks: {
+            ca:true,
+            description:"My tasks",
+            id:"mytasks",
+            name:"My Tasks",
+            showinsakaigoodies:true,
+            siteportal:true,
+            url:"/devwidgets/mytasks/mytasks.html"
         },
         navigation: {
             ca:true,
@@ -319,6 +344,14 @@ var Widgets = {
             name:"Tangler Forum",
             showinsakaigoodies:true,
             url:"/devwidgets/tangler/tangler.html"
+        },
+        tasks: {
+            description:"Tasks Widget",
+            hasSettings: true,
+            id:"tasks",
+            name:"Tasks",
+            personalportal:true,
+            url:"/devwidgets/tasks/tasks.html"
         },
         twitter: {
             description:"Twitter Widget",

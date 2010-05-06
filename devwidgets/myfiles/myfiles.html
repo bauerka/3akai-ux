@@ -1,0 +1,42 @@
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/devwidgets/myfiles/css/myfiles.css" />
+
+<!-- MAIN CONTAINER -->
+<div class="myfiles_widget">
+
+    <!-- WIDGET CONTENT -->
+    <div class="fl-widget-content" id="myfiles_list">
+
+        <!-- LIST OF FILES - filled dynamically -->
+        <div class="myfiles_list_grid" id="myfiles_list_template"><!--
+            {for i in items}
+                <div class="myfiles_list_file">
+                    <img src="/dev/_images/prototype_placeholder_small.png" />
+                    <p><strong>DNA Structure</strong></p>
+                    <p>JPEG</p>
+                    <p>Categories: <strong>DNA, Cells</strong></p>
+                    <p>Tags: <strong>Homework</strong></p>
+                </div>
+            {forelse}
+                <span id="myfiles_nofiles">You currently have no files</span>
+            {/for}
+        --></div>
+
+        <!-- ERROR MESSAGES -->
+        <span id="myfiles_error_contactserver" style="display:none;">Unable to contact the server. Please try again later.</span>
+
+    </div>
+
+    <!-- FOOTER LINKS -->
+    <div class="fl-widget-options fl-fix">
+        <div class="widget-options-inner">
+            <ul>
+                <li><a href="content_media.html">More Files</a></li>
+            </ul>
+            
+        </div>
+    </div>    
+</div>
+
+<!-- JAVASCRIPT -->
+<script type="text/javascript" language="JavaScript" src="/devwidgets/myfiles/javascript/myfiles.js"></script>

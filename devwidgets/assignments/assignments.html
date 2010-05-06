@@ -1,0 +1,419 @@
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/devwidgets/assignments/css/assignments.css"/>
+
+<!-- MAIN CONTAINER -->
+<div id="assignments_main_container" class="fl-widget-content" style="display:none;">
+    <p class="assignments_info_container" style="display:none">
+        You have a new assignment | <a href="javascript:;">Highlight</a>
+    </p>
+    <h3 class="assignments_icon">Assignments</h3>
+    <div id="assignments_add" class="button-grey">
+        <input type="button" value="+ Add new Assignment" id="assignments_add_button"/>
+    </div>
+    <div class="assignments_list">
+        <ul>
+            <li>
+                <div class="assignments_list_item">
+                    <div class="assignments_list_due assignments_list_due_red_part">
+                        <span class="assignments_list_due_in">DUE IN</span>
+                        <div class="assignments_list_due_time">
+                            <span class="assignments_list_due_time_number">1</span>
+                            <span class="assignments_list_due_time_format">DAY</span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_info">
+                        <a href="javascript:;" class="assignments_list_info_big assignments_list_info_big1">The Comparative Structure of Prokaryotic and...</a>
+                        <p class="assignments_list_info_small">
+                            <span class="assignments_list_info_bold">OPEN</span>
+                            for submission | Due: <span class="assignments_warning">Tomorrow</span>
+                        </p>
+                    </div>
+                    <div class="assignments_list_buttons">
+                        <div class="assignments_list_button_submission">
+                            <span><a href="assignments_submit.html">3 NEW</a></span>
+                        </div>
+                        <div class="assignments_list_button_people" rel="tipsy" title="Manage participlants of this task">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                        <div class="assignments_list_button_discussion" rel="tipsy" title="Discussion about this task">
+                            <span><a href="/dev/tasks_info.html#comments_titlebar" class="assignments_notbold">26 msgs</a></span>
+                        </div>
+                        <div class="assignments_list_button_settings">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_settings">
+                        <ul>
+                            <li><a href="javascript:;">Edit</a></li>
+                            <li><a href="javascript:;">Open</a></li>
+                            <li><a href="javascript:;">Save to...</a></li>
+                        </ul>
+                    </div>
+                    <div class="assignments_list_people_info">
+                        <ul>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Total submitted</a></span>
+                                <span class="assignments_list_people_info_number">14</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Waiting on</a></span>
+                                <span class="assignments_list_people_info_number">10</span>
+                            </li>
+                            <li class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Returned &amp; graded</span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;" class="assignments_list_people_info_submissions">Submissions next actions</a></span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;" class="assignments_list_people_info_grading">Grading next actions</a></span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <img src="/devwidgets/assignments/images/zip_overlay.png" class="assignments_zip_overlay" alt="Download ZIP of all submitted work" rel="tipsy" title="Assess or view submissions" />
+                </div>
+            </li>
+            <li>
+                <div class="assignments_list_item assignments_list_grey_container">
+                    <div class="assignments_list_due assignments_list_due_brown_part">
+                        <span class="assignments_list_due_in">DUE IN</span>
+                        <div class="assignments_list_due_time">
+                            <span class="assignments_list_due_time_number">4</span>
+                            <span class="assignments_list_due_time_format">DAYS</span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_info">
+                        <a href="javascript:;" class="assignments_list_info_big">The Evolution of Families of Enzymes</a>
+                        <p class="assignments_list_info_small">
+                            <span class="assignments_list_info_bold">OPEN</span>
+                            for submission | Due: <span class="assignments_list_info_bold">25 MAR 2010</span>
+                        </p>
+                    </div>
+                    <div class="assignments_list_buttons">
+                        <div class="assignments_list_button_submission">
+                            <span><a href="assignments_submit.html">3 NEW</a></span>
+                        </div>
+                        <div class="assignments_list_button_people" rel="tipsy" title="Manage participlants of this task">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                        <div class="assignments_list_button_discussion" rel="tipsy" title="Discussion about this task">
+                            <span><a href="/dev/tasks_info.html#comments_titlebar" class="assignments_notbold"><span class="assignments_list_highlight">21</span> of 37</a></span>
+                        </div>
+                        <div class="assignments_list_button_settings">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_settings">
+                        <ul>
+                            <li><a href="javascript:;">Edit</a></li>
+                            <li><a href="javascript:;">Hide</a></li>
+                            <li><a href="javascript:;">Open</a></li>
+                            <li><a href="javascript:;">Save to...</a></li>
+                        </ul>
+                    </div>
+                    <div class="assignments_list_people_info">
+                        <ul>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Total submitted</a></span>
+                                <span class="assignments_list_people_info_number">14</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Waiting on</a></span>
+                                <span class="assignments_list_people_info_number">10</span>
+                            </li>
+                            <li class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Returned &amp; graded</span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;" class="assignments_list_people_info_submissions">Submissions next actions</a></span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li  class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Grading next actions</span>
+                                <span class="assignments_list_people_info_number">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <img src="/devwidgets/assignments/images/zip_overlay.png" class="assignments_zip_overlay" alt="Download ZIP of all submitted work" rel="tipsy" title="Assess or view submissions" />
+                </div>
+            </li>
+            <li>
+                <div class="assignments_list_item">
+                    <div class="assignments_list_due assignments_list_due_black_part assignments_list_opacity">
+                        <span class="assignments_list_due_in">DUE IN</span>
+                        <div class="assignments_list_due_time">
+                            <span class="assignments_list_due_time_number">1</span>
+                            <span class="assignments_list_due_time_format">WEEK</span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_info">
+                        <a href="javascript:;" class="assignments_list_info_big assignments_list_info_big3">The Structure of Nucleic Acids</a>
+                        <p class="assignments_list_info_small">
+                            <span class="assignments_list_info_bold">HIDDEN DRAFT</span>
+                            <a href="javascript:;">OPEN NOW</a> | Due: <span class="assignments_list_info_bold">29 MAR 2010</span>
+                        </p>
+                    </div>
+                    <div class="assignments_list_buttons assignments_list_opacity">
+                        <div class="assignments_list_button_submission">
+                            <span>0</span>
+                        </div>
+                        <div class="assignments_list_button_people" rel="tipsy" title="Manage participlants of this task">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                        <div class="assignments_list_button_discussion" rel="tipsy" title="Discussion about this task">
+                            <span><a href="javascript:;" class="assignments_notbold">0 msgs</a></span>
+                        </div>
+                        <div class="assignments_list_button_settings">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_settings">
+                        <ul>
+                            <li><a href="javascript:;">Edit</a></li>
+                            <li><a href="javascript:;">Open</a></li>
+                            <li><a href="javascript:;">Save to...</a></li>
+                        </ul>
+                    </div>
+                    <div class="assignments_list_people_info">
+                        <ul>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Total submitted</a></span>
+                                <span class="assignments_list_people_info_number">14</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Waiting on</a></span>
+                                <span class="assignments_list_people_info_number">10</span>
+                            </li>
+                            <li class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Returned &amp; graded</span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;" class="assignments_list_people_info_submissions">Submissions next actions</a></span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li  class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Grading next actions</span>
+                                <span class="assignments_list_people_info_number">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="assignments_list_item assignments_list_yellow_container">
+                    <div class="assignments_list_due assignments_list_due_black_part">
+                        <span class="assignments_list_due_in">DUE IN</span>
+                        <div class="assignments_list_due_time">
+                            <span class="assignments_list_due_time_number">2.5</span>
+                            <span class="assignments_list_due_time_format">WEEKS</span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_info">
+                        <a href="javascript:;" class="assignments_list_info_big">Fundamental chemical building blocks of the...</a>
+                        <p class="assignments_list_info_small">
+                            <img src="/devwidgets/assignments/images/new_icon.png" alt="new" class="assignments_list_info_small_new" /><span class="assignments_warning">NEW</span>
+                            | <span class="assignments_list_info_bold">OPEN</span>
+                            for submission | Due: <span class="assignments_list_info_bold">23 JUN 2010</span>
+                        </p>
+                    </div>
+                    <div class="assignments_list_buttons">
+                        <div class="assignments_list_button_submission">
+                            <span><a href="assignments_submit.html">3 NEW</a></span>
+                        </div>
+                        <div class="assignments_list_button_people" rel="tipsy" title="Manage participlants of this task">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                        <div class="assignments_list_button_discussion" rel="tipsy" title="Discussion about this task">
+                            <span><a href="/dev/tasks_info.html#comments_titlebar" class="assignments_notbold"><span class="assignments_list_highlight">1 msg</span></a></span>
+                        </div>
+                        <div class="assignments_list_button_settings">
+                            <span><a href="javascript:;"></a></span>
+                        </div>
+                    </div>
+                    <div class="assignments_list_people_info">
+                        <ul>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Total submitted</a></span>
+                                <span class="assignments_list_people_info_number">14</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;">Waiting on</a></span>
+                                <span class="assignments_list_people_info_number">10</span>
+                            </li>
+                            <li class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Returned &amp; graded</span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li>
+                                <span class="assignments_list_people_info_link"><a href="javascript:;" class="assignments_list_people_info_submissions">Submissions next actions</a></span>
+                                <span class="assignments_list_people_info_number">2</span>
+                            </li>
+                            <li  class="assignments_list_people_info_zero">
+                                <span class="assignments_list_people_info_link">Grading next actions</span>
+                                <span class="assignments_list_people_info_number">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <img src="/devwidgets/assignments/images/zip_overlay.png" class="assignments_zip_overlay" alt="Download ZIP of all submitted work" rel="tipsy" title="Assess or view submissions" />
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="assignments_downloading">
+        <p>Downloading the submissions ...</p>
+    </div>
+    <div class="assignments_people_tooltip assignments_people_tooltip_grading">
+        <div class="assignments_people_tooltip_container">
+            <h3>Your grading related next actions</h3>
+            <div class="assignments_people_actions_container_sub">
+                <h4>Re-grade recent submissions (2)</h4>
+                <ul>
+                    <li>
+                        <a href="javascript:;">Peter Johnston</a>
+                        <br/>
+                        <strong>REQUESTED</strong>
+                        13 Feb 2010 (08:47)
+                    </li>
+                    <li>
+                        <a href="javascript:;">Adrian Jackson</a>
+                        <br/>
+                        <strong>REQUESTED</strong>
+                        14 Feb 2010 (08:10)
+                    </li>
+                </ul>
+            </div>
+            <div class="assignments_people_actions_container_sub">
+                <h4>Recent evaluation replies (6)</h4>
+                <ul>
+                    <li>
+                        <a href="javascript:;">Charles Berry</a>
+                        <br/>
+                        <strong>REPLIED</strong>
+                        14 Feb 2010 (10:01)
+                    </li>
+                    <li>
+                        <a href="javascript:;">Robert Smith</a>
+                        <br/>
+                        <strong>REPLIED</strong>
+                        14 Feb 2010 (10:32)
+                    </li>
+                    <li>
+                        <a href="javascript:;">Donovan Blackheath</a>
+                        <br/>
+                        <strong>REPLIED</strong>
+                        14 Feb 2010 (10:56)
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="javascript:;">Sarah McCallum</a>
+                        <br/>
+                        <strong>REPLIED</strong>
+                        14 Feb 2010 (12:05)
+                    </li>
+                    <li>
+                        <a href="javascript:;">David Schure</a>
+                        <br/>
+                        <strong>REPLIED</strong>
+                        14 Feb 2010 (14:23)
+                    </li>
+                    <li>
+                        <a href="javascript:;">Lucy Moore</a>
+                        <br/>
+                        <strong>REPLIED</strong>
+                        14 Feb 2010 (16:33)
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a class="assignments_list_tooltip_big_close" href="javascript:;"><span>Close Tooltip</span></a>
+    </div>
+    <div class="assignments_people_tooltip assignments_people_tooltip_submission">
+        <div class="assignments_people_tooltip_container">
+            <h3>Your next actions for submissions</h3>
+            <div class="assignments_people_actions_container_sub">
+                <h4>Recent requests (1)</h4>
+                <ul>
+                    <li>
+                        <a href="javascript:;">Charles Berry</a>
+                        <br/>
+                        <strong>REQUESTED</strong>
+                        09 Feb 2010 (9:01)
+                    </li>
+                </ul>
+            </div>
+            <div class="assignments_people_actions_container_sub">
+                <h4>Follow up (2)</h4>
+                <ul>
+                    <li>
+                        <strong>DUE</strong> <a href="javascript:;">Peter Johnston</a>
+                        <br/>
+                        REQUESTED 04 Feb 2010 (08:47)<br />
+                        DUE: TOMORROW
+                    </li>
+                    <li>
+                        <strong>DUE SOON</strong> <a href="javascript:;">Adrian Jackson</a>
+                        <br/>
+                        REQUESTED 07 Feb 2010 (09:01)<br />
+                        DUE: 12 Feb 2010 
+                    </li>
+                </ul>
+            </div>
+            <div class="assignments_people_actions_container_sub">
+                <h4>Resubmissions (1)</h4>
+                <ul>
+                    <li>
+                        <a href="javascript:;">Sandra Johnston</a>
+                        <br/>
+                        <strong>RESUBMITTED</strong>
+                        10 Feb 2010 (9:01)
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a class="assignments_list_tooltip_big_close" href="javascript:;"><span>Close Tooltip</span></a>
+    </div>
+    <div class="assignments_list_tooltip_big assignments_list_tooltip_big3">
+        <div class="assignments_list_tooltip_big_container">
+            <p class="assignments_list_tooltip_big_actions">Closed | <a href="javascript:;">Open for submissions</a></p>
+            <p class="assignments_list_tooltip_big_title">The Comparative Structure of Prokaryotic and Eukaryotic Cells and Their Internal Organisation</p>
+            <p class="assignments_list_tooltip_big_text">An understanding of the main chemical components of cells and how biologically-relevant macromolecules such as proteins, nucleic acids and polysaccharides are assembled from covalently-bonded monomer units while complex lipids spontaneously aggregate to form bilayers.</p>
+            <a class="assignments_button assignments_list_tooltip_big_button" href="/dev/tasks_info.html">Go to task detail</a>
+        </div>
+        <a class="assignments_list_tooltip_big_close" href="javascript:;"><span>Close Tooltip</span></a>
+    </div>
+    <div class="assignments_list_tooltip_big assignments_list_tooltip_big1">
+        <div class="assignments_list_tooltip_big_container">
+            <p class="assignments_list_tooltip_big_title">The Comparative Structure of Prokaryotic and Eukaryotic Cells and Their Internal Organisation</p>
+            <p class="assignments_list_tooltip_big_locations">Located: <a href="javascript:;">Molecular Biology And Biochemistry Of The Cell</a> / <a href="javascript:;">Chemistry</a> / <a href="javascript:;">Cells</a> / <a href="javascript:;">Cell Structure</a> / <a href="javascript:;">Macromolecules</a> / <a href="javascript:;">Proteins</a></p>
+            <p class="assignments_list_tooltip_big_text">An understanding of the main chemical components of cells and how biologically-relevant macromolecules such as proteins, nucleic acids and polysaccharides are assembled from covalently-bonded monomer units while complex lipids spontaneously aggregate to form.</p>
+            <a class="assignments_button assignments_list_tooltip_big_button" href="/dev/tasks_info.html">Go to task detail</a>
+        </div>
+        <a class="assignments_list_tooltip_big_close" href="javascript:;"><span>Close Tooltip</span></a>
+    </div>
+</div>
+
+<!-- TEMPLATES -->
+<div id="assignments_template_get_status">
+    <!--
+    -->
+</div>
+
+<!-- FOOTER LINKS -->
+<div class="fl-widget-options fl-fix">
+    <div class="widget-options-inner">
+        <ul>
+            <li><a class="assignments_button assignments_button_up" href="javascript:;">Newer</a></li>
+            <li><a class="assignments_button assignments_button_down" href="javascript:;">Older</a></li>
+            <li><a href="javascript:;">All assignments</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script type="text/javascript" language="JavaScript" src="/devwidgets/assignments/javascript/assignments.js"></script>

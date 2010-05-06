@@ -1,0 +1,341 @@
+
+/* Layout */
+
+.header .fixed-container {
+    background: #FFFFFF url(../../_images/header_l.png) no-repeat scroll left top;
+}
+.main-container {
+    background: #FFF;
+    z-index: 1000;
+}
+.outline-top {
+    background: url('../../_images/content_tr_flip.png') top right no-repeat;
+    padding: 0 5px 0 0;
+    margin: 0;
+}
+.outline-top-inner {
+    background: url('../../_images/content_tl.gif') 0 0 no-repeat;
+    margin: 0;
+    height: 6px;
+}
+.outline {
+    border-left: 3px solid #D5DBDF;
+    border-right: 3px solid #D5DBDF;
+    padding: 7px 10px;
+}
+.outline-bottom {
+    background: url('../../_images/content_br.png') top right no-repeat;
+    padding: 0 5px 0 0;
+    margin: 0 0 20px 0;
+}
+.outline-bottom-inner {
+    background: url('../../_images/content_bl.png') 0 0 no-repeat;
+    margin: 0;
+    height: 6px;
+}
+
+.create_group_container ul {
+    list-style-type: none;
+}
+
+.create_group_container ul li {
+    padding: 10px;
+    list-style-type: none;
+    clear: both;
+    overflow: hidden;
+}
+
+
+
+/* Heading */
+.site_heading {
+    padding: 15px 0;
+    border: none;
+}
+.site_heading h1 {
+    font-size: 2.0em;
+    color: #454A4F;
+    display: inline;
+}
+
+
+
+/* Accordionlike */
+.create_group_container .header {
+    background:url("../../_images/white_subnav_arrow_down.png") no-repeat scroll 10px 10px #ddd;
+    color:#333333;
+    cursor:pointer;
+    display:block;
+    font-size:11pt;
+    height:24px;
+    line-height:20px;
+    padding:5px 0 0 27px;
+    font-weight: bold;
+}
+
+.create_group_container .content {
+    background: #eee;
+    min-height: 200px;
+    padding: 10px;
+    margin: 0 0 10px 0;
+
+}
+
+
+/* Draggables */
+.small_person_container {
+    background: url('../../_images/icon_people.png') 0 2px no-repeat;
+    color: #058EC4;
+    font-weight: bold;
+    padding: 0 0 0 30px;
+    height: 20px;
+    line-height: 20px;
+    cursor: move;
+    margin: 5px 0;
+    width: 158px;
+    float: left;
+    margin: 5px 0 5px 10px;
+}
+
+.small_person_container_selected {
+    background-color: #ddeeff;
+}
+
+.small_person_container_selected_drag {
+    color: #999;
+}
+
+
+.current_collection_highlight {
+    background-color: #ffeedd;
+}
+
+
+/* Top toolbar */
+.top_toolbar div {
+    color:#999999;
+    float:left;
+    height:30px;
+    line-height:30px;
+    margin:0 8px;
+}
+
+/* Erro msg */
+#error_msg {
+    background:none repeat scroll 0 0 #FF0000;
+    line-height:30px;
+    min-height:30px;
+    padding:0 0 0 10px;
+    width:450px;
+}
+
+
+/* Group details */
+.form_elements label {
+    display:inline-block;
+    text-align:right;
+    width:150px;
+    float: left;
+    line-height: 30px;
+    height: 30px;
+}
+
+.form_elements input {
+    margin: 0 0 0 10px;
+    border: 1px solid #999;
+    line-height: 30px;
+}
+
+.form_elements input[type=text] {
+    height: 30px;
+    width: 400px;
+    font-size: 14pt;
+}
+
+.form_elements input[type=textarea] {
+    height: 100px;
+    width: 400px;
+}
+
+.form_elements .section_container {
+    width: 175px;
+    display: block;
+    float: left;
+    padding: 0 20px 0 0;
+    margin: 0 0 0 10px;
+    font-weight: normal;
+}
+
+.form_elements .type_description {
+    display:block;
+    margin:10px 0 0 10px;
+    color: #999;
+}
+
+
+/* Add members */
+
+#org_cat {
+    margin-right: 20px;
+}
+
+.group_members #org_cat_description {
+    color:#999999;
+    overflow:hidden;
+    padding:10px 0 10px 0;
+    clear: both;
+    width: 160px;
+}
+
+#members_drag_target_description {
+    margin: 0 0 10px 0;
+}
+
+#members_drag_target_container {
+    clear: both;
+    overflow:hidden;
+    padding:10px;
+}
+
+#members_drag_target {
+    height: 200px;
+    background: #fff;
+    overflow: auto;
+}
+
+
+
+
+/* Categories / Collections */
+
+#add_category span {
+    display:block;
+    float:left;
+    height:23px;
+    line-height:23px;
+    margin-right:10px;
+}
+
+#category_container {
+    overflow: hidden;
+    clear: both;
+}
+
+#category_title {
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 0 0 10px;
+    color: #999;
+    font-size: 13pt;
+}
+
+#category_title input {
+    border: 1px solid #999;
+}
+
+#collections_container .category_section {
+    float: left;
+    width: 270px;
+    padding: 10px;
+}
+
+#collections_container .category_section_header {
+    height: 30px;
+    line-height: 30px;
+}
+
+#collections_container .category_section_header .category_title {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #666;
+}
+
+#collections_container .category_section_header a, #collections_container .category_section_subheader a {
+    font-size: 8pt;
+    font-weight: normal;
+    color: #666;
+}
+
+#collections_container .category_section_subheader {
+    height: 30px;
+    line-height: 30px;
+    background: #fff;
+    padding: 0 0 0 10px;
+}
+
+
+#collections_container .category_section_content {
+    background: #fff;
+    overflow: auto;
+    height: 300px;
+}
+
+
+
+/* Collections */
+
+#add_collection_container {
+    background:url("../../_images/group_icon_lightgrey.png") no-repeat scroll 0 2px transparent;
+    margin:0 0 10px;
+    overflow:hidden;
+    padding:0 0 0 46px;
+
+}
+
+#collection_name_input {
+    display:block;
+    float:left;
+    margin:1px 8px 0 0;
+    width:130px;
+    border: 1px solid #999;
+    height: 20px;
+    color: #999;
+}
+
+#add_collection_description {
+    clear: both;
+    color: #999;
+    margin: 0 0 10px 0;
+}
+
+
+
+#collections .collection {
+    color: #058EC4;
+    font-size: 11pt;
+    padding: 0 0 0 50px;
+    height: 40px;
+    line-height: 40px;
+    background:  #cceeff url('../../_images/group_icon_darkgrey.png') 5px 11px no-repeat;
+    cursor: pointer;
+    margin: 0 0 10px 0;
+}
+
+#collections .collection_size {
+    color: #333;
+}
+
+#members .section_header {
+    font-size: 9pt;
+    color: #999;
+    margin: 10px 0 0 0;
+}
+
+.collection_highlight {
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+
+/* Collection members */
+
+#collection_members_display {
+    height: 300px;
+    overflow: auto;
+}
+
+#collection_members_title {
+    color: #999;
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 10px 0;
+}

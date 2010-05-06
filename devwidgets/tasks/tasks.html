@@ -1,0 +1,307 @@
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/devwidgets/tasks/css/tasks.css"/>
+
+<!-- HTML -->
+<div class="fl-widget-content">
+	<div id="tasks_main_container" class="tasks_main_container" style="display:none;">
+
+	    <div id="tasks_main_tabs" class="tasks_main_tabs fl-force-right">
+	        <ul>
+	            <li class="fl-activeTab">
+	                <a id="tasks_tab_today" href="javascript:;">Focus on today</a>
+	            </li>
+	            <li>
+	                <a id="tasks_tab_all" href="javascript:;">View all tasks</a>
+	            </li>
+	            <li>
+	                <a id="tasks_tab_course" href="javascript:;">Pick one course to view <img src="/dev/_images/arrow_down_sm2.png" alt="" /></a>
+	            </li>
+	        </ul>
+	    </div>
+		
+		<div id="tasks_dropdown" class="tasks_dropdown" style="display:none">
+			<ul>
+				<li>
+					<a id="tasks_dropdown_course" href="javascript:;">Molecular Biology and Biochemi...</a>
+				</li>
+				
+			</ul>
+		</div>
+		
+		<div class="tasks_content_top">
+			<div class="tasks_content_top_inner"><!-- --></div>
+		</div>
+		<div id="tasks_container_today" class="tasks_content_main">
+			<p class="tasks_warning_container tasks_warning">You have an urgent submission due in 26 mins!</p>
+			<h3 class="tasks_icon">Today's Tasks</h3>
+			<div class="tasks_list">
+				<ul>
+					<li>
+						<div class="tasks_list_item tasks_list_warning_container">
+							<div class="tasks_list_due tasks_list_due_red_complete">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">26</span>
+									<span class="task_list_due_time_format">MIN</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">Conservation of free energy from carbohydrate catab...</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_warning">26mins</span> left</p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(1)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work" ><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item">
+							<div class="tasks_list_due tasks_list_due_red_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">4</span>
+									<span class="task_list_due_time_format">HOURS</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">The Evolution of Families of Enzymes</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Accepted until <span class="tasks_bold">18:30 today</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(5)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="tasks_container_all" class="tasks_content_main" style="display:none;">
+			<p class="tasks_info_container">You have a new task | <a href="javascript:;">Highlight</a></p>
+			<h3 class="tasks_icon">All tasks</h3>
+			<div class="tasks_list">
+				<ul>
+					<li>
+						<div class="tasks_list_item">
+							<div class="tasks_list_due tasks_list_due_red_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">1</span>
+									<span class="task_list_due_time_format">DAY</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">The Comparative Structure of Prokaryotic and Eukaryotic</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_warning">Tomorrow</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(1)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item tasks_list_grey_container">
+							<div class="tasks_list_due tasks_list_due_brown_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">4</span>
+									<span class="task_list_due_time_format">DAYS</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">The Evolution of Families of Enzymes</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_list_info_bold">25 MAR 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(5)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item">
+							<div class="tasks_list_due tasks_list_due_black_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">1</span>
+									<span class="task_list_due_time_format">WEEK</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">The Structure of Nucleic Acids</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_list_info_bold">29 MAR 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span>(0)</span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item tasks_list_yellow_container">
+							<div class="tasks_list_due tasks_list_due_black_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">2.5</span>
+									<span class="task_list_due_time_format">WEEKS</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">Fundamental chemical building blocks of the cells to...</a>
+								<p class="tasks_list_info_small"><img src="/devwidgets/tasks/images/new_icon.png" alt="new" class="tasks_list_info_small_new" /><span class="tasks_warning">NEW</span> | <span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_list_info_bold">23 JUN 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(2)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item">
+							<div class="tasks_list_due tasks_list_due_black_complete">
+								<div class="tasks_list_due_time tasks_list_due_past">
+									<span>PAST DUE</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">Fundamental chemical building blocks of the cells to...</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for re-submission until <span class="tasks_list_info_bold">(16:00) 24 JUN 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(1)</a></span></div>
+								<div class="task_list_button_submission_re" rel="tipsy" title="Re-submit the task"><span><a href="javascript:;">RE-SUBMIT</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span><a href="javascript:;">(1)</a></span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item tasks_list_grey_container">
+							<div class="tasks_list_due tasks_list_due_grey_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">1</span>
+									<span class="task_list_due_time_format">MONTH</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">Fundamental chemical building blocks of the cells to...</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_list_info_bold">24 JUN 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(2)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item">
+							<div class="tasks_list_due tasks_list_due_grey_complete">
+								<div class="tasks_list_due_time tasks_list_due_past">
+									<span>PAST DUE</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">Fundamental chemical building blocks of the cells to...</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">CLOSED</span> for submission | <span class="tasks_list_info_bold">GRADING IN PROGRESS</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(2)</a></span></div>
+								<div class="task_list_button_submission_ok" rel="tipsy" title="Submitted"><span>SUBMITTED</span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item tasks_list_grey_container">
+							<div class="tasks_list_due tasks_list_due_grey_complete">
+								<div class="tasks_list_due_time tasks_list_due_past">
+									<span>PAST DUE</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">Fundamental chemical building blocks of the cells to...</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">CLOSED</span> for submission | <span class="tasks_list_info_bold">GRADING COMPLETE</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(2)</a></span></div>
+								<div class="task_list_button_submission_gr" rel="tipsy" title="Graded"><span><a href="javascript:;">GRADED: 84%</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="tasks_container_course" class="tasks_content_main" style="display:none;">
+			<p class="tasks_info2_container">Your course Assignments for: <strong>Molecular Biology and Biochemistry of the Cell</strong></p>
+			<h3 class="tasks_icon">Assignments List</h3>
+			<div class="tasks_list">
+				<ul>
+					<li>
+						<div class="tasks_list_item tasks_list_grey_container">
+							<div class="tasks_list_due tasks_list_due_brown_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">4</span>
+									<span class="task_list_due_time_format">DAYS</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">The Evolution of Families of Enzymes</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_list_info_bold">25 MAR 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span><a href="javascript:;">(5)</a></span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="tasks_list_item">
+							<div class="tasks_list_due tasks_list_due_black_part">
+								<span class="tasks_list_due_in">DUE IN</span>
+								<div class="tasks_list_due_time">
+									<span class="task_list_due_time_number">1</span>
+									<span class="task_list_due_time_format">WEEK</span>
+								</div>
+							</div>
+							<div class="tasks_list_info">
+								<a href="tasks_info.html" class="tasks_list_info_big">The Structure of Nucleic Acids</a>
+								<p class="tasks_list_info_small"><span class="tasks_list_info_bold">OPEN</span> for submission | Due: <span class="tasks_list_info_bold">29 MAR 2010</span></p>
+							</div>
+							<div class="tasks_list_buttons">
+								<div class="task_list_button_discussion" rel="tipsy" title="Discussion about task"><span>(0)</span></div>
+								<div class="task_list_button_submission" rel="tipsy" title="Submit work"><span><a href="tasks_submit.html">SUBMIT WORK</a></span></div>
+								<div class="task_list_button_feedback" rel="tipsy" title="Evaluation feedback"><span>(0)</span></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="tasks_content_bottom">
+			<div class="tasks_content_bottom_inner"><!-- --></div>
+		</div>
+	</div>
+</div>
+
+<!-- FOOTER -->
+<div class="fl-widget-no-options fl-fix">
+	<div class="widget-no-options-inner"><!-- --></div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script type="text/javascript" language="JavaScript" src="/devwidgets/tasks/javascript/tasks.js"></script>

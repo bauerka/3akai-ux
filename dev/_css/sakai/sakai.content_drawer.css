@@ -1,0 +1,240 @@
+:focus {
+    outline: none;
+}
+
+html, body {
+    font-family: sans-serif;
+}
+
+ul, ul li {
+    list-style-type: none;
+    margin: 0;
+    padding:2px 5px;
+}
+
+
+
+
+
+/*
+   DOC DRAWER LAYOUT ---------------
+*/
+#doc_drawer {
+    width: 100%;
+    background: #999;
+    z-index: 2000;
+    overflow: hidden;
+}
+
+/* Header */
+#doc_drawer_header {
+    width: 100%;
+    background: #99CCFF;
+    clear: both;
+}
+
+
+
+
+/* Content */
+#doc_drawer_content {
+    width: 100%;
+    background: #44ff00;
+    clear: both;
+}
+
+
+
+/* My content Tab */
+
+/* Browser */
+#browser_nav {
+    background: #99CCFF;
+    overflow: auto;
+}
+
+
+#main_level_browser a {
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+#sub_level_browser a {
+    padding-left: 10px;
+    font-weight: normal;
+    font-size: 8pt;
+}
+
+/* View */
+
+#view_container {
+    background: #fff;
+    overflow: auto;
+}
+
+#view_options {
+    background: #6699CC;
+    overflow: hidden;
+}
+
+#document_view, #people_view {
+    background: #fff;
+    overflow: auto;
+}
+
+/* Document item  in icon view */
+.doc_item_container_icon .doc_item {
+    background: url("../../_images/file_icon.png") no-repeat scroll left top transparent;
+    float: left;
+    height: 58px;
+    margin: 4px;
+    overflow: hidden;
+    padding-left: 32px;
+    width: 90px;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.doc_item_container_icon .doc_item .doc_item_name {
+    font-size: 8pt;
+    text-decoration: none;
+    display: block;
+}
+
+.doc_item_container_icon .doc_item .doc_item_description {
+    color: #999;
+    font-size: 7pt;
+    display: block;
+}
+
+
+
+/* Document item  in list view */
+
+.doc_item_container_list .doc_item {
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.doc_item_container_list .doc_item .doc_item_name {
+    font-size: 8pt;
+    text-decoration: none;
+    margin: 0 0 0 10px;
+    display: block;
+}
+
+.doc_item_container_list .doc_item .doc_item_type {
+    color: #999;
+    font-size: 8pt;
+    margin: 0 0 0 10px;
+    display: block;
+}
+
+
+
+.doc_item_container_list .doc_item .doc_item_size {
+    color: #999;
+    font-size: 8pt;
+    margin: 0 0 0 10px;
+    display: block;
+}
+
+/* Doc item selected */
+.doc_element_selected {
+    background-color: #cc0;
+}
+
+
+
+
+/* Footer */
+#doc_drawer_footer {
+    width: 100%;
+    background: #666;
+    clear: both;
+}
+
+#doc_drawer_search_container {
+    text-align: right;
+    overflow: hidden;
+    float: left;
+}
+
+#doc_drawer_search_input {
+    height: 13px;
+    font-size: 8pt;
+    color: #999;
+}
+
+#doc_drawer_search_submit {
+    font-size: 8pt;
+    padding-right: 10px;
+}
+
+
+#doc_drawer_tags_container {
+    overflow: hidden;
+}
+
+#doc_drawer_see_more_tags_button {
+    font-size: 8pt;
+    float: left;
+    padding: 5px;
+}
+
+#doc_drawer_extra_tags {
+    position: absolute;
+    clear: both;
+}
+
+
+.tag_list li {
+    float: left;
+    font-size: 8pt;
+    padding: 5px;
+}
+
+
+
+
+/* General tabs */
+.tabs {
+    margin: 0;
+    padding: 0;
+}
+
+.tabs li {
+    background: #eee;
+    padding: 5px 10px 5px 10px;
+    display: list-item;
+    list-style-type: none;
+    float: left;
+    overflow: hidden;
+    font-size: 10pt;
+}
+
+.tabs .active_tab {
+    background: #99CCFF;
+}
+
+.tab_content {
+    background: #fff;
+}
+
+
+/* OPTION LIST */
+.option_list {
+    margin: 0;
+    padding: 0;
+}
+
+.option_list li {
+    display: list-item;
+    list-style-type: none;
+    float: left;
+    padding: 5px 10px 5px 10px;
+    font-size: 7pt;
+    height: 15px;
+}

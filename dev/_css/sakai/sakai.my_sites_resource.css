@@ -1,0 +1,45 @@
+.search_content_wrapper {
+	margin:0 0 20px 290px;
+}
+.my_sites_resources_menu {
+	float: left;
+	width: 270px;
+}
+.my_sites_resources_menu .search_tab_content_top{
+	background-image: url(../../_images/content_tr_flip.png);
+}
+.my_sites_resources_list {
+	width: auto;	
+}
+.my_sites_resources_people_list {
+	width: auto;
+}
+.my_sites_resources_list li {
+	float: left;
+	padding: 10px 15px 0 0;
+	width: 100px;
+}
+.my_sites_people_list li{
+	padding:10px 7px 0 0;
+	width: 185px;
+}
+.my_sites_people_list_picture {
+	width: 60px;
+}
+.my_sites_people_list_comment {
+	background: url(/dev/_images/my_sites_people.png) no-repeat 0 0;
+	height: 70px;
+	width: 122px;
+}
+.my_sites_people_list_comment p {
+	font-size: 11px;
+	font-weight: bold;
+	padding: 5px 5px 5px 15px;
+}
+.my_sites_resources_container_list_left {
+	float: left;
+}
+.my_sites_resources_container_list {
+	margin-top: 10px;
+}
+

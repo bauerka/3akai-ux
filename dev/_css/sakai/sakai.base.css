@@ -365,6 +365,18 @@ html > body .s3d-button .s3d-button-inner {
 .dialog_footer_inner{background:url(/dev/_images/dialog_bl.png) top left no-repeat;height:6px;}
 
 /* ----------------------------------------------------------------------------
+<<<<<<< HEAD
+ *    TOOLTIPS 
+ * ----------------------------------------------------------------------------
+ */
+.tipsy { padding: 5px; font-size: 10px; background-repeat: no-repeat;  background-image: url(/dev/_lib/tipsy/images/tipsy.gif); }
+.tipsy-inner { padding: 5px 8px 4px 8px; background-color: black; color: white; max-width: 200px; text-align: center; }
+.tipsy-inner { -moz-border-radius:3px; -webkit-border-radius:3px; }
+.tipsy-north { background-position: top center; }
+.tipsy-south { background-position: bottom center; }
+.tipsy-east { background-position: right center; }
+.tipsy-west { background-position: left center; }
+=======
  *    NOTIFICATIONS
  * ----------------------------------------------------------------------------
  */
@@ -412,3 +424,4 @@ html > body .s3d-button .s3d-button-inner {
     margin-top:-3px;
     margin-right:-3px;
 }
+>>>>>>> master
