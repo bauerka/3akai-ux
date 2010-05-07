@@ -85,7 +85,7 @@ sakai.myfiles = function(tuid,placement,showSettings){
         }
 
         // Render the template with the files
-        $(myfilesList, rootel).html($.Template.render(myfilesListTemplate, jsonFiles));
+        $(myfilesList, rootel).html($.TemplateRenderer(myfilesListTemplate, jsonFiles));
     };
 
 
