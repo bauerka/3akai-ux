@@ -21,7 +21,6 @@
 var sakai = sakai || {};
 sakai.events = function(){
 
-
     /////////////////////////////
     // Configuration variables //
     /////////////////////////////

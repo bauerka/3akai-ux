@@ -224,7 +224,6 @@
 { float: left; }
 
 
-<<<<<<< HEAD
 /* PROTOTYPE */
 .site_input
 { border: 1px dashed #ccc; color: #38393d; margin-left:225px; padding:6px !important}
@@ -237,7 +236,6 @@
 
 .fl-inlineEdit-invitation-text
 { color: #999 }
-=======
 
 
 
@@ -282,4 +280,3 @@
 .layout_picker_item_column_unselected {border-right: 1px solid #dddfe1;}
 .layout_picker_item_radio_unselected {margin-left:50px; margin-top: 10px;}
 #layouts_list {display:block;}
->>>>>>> master
