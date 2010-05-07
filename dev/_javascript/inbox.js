@@ -66,6 +66,7 @@ sakai.inbox = function() {
     var inboxFilterClass = inboxClass + "_filter";
     var inboxFilterInbox = inboxFilter + "_inbox";
     var inboxFilterMessages = inboxFilter + "_messages";
+    var inboxFilterMpass = inboxFilter + "_mpass";
     var inboxFilterAnnouncements = inboxFilter + "_announcements";
     var inboxFilterChats = inboxFilter + "_chats";
     var inboxFilterInvitations = inboxFilter + "_invitations";
@@ -173,6 +174,7 @@ sakai.inbox = function() {
      */
 
     var unreadMessages = 0;
+    var unreadMpass = 0;
     var unreadInvitations = 0;
     var unreadAnnouncements = 0;
     var unreadChats = 0;
@@ -481,6 +483,8 @@ sakai.inbox = function() {
 
         if (message["sakai:category"] === "message" || message["sakai:category"] === undefined){
             message.category = "Message";
+        } else if (message["sakai:category"] === "mpass"){
+            message.category = "MPASS";
         } else if (message["sakai:category"] === "announcement"){
             message.category = "Announcement";
         } else if (message["sakai:category"] === "invitation"){
@@ -619,6 +623,8 @@ sakai.inbox = function() {
         if (selectedCategory){
             if (selectedCategory === "Message"){
                 cats = "message";
+            } else if (selectedCategory === "MPASS"){
+                cats = "mpass";
             } else if (selectedCategory === "Announcement"){
                 cats = "announcement";
             } else if (selectedCategory === "Invitation"){
@@ -667,6 +673,8 @@ sakai.inbox = function() {
                 for (var i = 0, j = json.count.length; i < j; i++){
                     if (json.count[i].group === "message"){
                         unreadMessages = json.count[i].count;
+                    } else if (json.count[i].group === "mpass"){
+                        unreadMpass = json.count[i].count;
                     } else if (json.count[i].group === "announcement"){
                         unreadAnnouncements = json.count[i].count;
                     } else if (json.count[i].group === "invitation"){
@@ -692,6 +700,12 @@ sakai.inbox = function() {
             $("#inbox_unread_nr_messages").text("(" + unreadMessages + ")");
         } else {
             $("#inbox_unread_nr_messages").text("");
+        }
+        
+        if (unreadMpass > 0){
+            $("#inbox_unread_nr_mpass").text("(" + unreadMpass + ")");
+        } else {
+            $("#inbox_unread_nr_mpass").text("");
         }
 
         if (unreadAnnouncements > 0){
@@ -739,6 +753,8 @@ sakai.inbox = function() {
         if (selectedCategory){
             if (selectedCategory === "Message"){
                 cats = "message";
+            } else if (selectedCategory === "MPASS"){
+                cats = "mpass";
             } else if (selectedCategory === "Announcement"){
                 cats = "announcement";
             } else if (selectedCategory === "Invitation"){
@@ -824,6 +840,8 @@ sakai.inbox = function() {
 
                 if (message["sakai:category"] === "message"){
                     unreadMessages -= 1;
+                } else if (message["sakai:category"] === "mpass"){
+                    unreadMpass -= 1;
                 } else if (message["sakai:category"] === "invitation"){
                     unreadInvitations -= 1;
                 } else if (message["sakai:category"] === "announcement"){
@@ -1050,6 +1068,7 @@ sakai.inbox = function() {
 
             // Update unread number on left hand side
             var deletedUnreadMessages = 0;
+            var deletedUnreadMpass = 0;
             var deletedUnreadAnnouncements = 0;
             var deletedUnreadInvitations = 0;
 
@@ -1059,6 +1078,8 @@ sakai.inbox = function() {
                         if (allMessages[i]["sakai:read"] === "false" && allMessages[i]["sakai:category"]){
                             if (allMessages[i]["sakai:category"] === "message"){
                                 deletedUnreadMessages++;
+                            } else if (allMessages[i]["sakai:category"] === "mpass"){
+                                deletedUnreadMpass++;
                             } else if (allMessages[i]["sakai:category"] === "invitation"){
                                 deletedUnreadInvitations++;
                             } else if (allMessages[i]["sakai:category"] === "announcement"){
@@ -1069,6 +1090,7 @@ sakai.inbox = function() {
                 }
             }
             unreadMessages -= deletedUnreadMessages;
+            unreadMpass -= deletedUnreadMpass;
             unreadAnnouncements -= deletedUnreadAnnouncements;
             unreadInvitations -= deletedUnreadInvitations;
             updateUnreadNumbers();
@@ -1142,6 +1164,9 @@ sakai.inbox = function() {
 
     $(inboxFilterMessages).click(function() {
         filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.message, "all", inboxFilterMessages);
+    });
+    $(inboxFilterMpass).click(function() {
+        filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.mpass, "all", inboxFilterMpass);
     });
     $(inboxFilterAnnouncements).click(function() {
         filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.announcement, "all", inboxFilterAnnouncements);

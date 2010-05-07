@@ -75,7 +75,20 @@ sakai.mpassmodule = function(tuid, showSettings){
 	var sharedusersDialogSubmit = sharedusersDialog + "_submit";
 	var sharedusersDialogCancel = sharedusersDialog + "_cancel";
 	var sharedusersDialogClose = sharedusersDialog + "_close";
+	
+	
+	
+	var taskSharedText = "<h6>Production(s) attendue(s)</h6><p>(1) Le <b>r&eacute;cit de vie</b> doit faire" +
+			" l'objet d'une carte conceptuelle suivie d'un court texte (1000 &agrave;1500 mots) faisant" +
+			" &eacute;tat de vos exp&eacute;riences, vos croyances, vos connaissances et vos comp&eacute;tences." +
+			" Votre texte devra &ecirc;tre attach&eacute; &agrave; votre carte conceptuelle. Vous aurez &agrave; remettre :" +
+			" un fichier CMap Tools et un fichier Word.<br/>(2) Le <b>plan de d&eacute;veloppement p&eacute;dagogique</b>" +
+			" doit faire l'objet d'une ligne du temps suivie d'un court texte (1000 &agrave; 1500 mots) expliquant les" +
+			" diff&eacute;rentes &eacute;tapes de votre cheminement, vos attentes et ambitions, vos acquis et vos lacunes," +
+			" vos besoins d'apprentissage, vos croyances personnelles &agrave; valider ou invalider, vos d&eacute;fis &agrave;" +
+			" relever et les moyens envisag&eacute;s pour relever vos d&eacute;fis.</p>"
     
+			
 
 /************************************
 *	ADD MPASS CONTENT
@@ -116,6 +129,11 @@ sakai.mpassmodule = function(tuid, showSettings){
                 },
                 success: function(data){
                 	alert(data);
+                	json.currenttask = $.evalJSON(data).content;
+                	// Inform selected users about reflection
+                	if (typeof json.currenttask !== "undefined" && userlist.length > 0) {
+                		inviteForSharedContent(userlist, json.currenttask);
+                	}
                     // Close dialog container.
             		closeReflectionDialog();
                     // Get the reflections.
@@ -390,7 +408,61 @@ sakai.mpassmodule = function(tuid, showSettings){
     
 /************************************
 *	ACTION FUNCTIONS
-************************************/    
+************************************/
+    
+    /**
+     * invite user of list to comment shared content
+     * @param {Array} userlist
+     * @param {Object} userlist
+     */
+    var inviteForSharedContent = function(userlist, content) {
+    	var msg = [];
+    	if (content["sakai:type"].indexOf("reflection") == 0) {
+    		msg = createReflectionMessage(content);
+    	}
+        if (typeof msg["subject"] !== "undefined" && typeof msg["body"] !== "undefined") {
+	        for (var i = 0; i < userlist.length; i++){
+	            sakai.api.Communication.sendMessage(userlist[i], msg["subject"], msg["body"], "mpass", null, function(success, data){
+//	                alert("sent");
+	            });
+	        }
+        }
+    };
+    
+    var createReflectionMessage = function(content){
+    	var msg = [];
+    	var username = me.profile.firstName + " " + me.profile.lastName;
+    	var reflTitle = content["sakai:title"];
+    	var title = sakai.api.i18n.Widgets.getValueForKey("mpassmodule", "default", "SHARE_REFLECTION_TITLE");
+    	msg["subject"] = title.replace(/\$\{user\}/gi, username).replace(/\$\{title\}/gi, reflTitle);
+    	
+    	var reflId = content["sakai:id"];
+    	var reflBody = content["sakai:body"];
+    	var reflCreated = content["sakai:created"];
+    	var reflTypeId = content["sakai:type"].replace("reflection", "");
+    	var reflType = sakai.api.i18n.Widgets.getValueForKey("mpassmodule", "default", "REFLECTION_TITLE_" + reflTypeId);
+    	
+    	if (typeof reflId !== "undefined" && typeof reflTitle !== "undefined" && typeof reflBody !== "undefined") {
+    		var body = "<input id=\"inbox-mpass-content-id\" type=\"hidden\" value=\"" + reflId + "\"/>" +
+    				"<div class=\"reflection_task\">" + taskSharedText + "</div><div class=\"reflection_msg\">" +
+    				"<div class=\"reflection_header\"><div class=\"reflection_title\">" + reflTitle + "</div>";
+    		if (typeof reflCreated !== "undefined") {
+    			try {
+    	        	var tempDate = parseDate(reflCreated);
+    	        	var date = formatDate(tempDate);
+    	        	body += "<div class=\"reflection_created\">" + date + "</div>";
+    	        } catch (ex) { 
+    	        	// do not add date to message	   
+    	        }
+    		}
+    		if (typeof reflType !== "undefined") {
+	        	body += "<div class=\"reflection_subtitle\">" + reflType + "</div>";
+    		}
+    		body += "</div><div class=\"reflection_body\">" + reflBody + "</div></div>";
+    		msg["body"] = body;
+    	}
+    	return msg;
+    };
     
     var checkReflectionSharedButton = function(){
     	if ($(reflectionSharedButton).is(':visible')) {

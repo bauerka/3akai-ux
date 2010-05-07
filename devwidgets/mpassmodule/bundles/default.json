@@ -20,5 +20,6 @@
 "SELECT_USERS": "Sélectionner des utilisateurs",
 "REFLECTION": "Réflexion",
 "PRIVATE": "Privé",
-"SHARED": "Partagé"
+"SHARED": "Partagé",
+"SHARE_REFLECTION_TITLE": "Demande de votre commentaire pour la réflexion \"${title}\""
 }

@@ -80,6 +80,9 @@
 .inbox_main .inbox-folders #inbox_filter_messages
 { background: transparent url(/dev/_images/inbox_folders_messages.gif) no-repeat scroll left center; height: 20px; padding: 0 0 0 28px; }
 
+.inbox_main .inbox-folders #inbox_filter_mpass
+{ background: transparent url(/dev/_images/inbox_folders_mpass.png) no-repeat scroll left center; height: 20px; padding: 0 0 0 28px; }
+
 .inbox_main .inbox-folders #inbox_filter_announcements
 { background: transparent url(/dev/_images/inbox_folders_announcements.gif) no-repeat scroll left center; height: 20px; padding: 0 0 0 28px; }
 
@@ -268,7 +271,7 @@
 { font-weight: bold; font-size: 15px; padding-bottom: 5px; }
 
 .inbox_detail .message-options
-{ padding: 15px 15px 0 0; }
+{ padding: 15px 0 0 0; }
 
 .inbox_detail .message-options a
 { color:#058ec4; font-weight: bold; }
@@ -310,6 +313,31 @@
 .inbox_main .greybutton a
 { background: url(../../_images/gray_button_left.png) top left no-repeat; display: block; height: 23px; padding: 4px 0 0 10px; color: #FFFFFF; font-weight: bold; border: none; cursor: pointer; font-weight: bold; }
 
+
+/** MPASS SPECIFICATIONS **/
+.message-body .reflection_task
+{ background: #eff2f4; font-size:0.8em; padding:10px; margin:10px 30px; }
+
+.message-body .reflection_msg
+{ background: #eff2f4; padding:10px; margin:20px 0 10px 0; }
+
+.message-body .reflection_header
+{ clear:both; margin:0 0 10px 0; }
+
+.message-body .reflection_title
+{ font-weight:bold; float:left; }
+
+.message-body .reflection_created
+{ font-size:0.8em; text-align:right; color:#666;}
+
+.message-body .reflection_subtitle
+{ font-size:0.8em; color:#666; }
+
+.message-options .mpass_comment
+{ font-weight:bold; font-size:0.9em; color:#666; margin-bottom:3px; }
+
+#inbox-mpass-commentarea
+{ width:100%; height:150px; margin-bottom:1em; }
 
 
 /** NOTIFICATIONS, ERROR MESSAGES **/

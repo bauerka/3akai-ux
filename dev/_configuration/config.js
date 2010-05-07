@@ -166,6 +166,7 @@ sakai.config = {
         },
         Categories: {
             message: "Message",
+            mpass: "MPASS",
             announcement: "Announcement",
             chat: "Chat",
             invitation: "Invitation"

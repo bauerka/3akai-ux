@@ -27,7 +27,7 @@
 .mpassnavigation .navigation_titlebar_inner
 { background:transparent url(/dev/_images/block_tl.png) no-repeat scroll left top; padding: 5px 0 0 17px; height:45px; }
 .mpassnavigation .navigation_title
-{ background:transparent url(/devwidgets/mpassnavigation/images/assignments_icon.png) no-repeat scroll left top; color:#878A8C; font-size:1em; padding-left: 25px; }
+{ background:transparent url(/devwidgets/mpassnavigation/images/tasks_icon.png) no-repeat scroll left top; color:#878A8C; font-size:1em; padding-left: 25px; }
 
 /* CONTENT */
 .mpassnavigation .navigation_content
