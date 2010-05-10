@@ -99,6 +99,8 @@
 "MONDAY": "Monday",
 "MPASS": "MPASS",
 "MPASS_COMMENT": "Your comment",
+"MPASS_COMMENT_RESPONSE_TITLE": "Comment for \"${title}\"",
+"MPASS_SEND_COMMENT": "Submit comment",
 "MY_CONTACTS_INVITATIONS": "My Contact Invitations",
 "MY_CONTACTS": "My Contacts",
 "MY_DASHBOARD": "My Dashboard",

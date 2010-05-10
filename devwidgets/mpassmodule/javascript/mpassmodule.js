@@ -210,6 +210,29 @@ sakai.mpassmodule = function(tuid, showSettings){
         });
     };
     
+    var getCommentsForTask = function(taskId){
+    	var sortOn = "sakai:created";
+        var sortOrder = "descending";
+        var path = "/_user" + me.profile.path + "/message";
+
+        var url = "/var/search/comments/categoryflat.json?sortOn=" + sortOn + "&sortOrder=" + sortOrder + "&marker=" + taskId + "&path=" + path;
+        $.ajax({
+            url: url,
+            cache: false,
+            success: function(data){
+        	alert(data);
+                json.foundComments = $.evalJSON(data).results;
+                // render comments
+            },
+            error: function(xhr, textStatus, thrownError){
+                alert("comments: An error occured while receiving the comments (" + xhr.status + ")");
+            }
+        });
+    };
+    
+    /**
+     * Gets all the users from Sakai
+     */    
     var getAllUsers = function(){
     	var url = sakai.config.URL.SEARCH_USERS + "?username=*";
         $.ajax({
@@ -276,11 +299,6 @@ sakai.mpassmodule = function(tuid, showSettings){
     		$(mpassMainTaskBtnAsgn, rootel).hide();
     	}
     	$(mpassMainTaskContent, rootel).html($.TemplateRenderer(mpassTaskContentTemplate, jsonDisplay));
-
-    	$(".task_element_ispublic", mpassMainTaskContent).bind('click', function(){
-    		var id = $(this).parents("table:first").attr("id");
-    		getTaskById(id, SHOW_USER_SELECTION_DIALOG);
-    	});
     };
     
     /**
@@ -307,12 +325,6 @@ sakai.mpassmodule = function(tuid, showSettings){
         // show or hide more button
         if (json.foundReflections.results.length > maxNumberElementsPerPart) {
         	$(mpassTaskMoreBtn + i, rootel).show();
-        	$(mpassTaskMoreBtn + i, rootel).bind('click', function(){
-        		var id = $(this).attr("id").replace(mpassTaskMoreBtn.substring(1,mpassTaskMoreBtn.length), "");
-        		if (id >= 0 && id <= 3) {
-        			getReflections(id);
-            	}
-        	});
         	for (var j = nrRefl; j < json.foundReflections.results.length; j++) {
         		prepareTaskForJson(j);
         	}
@@ -323,11 +335,6 @@ sakai.mpassmodule = function(tuid, showSettings){
 
         // show tasks in main task container
         renderMainTasks(i);
-        
-    	$(".task_element_ispublic", mpassReflectionContent + "_" + i).bind('click', function(){
-    		var id = $(this).parents("table:first").attr("id");
-    		getTaskById(id, SHOW_USER_SELECTION_DIALOG);
-    	});
     };
     
     
@@ -338,7 +345,7 @@ sakai.mpassmodule = function(tuid, showSettings){
         // TODO: Get jcr:created
         var tempDate = task["sakai:created"];
         try {
-            // if the date is not a string this should generate en exception
+            // if the date is not a string this should generate an exception
         	task.date = parseDate(tempDate);
         }
         catch (ex) {
@@ -351,6 +358,10 @@ sakai.mpassmodule = function(tuid, showSettings){
         task.body = tidyInput(task["sakai:body"]);
         task.sharedusers = task["sakai:sharedusers"];
         task.typeid = task["sakai:type"].replace("reflection", "");
+        
+        task.comments = [];
+        getCommentsForTask(task.id);
+        // get comments
         
         jsonDisplay.tasks[j] = task;
     };
@@ -366,6 +377,7 @@ sakai.mpassmodule = function(tuid, showSettings){
         if (typeof(people.results) === "undefined") {
             people.results = [];
         }
+        // get preselected users
         if (typeof(json.currenttask) !== "undefined" && typeof(json.currenttask["sakai:sharedusers"]) !== "undefined") {
         	if (typeof json.currenttask["sakai:sharedusers"] == "string") {
         		selectedUserIds.push(json.currenttask["sakai:sharedusers"]);
@@ -398,10 +410,6 @@ sakai.mpassmodule = function(tuid, showSettings){
         people.results = tempResults;
         
         $(sharedusersContentContainer).html($.TemplateRenderer(sharedusersContentContainerTemplate, people));
-        $(".userSelect_person").bind("click", function(e, ui) {
-            var userindex = parseInt(this.id.replace("userSelect_person", ""), 10);
-            selectPerson(userindex, true, false);
-        });
         $(sharedusersDialogContainer, rootel).show();
     };
     
@@ -421,6 +429,8 @@ sakai.mpassmodule = function(tuid, showSettings){
     		msg = createReflectionMessage(content);
     	}
         if (typeof msg["subject"] !== "undefined" && typeof msg["body"] !== "undefined") {
+        	// have to send the message to each selected user separately,
+        	// sending a message to an user array or a group is not implemented yet
 	        for (var i = 0; i < userlist.length; i++){
 	            sakai.api.Communication.sendMessage(userlist[i], msg["subject"], msg["body"], "mpass", null, function(success, data){
 //	                alert("sent");
@@ -445,7 +455,8 @@ sakai.mpassmodule = function(tuid, showSettings){
     	if (typeof reflId !== "undefined" && typeof reflTitle !== "undefined" && typeof reflBody !== "undefined") {
     		var body = "<input id=\"inbox-mpass-content-id\" type=\"hidden\" value=\"" + reflId + "\"/>" +
     				"<div class=\"reflection_task\">" + taskSharedText + "</div><div class=\"reflection_msg\">" +
-    				"<div class=\"reflection_header\"><div class=\"reflection_title\">" + reflTitle + "</div>";
+    				"<div class=\"reflection_header\"><div id=\"inbox-mpass-content-title\" class=\"reflection_title\">" 
+    				+ reflTitle + "</div>";
     		if (typeof reflCreated !== "undefined") {
     			try {
     	        	var tempDate = parseDate(reflCreated);
@@ -486,7 +497,7 @@ sakai.mpassmodule = function(tuid, showSettings){
         for (var j = 0; j < json.foundPeople.results.length; j++) {
             if( json.foundPeople.results[j].userid === person.userid){
                 json.foundPeople.results[j].selected = false;
-                $("#userSelect_person" + j).attr("class", "unselected");
+                $("#userSelect_person" + j).attr("class", "unselected userSelect_person");
                 for (var k = 0; k < selectedPeople.length; k++) {
                 	if (selectedPeople[k].userid === json.foundPeople.results[j].userid) {
                 		selectedPeople.splice(k,1);
@@ -510,7 +521,7 @@ sakai.mpassmodule = function(tuid, showSettings){
                 selectedPeople.push(json.foundPeople.results[personIndex]);
             }
             json.foundPeople.results[personIndex].selected = true;
-            $("#userSelect_person" +  personIndex , sharedusersContentContainer).attr("class", "selected");
+            $("#userSelect_person" +  personIndex , sharedusersContentContainer).attr("class", "selected userSelect_person");
         }
         else if(!selectAll){
            unselectPerson(json.foundPeople.results[personIndex]);
@@ -543,7 +554,7 @@ sakai.mpassmodule = function(tuid, showSettings){
     var closeReflectionDialog = function(){
     	// Hide the form.
 		$(reflectionDialogContainer, rootel).hide();
-        // Clear the textboxes.
+        // Clear the text fields.
         $(reflectionTitle, rootel).val("");
         $(reflectionContent, rootel).val("");
     };
@@ -554,7 +565,7 @@ sakai.mpassmodule = function(tuid, showSettings){
     var closeSharedusersDialog = function(){
     	// Hide the form.
 		$(sharedusersDialogContainer, rootel).hide();
-        // Clear the textboxes.
+        // Clear the text fields.
 
     };
     
@@ -612,7 +623,64 @@ sakai.mpassmodule = function(tuid, showSettings){
         str = str.replace(/\n/g, '<br />');
         return str;
     };
- 
+    
+    
+    
+/************************************
+*	BINDINGS
+************************************/    
+    
+    /** Bind the task headers */
+	$("a[id^='" + mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length) + "']", rootel).live('click', function(){
+		// get task type id and get the corresponding data
+		var id = $(this).attr("id").replace(mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length), "");
+		if (id >= 0 && id <= 3) {
+			getReflections(id);
+    	}
+    	else if (id === "assignment") {
+    		renderMainTasks(id);
+    	}
+    	else if (id === "feedback") {
+    		renderMainTasks(id);
+    	}
+	});
+	
+	/** Bind the more button in the tasks */
+	$(".task_more", rootel).live('click', function(){
+		var id = $(this).attr("id").replace(mpassTaskMoreBtn.substring(1,mpassTaskMoreBtn.length), "");
+		if (id >= 0 && id <= 3) {
+			getReflections(id);
+    	}
+		else if (id === "assignment") {
+    		renderMainTasks(id);
+    	}
+    	else if (id === "feedback") {
+    		renderMainTasks(id);
+    	}
+	});
+    
+    /** Bind add reflection button to open reflection dialog */
+	$(".reflection_btn a", rootel).live('click', function(){
+		// get reflection part/type id and set title of dialog box
+		var i = $(this).parents(".reflection_btn:first").attr("id").replace(mpassReflectionBtn
+				.substring(1,mpassReflectionBtn.length), "")
+				.replace("mpass_main_reflection_btn_", "");
+		selectedPeople = [];
+    	json.currenttask = [];
+    	showReflectionDialog(i, null);
+	});
+	
+	/** Bind shared or private button for tasks */
+	$(".task_element_ispublic", rootel).live('click', function(){
+		var id = $(this).parents("table:first").attr("id");
+		getTaskById(id, SHOW_USER_SELECTION_DIALOG);
+	});
+	
+	/** Bind user entries in shared users dialog */
+    $(".userSelect_person", rootel).live("click", function(e, ui) {
+        var userindex = parseInt(this.id.replace("userSelect_person", ""), 10);
+        selectPerson(userindex, true, false);
+    });
 	
     /** Bind submit button of reflection dialog */
     $(reflectionDialogSubmit, rootel).bind('click', function(e, ui){
@@ -647,39 +715,16 @@ sakai.mpassmodule = function(tuid, showSettings){
 	});
 	
 	
+	
     /**
      * Function that will be launched if the widget is loaded
      */
     var init = function(){
     	renderReflectionParts();
-
-    	// do binding after rendering when elements exist
-    	$(".reflection_btn", rootel).bind('click', function(){
-    		// get reflection part/type id and set title of dialog box
-    		var i = $(this).attr("id").replace(mpassReflectionBtn.substring(1,mpassReflectionBtn.length), "").replace(
-    				"mpass_main_reflection_btn_", "");
-    		selectedPeople = [];
-        	json.currenttask = [];
-        	showReflectionDialog(i, null);
-    	});
-    	
-    	// bind the task headers
-    	$("a[id^='" + mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length) + "']", rootel).bind('click', function(){
-    		// get task type id and get the corresponding data
-    		var id = $(this).attr("id").replace(mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length), "");
-    		if (id >= 0 && id <= 3) {
-    			getReflections(id);
-        	}
-        	else if (id === "assignment") {
-        		renderMainTasks(id);
-        	}
-        	else if (id === "feedback") {
-        		renderMainTasks(id);
-        	}
-    	});
     	
         $("#mpassmodule_main_container").show();
     };
+    
     init();
 };
 

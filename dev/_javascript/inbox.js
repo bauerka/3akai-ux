@@ -145,6 +145,17 @@ sakai.inbox = function() {
 
     var inboxComposeNewPanel = inboxComposeNew + "_panel";
 
+    // MPASS message
+    var inboxMpass = inboxID + "-mpass";
+    var inboxMpassComment = inboxMpass + "-comment";
+    var inboxMpassContent = inboxMpass + "-content";
+    var inboxMpassCommentContainer = inboxMpassComment + "-container";
+    var inboxMpassCommentSend = inboxMpassComment + "-send";
+    var inboxMpassCommentArea = inboxMpassComment + "area";
+    var inboxMpassContentId = inboxMpassContent + "-id";
+    var inboxMpassContentTitle = inboxMpassContent + "-title";
+    
+    
     // Errors and messages
     var inboxGeneralMessages = inboxID + "_generalmessages";
     var inboxGeneralMessagesError = inboxGeneralMessages + "_error";
@@ -521,7 +532,8 @@ sakai.inbox = function() {
 
         for (var i = 0, k = response.results.length; i < k; i++) {
 
-            if (box === "inbox" && cats === "" && response.results[i]["sakai:category"] === "chat") {
+            if ((box === "inbox" && cats === "" && response.results[i]["sakai:category"] === "chat") ||
+            	(box === "inbox" && cats === "" && response.results[i]["sakai:category"] === "comment")) {
                 response.results.splice(i, 1);
                 // We are modifying the array we are iterating. We need to adjust the length otherwise we end up with undefined array elements
                 k--;
@@ -869,9 +881,14 @@ sakai.inbox = function() {
         $("#inbox_message_previous_messages").hide();
         $("#inbox_message_replies").html("");
 
+        $("#inbox_message_option_reply").show();
+        
         // Hide invitation links
         $("#inbox-invitation-accept").hide();
         $("#inbox-invitation-already").hide();
+        
+        // Hide MPASS Container
+        $(inboxMpassCommentContainer).hide();
 
         showPane(inboxPaneMessage);
         var message = getMessageWithId(id);
@@ -916,6 +933,12 @@ sakai.inbox = function() {
                     }
                 });
             }
+            else if (message["sakai:category"] === "mpass"){
+            	$("#inbox_message_option_reply").hide();
+            	$(inboxSpecificMessageCompose).hide();
+            	$(inboxMpassCommentArea).empty();
+            	$(inboxMpassCommentContainer).show();
+            }	
 
             // This message has some replies attached to it.
             if (message["sakai:previousmessage"]) {
@@ -1283,10 +1306,47 @@ sakai.inbox = function() {
         var subject = $(inboxSpecificMessageComposeSubject).val();
         var body = $(inboxSpecificMessageComposeBody).val();
 
-        sakai.api.Communication.sendMessage(selectedMessage.from, subject, body, "message", selectedMessage["sakai:id"], sendMessageFinished);
+        sakai.api.Communication.sendMessage(selectedMessage["sakai:from"], subject, body, "message", selectedMessage["sakai:id"], sendMessageFinished);
 
         // Clear all the input fields
         clearInputFields();
+    });
+    
+    $(inboxMpassCommentSend).click(function() {
+    	// Get resource id and comment
+    	var contentId = $(inboxMpassContentId).val();
+    	var comment = $(inboxMpassCommentArea).val();
+    	var subject = "Comment for \"" + $(inboxMpassContentTitle).val() + "\"";
+    	var to = selectedMessage["sakai:from"];
+    	var message = {
+            "sakai:type": "internal",
+            "sakai:category": "comment",
+            "sakai:from": sakai.data.me.user.userid,
+            "sakai:to": to,
+            "sakai:marker": contentId,
+            "sakai:subject": subject,
+            "sakai:body": comment,
+            "sakai:messagebox": "outbox",
+            "sakai:sendstate": "pending",
+            "_charset_":"utf-8"
+        };
+        var url = "/_user" + sakai.data.me.profile.path + "/message.create.html";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: message,
+            success: function(data){
+                alert(data);
+            },
+            error: function(xhr, textStatus, thrownError){
+                if (xhr.status === 401) {
+                    alert("You are not allowed to add comments.");
+                }
+                else {
+                    alert("Failed to save.");
+                }
+            }
+        });
     });
 
 
