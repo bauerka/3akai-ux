@@ -21,7 +21,8 @@ var sakai = sakai || {};
 
 sakai.mpassmodule = function(tuid, showSettings){
 	
-	var SHOW_USER_SELECTION_DIALOG = 0;
+	var DO_NOTHING = 0;
+	var SHOW_USER_SELECTION_DIALOG = 1;
 	
 	var json = {}; // Variable used to recieve information by json
     var widgetSettings = {}; // Will hold the widget settings.
@@ -35,6 +36,8 @@ sakai.mpassmodule = function(tuid, showSettings){
     var selectedPeople = [];
     
     var mpass = "#mpass";
+    var mpassmodule = mpass + "module";
+    var mpassToggleWidthButton = mpass + "_toggle_width_btn";
     var mpassReflection = mpass + "_reflection";
     var mpassReflectionContainer = mpassReflection + "_container";
     var mpassReflectionContainerTemplate = mpassReflectionContainer + "_template";
@@ -45,13 +48,18 @@ sakai.mpassmodule = function(tuid, showSettings){
     var mpassTaskHeaderLink = "#task_header_link_";
     var mpassTaskContentTemplate = mpass + "_task_content_template";
     var mpassTaskMoreBtn = mpass + "_task_more_";
+    var mpassTaskCommentsCount = "#task_comments_count_";
+    var mpassTaskCommentsClose = "#task_comments_count_close_";
     
     var mpassMainTask = mpass + "_main_task";
     var mpassMainTaskTitlebox = mpassMainTask + "_titlebox";
     var mpassMainTaskContent = mpassMainTask + "_content";
+    var mpassMainTaskContentTemplate = mpassMainTaskContent + "_template";
     var mpassMainTaskBtn = mpassMainTask + "_btn";
     var mpassMainTaskBtnRefl = mpassMainTaskBtn + "_reflection";
     var mpassMainTaskBtnAsgn = mpassMainTaskBtn + "_assignment";
+    var mpassMainTaskCommentTemplate = mpassMainTask + "_comment_template";
+    var mpassMainTaskCommentContent = mpassMainTask + "_comment_content_";
 	
 	var reflection = "#reflection";
 	var reflectionDialog = reflection + "_dialog";
@@ -66,6 +74,12 @@ sakai.mpassmodule = function(tuid, showSettings){
 	var reflectionSharedButton = reflection + "_share_options_shared";
 	var reflectionPrivateButton = reflection + "_share_options_private";
 	
+	var comment = "#comment";
+	var commentTotal = comment + "_total_";
+	var commentUnread = comment + "_unread_";
+	var commentMainTotal = comment + "_main_total_";
+	var commentMainUnread = comment + "_main_unread_";
+	
 	var sharedusers = "#sharedusers";
 	var sharedusersDialog = sharedusers + "_dialog";
 	var sharedusersContent = sharedusers + "_content";
@@ -75,7 +89,6 @@ sakai.mpassmodule = function(tuid, showSettings){
 	var sharedusersDialogSubmit = sharedusersDialog + "_submit";
 	var sharedusersDialogCancel = sharedusersDialog + "_cancel";
 	var sharedusersDialogClose = sharedusersDialog + "_close";
-	
 	
 	
 	var taskSharedText = "<h6>Production(s) attendue(s)</h6><p>(1) Le <b>r&eacute;cit de vie</b> doit faire" +
@@ -128,7 +141,6 @@ sakai.mpassmodule = function(tuid, showSettings){
 		            "_charset_":"utf-8"
                 },
                 success: function(data){
-                	alert(data);
                 	json.currenttask = $.evalJSON(data).content;
                 	// Inform selected users about reflection
                 	if (typeof json.currenttask !== "undefined" && userlist.length > 0) {
@@ -175,7 +187,7 @@ sakai.mpassmodule = function(tuid, showSettings){
                 switch(followingAction)
                 {
                 case SHOW_USER_SELECTION_DIALOG:
-                	getAllUsers();
+                	getAllUsers(SHOW_USER_SELECTION_DIALOG);
                 	break;
                 default:
                 	break;
@@ -210,7 +222,7 @@ sakai.mpassmodule = function(tuid, showSettings){
         });
     };
     
-    var getCommentsForTask = function(taskId){
+    var getCommentsForTask = function(taskId, i, j){
     	var sortOn = "sakai:created";
         var sortOrder = "descending";
         var path = "/_user" + me.profile.path + "/message";
@@ -220,9 +232,49 @@ sakai.mpassmodule = function(tuid, showSettings){
             url: url,
             cache: false,
             success: function(data){
-        	alert(data);
                 json.foundComments = $.evalJSON(data).results;
-                // render comments
+                jsonDisplay.tasks[i][j].comments = [];
+                var countUnread = 0;
+                for (var k = 0; k < json.foundComments.length; k++) {
+                	var comment = json.foundComments[k].post;
+                	var tempDate = comment["sakai:created"];
+                    try {
+                        // if the date is not a string this should generate an exception
+                    	comment.date = parseDate(tempDate);
+                    }
+                    catch (ex) {
+                    	comment.date = tempDate;
+                    }
+                    comment.formatDate = formatDate(comment.date);
+                    comment.id = comment["sakai:id"];
+                    comment.reflId = comment["sakai:marker"];
+                    comment.read = comment["sakai:read"];
+                    comment.bodyTxt = comment["sakai:body"];
+                    comment.body = tidyInput(comment["sakai:body"]);
+                    comment.from = comment["sakai:from"];
+                    if (comment.read == false) {
+                    	countUnread++;
+                    }
+                    if (typeof json.foundPeople !== "undefined" && typeof json.foundPeople.results !== "undefined") {
+                    	comment.fromUser = json.foundPeople.results[comment.from];
+                    }
+                	jsonDisplay.tasks[i][j].comments[k] = comment;
+                }
+                jsonDisplay.tasks[i][j].commentsUnread = countUnread;
+                // set comment numbers
+                var countTotal = jsonDisplay.tasks[i][j].comments.length;
+            	$(commentUnread + taskId).html(countUnread);
+            	$(commentTotal + taskId).html(countTotal);
+            	$(commentMainUnread + taskId).html(countUnread);
+            	$(commentMainTotal + taskId).html(countTotal);
+            	if (countTotal > 0) {
+	        		var text = (countTotal == 1) ? sakai.api.i18n.Widgets.getValueForKey("mpassmodule", "default", "COMMENT") :
+	        			sakai.api.i18n.Widgets.getValueForKey("mpassmodule", "default", "COMMENTS");
+	        		$("#task_comments_count_" + taskId).html("<a href=\"javascript:;\">" + countTotal + " " + text + "</a>");
+	        		$(mpassMainTaskCommentContent + taskId, rootel).html($.TemplateRenderer(mpassMainTaskCommentTemplate, jsonDisplay.tasks[i][j]));
+	        	} else {
+	        		$("#task_comments_count_" + taskId).empty();
+	        	}
             },
             error: function(xhr, textStatus, thrownError){
                 alert("comments: An error occured while receiving the comments (" + xhr.status + ")");
@@ -233,7 +285,7 @@ sakai.mpassmodule = function(tuid, showSettings){
     /**
      * Gets all the users from Sakai
      */    
-    var getAllUsers = function(){
+    var getAllUsers = function(followingAction){
     	var url = sakai.config.URL.SEARCH_USERS + "?username=*";
         $.ajax({
             cache: false,
@@ -241,9 +293,19 @@ sakai.mpassmodule = function(tuid, showSettings){
             success: function(data) {
         		json.foundPeople = $.evalJSON(data);
                 renderPeople(json.foundPeople);
+                switch(followingAction)
+                {
+                case DO_NOTHING:
+                	break;
+                case SHOW_USER_SELECTION_DIALOG:
+                	showSharedusersDialog();
+                	break;
+                default:
+                	break;
+                }
             },
             error: function(xhr, textStatus, thrownError) {
-                alert(sakai.api.i18n.Widgets.getValueForKey("__MSG__AN_ERROR_HAS_OCCURED__"));
+                alert("getAllUsers: An error occured while receiving the users (" + xhr.status + ")");
             }
         });
     }
@@ -257,9 +319,8 @@ sakai.mpassmodule = function(tuid, showSettings){
      * Render the reflection parts
      */
     var renderReflectionParts = function(){
-    	jsonDisplay = {
-                "reflectionparts": []
-            };
+    	jsonDisplay.reflectionparts = [];
+    	jsonDisplay.tasks = [];
     	// set index and title of part
     	for (var i = 0; i < numberReflectionParts; i++) {
     		var part = [];
@@ -298,17 +359,20 @@ sakai.mpassmodule = function(tuid, showSettings){
     		$(mpassMainTaskBtnRefl, rootel).hide();
     		$(mpassMainTaskBtnAsgn, rootel).hide();
     	}
-    	$(mpassMainTaskContent, rootel).html($.TemplateRenderer(mpassTaskContentTemplate, jsonDisplay));
+    	$(mpassMainTaskContent, rootel).html($.TemplateRenderer(mpassMainTaskContentTemplate, jsonDisplay));
     };
     
     /**
      * Show the reflections in a paged state or not
      */
     var showReflections = function(i){
-        jsonDisplay = {
-            "tasks": [],
-            "settings": widgetSettings
-        };
+    	if (typeof jsonDisplay.tasks === "undefined") {
+    		jsonDisplay.tasks = [];
+    		alert("new tasks");
+        }
+    	if (typeof jsonDisplay.tasks[i] === "undefined") {
+    		jsonDisplay.tasks[i] = [];
+    	}	
         if (typeof  json.foundReflections === "undefined") {
         	json.foundReflections.results = [];
         }
@@ -319,27 +383,28 @@ sakai.mpassmodule = function(tuid, showSettings){
         	nrRefl = json.foundReflections.results.length;
         }
         for (var j = 0; j < nrRefl; j++) {
-        	prepareTaskForJson(j);
+        	prepareTaskForJson(i, j);
         }
+        jsonDisplay.currentpart = i;
+        jsonDisplay.elementsperpart = maxNumberElementsPerPart;
         $(mpassReflectionContent + "_" + i, rootel).html($.TemplateRenderer(mpassTaskContentTemplate, jsonDisplay));
         // show or hide more button
         if (json.foundReflections.results.length > maxNumberElementsPerPart) {
         	$(mpassTaskMoreBtn + i, rootel).show();
         	for (var j = nrRefl; j < json.foundReflections.results.length; j++) {
-        		prepareTaskForJson(j);
+        		prepareTaskForJson(i, j);
         	}
         }
         else {
         	$(mpassTaskMoreBtn + i, rootel).hide();
         }
-
         // show tasks in main task container
         renderMainTasks(i);
     };
     
     
-    var prepareTaskForJson = function(j) {
-    	jsonDisplay.tasks[j] = {};
+    var prepareTaskForJson = function(i, j) {
+    	jsonDisplay.tasks[i][j] = {};
         var task = json.foundReflections.results[j].post;
         // Checks if the date is already parsed to a date object
         // TODO: Get jcr:created
@@ -352,18 +417,17 @@ sakai.mpassmodule = function(tuid, showSettings){
         	task.date = tempDate;
         }
         task.formatDate = formatDate(task.date);
+        task.index = j;
         task.id = task["sakai:id"];
         task.title = task["sakai:title"];
         task.bodyTxt = task["sakai:body"];
         task.body = tidyInput(task["sakai:body"]);
         task.sharedusers = task["sakai:sharedusers"];
         task.typeid = task["sakai:type"].replace("reflection", "");
+
+        jsonDisplay.tasks[i][j] = task;
         
-        task.comments = [];
-        getCommentsForTask(task.id);
-        // get comments
-        
-        jsonDisplay.tasks[j] = task;
+        getCommentsForTask(task.id, i, j);
     };
     
     
@@ -387,16 +451,16 @@ sakai.mpassmodule = function(tuid, showSettings){
         }
         var tempResults = [];
         for (var i = 0; i < people.results.length; i++) {
-        	var curUserid = people.results[i]["rep:userId"];
+        	var curUserId = people.results[i]["rep:userId"];
         	// do not add own user or anonymous user
-        	if (curUserid !== me.user.userid && curUserid !== "anonymous") {
-        		people.results[i].userid = curUserid;
+        	if (curUserId !== me.user.userid && curUserId !== "anonymous") {
+        		people.results[i].userid = curUserId;
 	            if (typeof people.results[i].picture !== "undefined" && typeof people.results[i].picture == "string") {
 	                people.results[i].picture = $.evalJSON(people.results[i].picture);
 	            } else {
 	                people.results[i].picture = {};
 	            }
-	            people.results[i].userid = curUserid;
+	            people.results[i].userid = curUserId;
 	            // TODO change this to jQuery.inArray - function did not work
 	            for (var j = 0; j < selectedUserIds.length; j++) {
 	            	if (selectedUserIds[j] == people.results[i].userid) {
@@ -404,13 +468,10 @@ sakai.mpassmodule = function(tuid, showSettings){
 	            		people.results[i].selected = true;
 	            	}
 	            }
-	            tempResults.push(people.results[i]);
+	            tempResults[curUserId] = people.results[i];
             }
         }
-        people.results = tempResults;
-        
-        $(sharedusersContentContainer).html($.TemplateRenderer(sharedusersContentContainerTemplate, people));
-        $(sharedusersDialogContainer, rootel).show();
+        json.foundPeople.results = tempResults;
     };
     
     
@@ -494,15 +555,13 @@ sakai.mpassmodule = function(tuid, showSettings){
      * @param {Object} person
      */
     var unselectPerson = function(person){
-        for (var j = 0; j < json.foundPeople.results.length; j++) {
-            if( json.foundPeople.results[j].userid === person.userid){
-                json.foundPeople.results[j].selected = false;
-                $("#userSelect_person" + j).attr("class", "unselected userSelect_person");
-                for (var k = 0; k < selectedPeople.length; k++) {
-                	if (selectedPeople[k].userid === json.foundPeople.results[j].userid) {
-                		selectedPeople.splice(k,1);
-                	}
-                }
+        if(typeof json.foundPeople.results[person.userid] !== "undefined"){
+            json.foundPeople.results[person.userid].selected = false;
+            $("#userSelect_person_" + person.userid).attr("class", "unselected userSelect_person");
+            for (var k = 0; k < selectedPeople.length; k++) {
+            	if (selectedPeople[k].userid === person.userid) {
+            		selectedPeople.splice(k,1);
+            	}
             }
         }
     };
@@ -511,20 +570,19 @@ sakai.mpassmodule = function(tuid, showSettings){
      * @param {Object} personIndex
      * @param {Object} isNewSelection
      */
-    var selectPerson = function(personIndex, isNewSelection, selectAll) {
-
+    var selectPerson = function(personId, isNewSelection, selectAll) {
         if (typeof  json.foundPeople === "undefined") {
-             json.foundPeople.results = [];
+        	json.foundPeople.results = [];
         }
-        if (! json.foundPeople.results[personIndex].selected) {
+        if (! json.foundPeople.results[personId].selected) {
             if(isNewSelection){
-                selectedPeople.push(json.foundPeople.results[personIndex]);
+                selectedPeople.push(json.foundPeople.results[personId]);
             }
-            json.foundPeople.results[personIndex].selected = true;
-            $("#userSelect_person" +  personIndex , sharedusersContentContainer).attr("class", "selected userSelect_person");
+            json.foundPeople.results[personId].selected = true;
+            $("#userSelect_person_" +  personId , sharedusersContentContainer).attr("class", "selected userSelect_person");
         }
         else if(!selectAll){
-           unselectPerson(json.foundPeople.results[personIndex]);
+        	unselectPerson(json.foundPeople.results[personId]);
         }
     };
     
@@ -559,6 +617,17 @@ sakai.mpassmodule = function(tuid, showSettings){
         $(reflectionContent, rootel).val("");
     };
     
+    var showSharedusersDialog = function(){
+        if (typeof json.foundPeople === "undefined") {
+        	alert("users should be there already");
+        	getAllUsers(SHOW_USER_SELECTION_DIALOG);
+        }
+        else {
+	        $(sharedusersContentContainer).html($.TemplateRenderer(sharedusersContentContainerTemplate, json.foundPeople));
+	        $(sharedusersDialogContainer, rootel).show();
+        }
+    };
+    
     /**reflectionDialogContainer
      * Close sharedusers dialog
      */
@@ -566,7 +635,6 @@ sakai.mpassmodule = function(tuid, showSettings){
     	// Hide the form.
 		$(sharedusersDialogContainer, rootel).hide();
         // Clear the text fields.
-
     };
     
     
@@ -605,7 +673,7 @@ sakai.mpassmodule = function(tuid, showSettings){
         if (d === null) {
             return null;
         }
-        var names_of_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var names_of_months = ["Jan", "FŽv", "Mars", "Avr", "Mai", "Juin", "Jui", "Aožt", "Sep", "Oct", "Nov", "DŽc"];
         var current_hour = d.getHours();
         var current_minutes = d.getMinutes() + "";
         if (current_minutes.length === 1) {
@@ -624,6 +692,50 @@ sakai.mpassmodule = function(tuid, showSettings){
         return str;
     };
     
+    var toggleContainerWidth = function() {
+    	var btn = $(mpassToggleWidthButton);
+    	var mpm = $(mpassmodule);
+    	var nav = $('#navigation_menu_wrap'); 
+    		if (typeof nav === "undefined")
+    			nav = $('.page_nav');
+    	var con = $('#main_content_container');
+    		if (typeof con === "undefined")
+    			con = $('.content_container');
+    	var s = 300;
+    	btn.blur();
+    	var ie6 = $.browser.msie && $.browser.version.substr(0,1)<7;
+    	if (btn.attr('class') == 'collapse') {
+//    		setCookie('mpass_navigation_menu_collapse','false',30,'/','','');
+    		if (ie6) {
+    			sidemenu_openposition(btn,con,nav,mpm);
+    		}else {
+    			nav.animate({width:230,opacity:'show'},s);
+    			con.animate({marginLeft:221,paddingLeft:10},s);
+    			mpm.animate({width:430},s-50);
+    		}
+    	}else{
+//    		setCookie('mpass_navigation_menu_collapse','true',30,'/','','');
+    		if (ie6) {
+    			sidemenu_closeposition(btn,con,nav,mpm);
+    		}else {
+    			nav.animate({width:0,opacity:'hide'},s);
+    			con.animate({marginLeft:0,paddingLeft:0},s);
+    			mpm.animate({width:660},s);
+    		}
+    	}
+    	btn.toggleClass('collapse');
+    };
+    
+    var sidemenu_closeposition = function(btn,con,nav,mpm) {
+    	nav.css('display','none').css('width','0px');
+    	con.css('margin-left','0px').css('padding-left','0px');
+    	mpm.css('width','660px');
+    };
+    var sidemenu_openposition = function(btn,con,nav,mpm) {
+    	nav.css('display','blo').css('width','230px');
+    	con.css('margin-left','221px').css('padding-left','10px');
+    	mpm.css('width','430px');
+    };
     
     
 /************************************
@@ -672,14 +784,51 @@ sakai.mpassmodule = function(tuid, showSettings){
 	
 	/** Bind shared or private button for tasks */
 	$(".task_element_ispublic", rootel).live('click', function(){
-		var id = $(this).parents("table:first").attr("id");
-		getTaskById(id, SHOW_USER_SELECTION_DIALOG);
+		var index = $(this).parents("table:first").attr("id").replace("main_", "").replace("taskside_", "").split("_");
+		json.currenttask = jsonDisplay.tasks[index[0]][index[1]];
+		getAllUsers(SHOW_USER_SELECTION_DIALOG);
+	});
+	$(".task_element_open_ispublic", rootel).live('click', function(){
+		var index = $(this).parents(".task_element_open:first").attr("id").replace("main_open_", "").split("_");
+		json.currenttask = jsonDisplay.tasks[index[0]][index[1]];
+		getAllUsers(SHOW_USER_SELECTION_DIALOG);
+	});
+	
+	/** Bind title in task side bar*/ 
+	$(".taskside_element_title", rootel).live('click', function(){
+		alert("scroll to reflection");
+	});
+	
+	/** Bind task title in main container to open and close element */
+	$(".main_element_title", rootel).live('click', function(){
+		var ids = $(this).parents(".task_element_table:first").attr("id").replace("main_", "");
+		$(this).parents("table:first").hide();
+		$("#main_open_" + ids).show();
+	});
+	$(".task_element_open_title", rootel).live('click', function(){
+		var ids = $(this).parents(".task_element_open:first").attr("id").replace("main_open_", "");
+		$(this).parents(".task_element_open:first").hide();
+		$("#main_" + ids).show();
+	});
+	
+	/** Bind open and comments in main container */
+	$(".task_element_open_comments_count").live('click', function(){
+		var id = $(this).attr("id").replace(mpassTaskCommentsCount.substring(1,mpassTaskCommentsCount.length), "");
+		$(this).hide();
+		$(mpassTaskCommentsClose + id).show();
+		$(mpassMainTaskCommentContent + id).show();
+	});
+	$(".task_element_open_comments_close").live('click', function(){
+		var id = $(this).attr("id").replace(mpassTaskCommentsClose.substring(1,mpassTaskCommentsClose.length), "");
+		$(this).hide();
+		$(mpassMainTaskCommentContent + id).hide();
+		$(mpassTaskCommentsCount + id).show();
 	});
 	
 	/** Bind user entries in shared users dialog */
     $(".userSelect_person", rootel).live("click", function(e, ui) {
-        var userindex = parseInt(this.id.replace("userSelect_person", ""), 10);
-        selectPerson(userindex, true, false);
+        var userid = $(this).attr("id").replace("userSelect_person_", "");
+        selectPerson(userid, true, false);
     });
 	
     /** Bind submit button of reflection dialog */
@@ -697,7 +846,7 @@ sakai.mpassmodule = function(tuid, showSettings){
 	
 	/** Bind share reflection button in reflection dialog */
     $(reflectionSharedButton, rootel).bind('click', function(e, ui){
-        getAllUsers();
+        getAllUsers(SHOW_USER_SELECTION_DIALOG);
     });
 	
     /** Bind submit button of shared users dialog */
@@ -714,12 +863,18 @@ sakai.mpassmodule = function(tuid, showSettings){
 		closeSharedusersDialog();
 	});
 	
+	/** Bind toggle width and height buttons */
+	$(mpassToggleWidthButton).bind('click', function(){
+		toggleContainerWidth();
+	});
+	
 	
 	
     /**
      * Function that will be launched if the widget is loaded
      */
     var init = function(){
+    	getAllUsers(DO_NOTHING);
     	renderReflectionParts();
     	
         $("#mpassmodule_main_container").show();

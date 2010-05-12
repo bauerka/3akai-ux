@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="/devwidgets/mpassmodule/css/mpassmodule.css"/>
 
 <!-- TASK CONTAINER -->
+<div id="mpass_toggle_width_container"><div id="mpass_toggle_width_btn" class=""></div></div>
 <div id="mpassmodule" class="fl-widget widget1 mpassmodule taskcontainer">
 	<div id="draghandle_mpassmodule" class="fl-widget-titlebar">
     <div class="widget-titlebar-inner">
@@ -70,7 +71,7 @@
 		</div>
 	    </div>
 	</div>
-	<div class="content_top"><div class="content_top_inner"><!-- --></div></div>
+	<div class="content_separator"><div class="content_separator_inner"><!-- --></div></div>
 	
 	<div id="mpassmodule_main_task_container" class="fl-widget-content">
 		<div id="mpass_main_task_titlebox" class="task_titlebox">
@@ -233,15 +234,15 @@
 	            <ul width="100%">
 	            {for i in results}
 	            	{if (i.selected)}
-	            	<li class="selected userSelect_person" id="userSelect_person${results.indexOf(i)}">
+	            	<li class="selected userSelect_person" id="userSelect_person_${i.userid}">
 	            	{else}
-	                <li class="unselected userSelect_person" id="userSelect_person${results.indexOf(i)}">
+	                <li class="unselected userSelect_person" id="userSelect_person_${i.userid}">
 	                {/if}
 	                    <a href="javascript:;">
 	                    	{if typeof i.picture.name == "undefined"}
 	                    	<img src="/dev/_images/member_thumb_unselected.png"  />
 	                    	{else}
-	                    	<img src="/_user/public/${i['rep:userId']}/${i.picture.name}" />
+	                    	<img src="/_user/public/${i.userid}/${i.picture.name}" />
 	                    	{/if}
 	                    </a>
 	                    <a href="javascript:;" class="user-label">${i.firstName} ${i.lastName}</a>
@@ -271,28 +272,134 @@
 
 <!-- TEMPLATES -->
 <div id="mpass_task_content_template"><!--
-    {for i in tasks}
-    <table class="task_element_table" id="${i.id}">
+    {for i in tasks[currentpart]}
+    	{if i.index < elementsperpart}
+	    <table class="task_element_table" id="taskside_${currentpart}_${i.index}">
+	    	<tr>
+	    		<td class="task_element_title taskside_element_title" rowspan="2"><a href="javascript:;">${i.title}</a></td>
+	    		<td class="task_element_date" colspan="2">${i.formatDate}</td>
+	    	</tr>
+	    	<tr>
+	    		<td class="task_element_ispublic">
+	    			{if typeof i.sharedusers != "undefined" && i.sharedusers.length >= 1}
+	    				<img alt="shared" src="/devwidgets/mpassmodule/images/icon_userShared.gif" />
+	    			{else}
+	    				<img alt="private" src="/devwidgets/mpassmodule/images/icon_lock.gif" />
+	    			{/if}</td>
+	           	<td class="task_element_comments">
+	           		<div class="task_element_comments_container">
+	           			<div id="comment_unread_${i.id}" class="task_element_comments_unread">
+							{if typeof i.commentsUnread != "undefined"}${i.commentsUnread}
+							{else}0
+							{/if}
+						</div>
+	           			<div id="comment_total_${i.id}" class="task_element_comments_total">
+							{if typeof i.comments != "undefined"}${i.comments.length}
+							{else}0
+							{/if}
+						</div>
+	           		</div>
+	           	</td>
+			</tr>
+		</table>
+		{/if}
+	{/for}
+	{if tasks[currentpart][0] != null}
+		<div style="display:none" id="mpass_task_more_${tasks[currentpart][0].typeid}" class="task_more">
+			<a href="javascript:;">__MSG__BTN_MORE__</a>
+		</div>
+	{/if}
+--></div>
+
+<div id="mpass_main_task_content_template"><!--
+    {for i in tasks[currentpart]}
+    <table class="task_element_table" id="main_${currentpart}_${i.index}">
     	<tr>
-    		<td class="task_element_title" rowspan="2"><a href="javascript:;">${i.title}</a></td>
+    		<td class="task_element_title main_element_title" rowspan="2"><a href="javascript:;">${i.title}</a></td>
     		<td class="task_element_date" colspan="2">${i.formatDate}</td>
     	</tr>
     	<tr>
-    		<td class="task_element_ispublic">
+    		<td class="task_element_ispublic" id="task_ispublic_${currentpart}_${i.index}">
     			{if typeof i.sharedusers != "undefined" && i.sharedusers.length >= 1}
     				<img alt="shared" src="/devwidgets/mpassmodule/images/icon_userShared.gif" />
     			{else}
     				<img alt="private" src="/devwidgets/mpassmodule/images/icon_lock.gif" />
     			{/if}</td>
-           	<td class="task_element_comments"></td>
-		</tr>
-	</table>
-	{/for}
-	{if tasks[0] != null}
-		<div style="display:none" id="mpass_task_more_${tasks[0].typeid}" class="task_more">
-			<a href="javascript:;">__MSG__BTN_MORE__</a>
-		</div>
+           	<td class="task_element_comments" id="task_comments_${currentpart}_${i.index}">
+           		<div class="task_element_comments_container">
+           			<div id="comment_main_unread_${i.id}" class="task_element_comments_unread">
+           				{if typeof i.commentsUnread != "undefined"}${i.commentsUnread}
+						{else}0
+						{/if}
+					</div>
+           			<div id="comment_main_total_${i.id}" class="task_element_comments_total">
+						{if typeof i.comments != "undefined"}${i.comments.length}
+						{else}0
+						{/if}
+					</div>
+           		</div>
+           	</td>
+        </tr>
+    </table>
+    <div class="task_element_open" id="main_open_${currentpart}_${i.index}" style="display:none">
+		<div class="task_element_open_header">
+			<div class="task_element_open_title"><a href="javascript:;">${i.title}</a></div>
+       		<div class="task_element_open_info">
+       			<div class="task_element_open_ispublic" id="task_ispublic_${currentpart}_${i.index}">
+       			{if typeof i.sharedusers != "undefined" && i.sharedusers.length >= 1}
+    				<img alt="shared" src="/devwidgets/mpassmodule/images/icon_userShared.gif" />
+    			{else}
+    				<img alt="private" src="/devwidgets/mpassmodule/images/icon_lock.gif" />
+    			{/if}</div>
+    			<div class="task_element_open_date">${i.formatDate}</div>
+       		</div>
+       	</div> 
+       	<div class="task_element_open_content">
+       		${i.body}
+       		<div class="task_comments_container">
+       			<div id="task_comments_count_${i.id}" class="task_element_open_comments task_element_open_comments_count">
+       				{if typeof i.comments != "undefined" && i.comments.length > 1}
+       					<a href="javascript:;">${i.comments.length} __MSG__COMMENTS__</a>
+					{elseif typeof i.comments != "undefined" && i.comments.length == 1}
+						<a href="javascript:;">${i.comments.length} __MSG__COMMENT__</a>
+					{/if}
+       			</div>
+       			<div id="task_comments_count_close_${i.id}" class="task_element_open_comments task_element_open_comments_close"
+       				 style="display:none"><a href="javascript:;">__MSG__COMMENTS_CLOSE__</a></div>
+       			<div id="mpass_main_task_comment_content_${i.id}" class="task_element_open_comment_content" style="display:none">
+       			</div>
+       		</div>
+        </div>
+	</div>
+	{if i.index < tasks[currentpart].length -1}
+		<hr/>
 	{/if}
+	{/for}
+--></div>
+
+<div id="mpass_main_task_comment_template"><!--
+	{for i in comments}
+		<div class="task_comment_element">
+			<div class="task_comment_element_user_image">
+				{if typeof i.fromUser == "undefined" || typeof i.fromUser.picture.name == "undefined"}
+                <img src="/dev/_images/member_thumb_unselected.png"  />
+                {else}
+                <img src="/_user/public/${i.fromUser['rep:userId']}/${i.fromUser.picture.name}" />
+                {/if}
+			</div>
+			<div class="task_comment_element_header">
+				<div class="task_comment_element_user">
+				{if typeof i.fromUser == "undefined"}
+				${i.from}
+				{else}
+				${i.fromUser.firstName} ${i.fromUser.lastName}
+				{/if}
+				</div>
+				<div class="task_comment_element_date">${i.formatDate}</div>
+			</div>
+			<div class="task_comment_element_content">${i.body}</div>
+		</div>
+	{/for}
 --></div>
 
 <!-- HIDDEN ELEMENTS -->

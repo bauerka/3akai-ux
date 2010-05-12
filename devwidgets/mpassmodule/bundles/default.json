@@ -19,6 +19,9 @@
 "TITLE": "Titre",
 "SELECT_USERS": "Sélectionner des utilisateurs",
 "REFLECTION": "Réflexion",
+"COMMENT": "commentaire ...",
+"COMMENTS": "commentaires ...",
+"COMMENTS_CLOSE": "Fermer les commentaires",
 "PRIVATE": "Privé",
 "SHARED": "Partagé",
 "SHARE_REFLECTION_TITLE": "Demande de votre commentaire pour la réflexion \"${title}\""
