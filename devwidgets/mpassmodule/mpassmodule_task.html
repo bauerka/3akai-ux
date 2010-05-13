@@ -80,7 +80,7 @@
 		    	<div id="mpass_main_reflection_btn_" class="task_btn reflection_btn"><a href="javascript:;">__MSG__BTN_ADD_REFLECTION__</a></div>
 		    </div>
 		    <div id="mpass_main_task_btn_assignment" style="display:none">
-		    	<div id="mpass_main_task_btn" class="task_btn"><a href="javascript:;">__MSG__BTN_ADD_ASSIGNMENT__</a></div>
+		    	<div id="mpass_main_task_btn" class="task_btn assignment_btn"><a href="javascript:;">__MSG__BTN_ADD_ASSIGNMENT__</a></div>
 		    </div>
 		</div>
 		<div id="mpass_main_task_content" class="task_content"></div>
@@ -170,7 +170,7 @@
 
 
 <!-- ADD REFLECTION CONTAINER -->
-<div style="display:none" id="reflection_dialog_container" class="dialog">
+<div style="display:none" id="reflection_dialog_container" class="dialog content_dialog_container">
     <div class="dialog_header">
         <div class="dialog_header_inner">
             <h1>__MSG__BTN_ADD_REFLECTION__</h1>
@@ -183,14 +183,14 @@
 		<input id="reflection_type_id" type="hidden" value="" />
 		
         <!-- REFLECTION -->
-        <div id="add_reflection_container">
+        <div id="add_reflection_container" class="add_content_container">
             <label for="reflection_title">* __MSG__TITLE__:</label><br />
             <input id="reflection_title" type="text" value="" /><br />
-<!--            <div id="reflection_title_empty" class="reflection_error_msg">Please enter the reflection title!</div>-->
+<!--            <div id="reflection_title_empty" class="content_error_msg">Please enter the reflection title!</div>-->
 
-            <label for="reflection_content" class="reflection_fields">* __MSG__REFLECTION__:</label>
-            <textarea id="reflection_content" rows="10" cols="30" class="reflection_fields"></textarea><br />
-<!--            <div id="reflection_content_empty" class="reflection_error_msg">Please enter a content!</div>-->
+            <label for="reflection_content" class="add_content_fields">* __MSG__REFLECTION__:</label>
+            <textarea id="reflection_content" rows="10" cols="30" class="add_content_fields"></textarea><br />
+<!--            <div id="reflection_content_empty" class="content_error_msg">Please enter a content!</div>-->
 			
 			<div id="reflection_share_options_container">
 				<input checked="checked" id="reflection_share_options_private" type="radio" name="reflection_share_options" value="private" />
@@ -205,6 +205,52 @@
                 <button class="s3d-button s3d-button jqmClose" id="reflection_dialog_cancel"><span class="s3d-button-inner">__MSG__CANCEL__</span></button>
             </div>
             
+        </div>
+    </div>
+
+    <!-- DIALOG FOOTER -->
+    <div class="dialog_footer">
+        <div class="dialog_footer_inner"><!-- --></div>
+    </div>
+</div>
+
+
+<!-- ADD ASSIGNMENT CONTAINER -->
+<div style="display:none" id="assignment_dialog_container" class="dialog content_dialog_container">
+    <div class="dialog_header">
+        <div class="dialog_header_inner">
+            <h1>__MSG__BTN_ADD_ASSIGNMENT__</h1>
+            <a href="javascript:;" id="assignment_dialog_close" class="jqmClose dialog_close_image" title="Close Dialog">Close Dialog</a>
+        </div>
+    </div>
+
+    <div class="dialog_content">
+    	<h4 id="assignment_dialog_header">__MSG__WIDGET_TITLE_TASK__ 1.1</h4>
+    	<div id="assignment_dialog_subheader">La r&eacute;flexion p&eacute;dagogique</div>
+		
+        <!-- ASSIGNMENT -->
+        <div id="add_assignment_container" class="add_content_container">
+        	<form id="assignment_form" method='POST' enctype='multipart/form-data'> 
+	            <label for="assignment_title">* __MSG__TITLE__:</label><br />
+	            <input id="assignment_title" type="text" value="" /><br />
+	<!--            <div id="assignment_title_empty" class="content_error_msg">Please enter the assignment title!</div>-->
+				
+				<label for="assignment_file">* __MSG__FILE__:</label><br />
+	            <input id="assignment_file" type="file" name="assignment_file" /><br />
+	            
+	            <label for="assignment_content" class="add_content_fields">__MSG__DESCRIPTION__:</label>
+	            <textarea id="assignment_content" rows="10" cols="30" class="add_content_fields"></textarea><br />
+	<!--            <div id="assignment_content_empty" class="content_error_msg">Please enter a content!</div>-->
+				
+				<div id="assignment_ask_comments"><a href="javascript:;">__MSG__ASK_FOR_COMMENTS__</a></div>
+	
+	            <div class="dialog_buttons">
+	                <span id="createsite_noncourse_process" style="display:none">__MSG__PROCESSING__ ...</span>
+	                <input type="submit" class="s3d-button s3d-button-primary" id="assignment_dialog_submit" value="__MSG__SAVE__"/>
+<!--	                <button class="s3d-button s3d-button-primary" id="assignment_dialog_submit"><span class="s3d-button-inner">__MSG__SAVE__</span></button>-->
+	                <button class="s3d-button s3d-button jqmClose" id="assignment_dialog_cancel"><span class="s3d-button-inner">__MSG__CANCEL__</span></button>
+	            </div>
+            </form>
         </div>
     </div>
 
@@ -283,7 +329,7 @@
 	    		<td class="task_element_ispublic">
 	    			{if typeof i.sharedusers != "undefined" && i.sharedusers.length >= 1}
 	    				<img alt="shared" src="/devwidgets/mpassmodule/images/icon_userShared.gif" />
-	    			{else}
+	    			{elseif currentpart != 4}
 	    				<img alt="private" src="/devwidgets/mpassmodule/images/icon_lock.gif" />
 	    			{/if}</td>
 	           	<td class="task_element_comments">
@@ -305,7 +351,7 @@
 		{/if}
 	{/for}
 	{if tasks[currentpart][0] != null}
-		<div style="display:none" id="mpass_task_more_${tasks[currentpart][0].typeid}" class="task_more">
+		<div style="display:none" id="mpass_task_more_${currentpart}" class="task_more">
 			<a href="javascript:;">__MSG__BTN_MORE__</a>
 		</div>
 	{/if}
@@ -315,14 +361,18 @@
     {for i in tasks[currentpart]}
     <table class="task_element_table" id="main_${currentpart}_${i.index}">
     	<tr>
-    		<td class="task_element_title main_element_title" rowspan="2"><a href="javascript:;">${i.title}</a></td>
+    		<td class="task_element_title main_element_title" rowspan="2"><a href="javascript:;">${i.title} </a>
+    		{if typeof i.file != "undefined" && typeof i.fileicon != "undefined"}
+    		   <img alt="assignment_file" src="${i.fileicon}" />
+    		{/if}
+    		</td>
     		<td class="task_element_date" colspan="2">${i.formatDate}</td>
     	</tr>
     	<tr>
     		<td class="task_element_ispublic" id="task_ispublic_${currentpart}_${i.index}">
     			{if typeof i.sharedusers != "undefined" && i.sharedusers.length >= 1}
     				<img alt="shared" src="/devwidgets/mpassmodule/images/icon_userShared.gif" />
-    			{else}
+    			{elseif currentpart != 4}
     				<img alt="private" src="/devwidgets/mpassmodule/images/icon_lock.gif" />
     			{/if}</td>
            	<td class="task_element_comments" id="task_comments_${currentpart}_${i.index}">
@@ -348,13 +398,18 @@
        			<div class="task_element_open_ispublic" id="task_ispublic_${currentpart}_${i.index}">
        			{if typeof i.sharedusers != "undefined" && i.sharedusers.length >= 1}
     				<img alt="shared" src="/devwidgets/mpassmodule/images/icon_userShared.gif" />
-    			{else}
+    			{elseif currentpart != 4}
     				<img alt="private" src="/devwidgets/mpassmodule/images/icon_lock.gif" />
     			{/if}</div>
     			<div class="task_element_open_date">${i.formatDate}</div>
        		</div>
        	</div> 
        	<div class="task_element_open_content">
+       		{if typeof i.file != "undefined"}
+       		<div class="task_file_container">
+       			<img alt="assignment_file" src="${i.fileicon}" /><a href="${i.file}" target="_blank">${i.filename}</a>
+       		</div>
+    		{/if}
        		${i.body}
        		<div class="task_comments_container">
        			<div id="task_comments_count_${i.id}" class="task_element_open_comments task_element_open_comments_count">
@@ -408,8 +463,8 @@
 	<p id="task_part_title_1">__MSG__REFLECTION_TITLE_1__</p>
 	<p id="task_part_title_2">__MSG__REFLECTION_TITLE_2__</p>
 	<p id="task_part_title_3">__MSG__REFLECTION_TITLE_3__</p>
-	<p id="task_part_title_assignment">__MSG__ASSIGNMENT_TITLE__</p>
-	<p id="task_part_title_feedback">__MSG__FEEDBACK_TITLE__</p>
+	<p id="task_part_title_4">__MSG__ASSIGNMENT_TITLE__</p>
+	<p id="task_part_title_5">__MSG__FEEDBACK_TITLE__</p>
 </div>
 <!-- JAVASCRIPT -->
 <script type="text/javascript" language="JavaScript" src="/devwidgets/mpassmodule/javascript/mpassmodule.js"></script>

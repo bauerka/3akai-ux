@@ -19,21 +19,24 @@
 
 var sakai = sakai || {};
 
+sakai.mpassmodule_content = {};
 sakai.mpassmodule = function(tuid, showSettings){
 	
 	var DO_NOTHING = 0;
 	var SHOW_USER_SELECTION_DIALOG = 1;
+	var ID_ASSIGNMENTS = 4;
 	
 	var json = {}; // Variable used to recieve information by json
     var widgetSettings = {}; // Will hold the widget settings.
+    var mpassfile = {};
     var me = sakai.data.me; // Contains information about the current user
     var rootel = $("#" + tuid); // Get the main div used by the widget
     var jsonDisplay = {};
     var currentSite = sakai.site.currentsite.id;
-    var store = "/sites/" + currentSite + "/store/";
     var numberReflectionParts = 4;
     var maxNumberElementsPerPart = 2;
     var selectedPeople = [];
+    var filestorepath = "/_user" + me.profile.path + "/public/file";
     
     var mpass = "#mpass";
     var mpassmodule = mpass + "module";
@@ -43,6 +46,7 @@ sakai.mpassmodule = function(tuid, showSettings){
     var mpassReflectionContainerTemplate = mpassReflectionContainer + "_template";
     var mpassReflectionContent = mpassReflection + "_content";
     var mpassReflectionBtn = mpassReflection + "_btn_";
+    var mpassAssignmentContent = mpass + "_assignment_content";
     
     var mpassTaskPartTitle = "#task_part_title_";
     var mpassTaskHeaderLink = "#task_header_link_";
@@ -73,6 +77,18 @@ sakai.mpassmodule = function(tuid, showSettings){
 	var reflectionContent = reflection + "_content";
 	var reflectionSharedButton = reflection + "_share_options_shared";
 	var reflectionPrivateButton = reflection + "_share_options_private";
+	
+	var assignment = "#assignment";
+	var assignmentForm = assignment + "_form";
+	var assignmentDialog = assignment + "_dialog";
+	var assignmentDialogContainer = assignmentDialog + "_container";
+	var assignmentDialogSubmit = assignmentDialog + "_submit";
+	var assignmentDialogCancel = assignmentDialog + "_cancel";
+	var assignmentDialogClose = assignmentDialog + "_close";
+	var assignmentTitle = assignment + "_title";
+	var assignmentFile = assignment + "_file";
+	var assignmentContent = assignment + "_content";
+	var assignmentAskComments = assignment + "_ask_comments";
 	
 	var comment = "#comment";
 	var commentTotal = comment + "_total_";
@@ -133,7 +149,7 @@ sakai.mpassmodule = function(tuid, showSettings){
                 type: "POST",
                 data: {
 		    		"sakai:type": "reflection" + i,
-		            "sakai:siteid": sakai.site.currentsite.id,
+		            "sakai:siteid": currentSite,
 		            "sakai:marker": tuid,
 		            "sakai:title": title,
 		            "sakai:body": body,
@@ -166,6 +182,87 @@ sakai.mpassmodule = function(tuid, showSettings){
         }
     };
     
+    
+    /**
+     * Add a new assignment / travail
+     */
+    var addAssignment = function(){
+        var isLoggedIn = (me.user.anon && me.user.anon === true) ? false : true;
+        var allowAdd = true;
+        if (!isLoggedIn) {
+            // This should not even happen.. Somebody is tinkering with the HTML.
+        	allowAdd = false;
+            alert("Please register or log in to add your assignment.");
+        }
+        
+        if (allowAdd) {
+        	var title = $(assignmentTitle, rootel).val();
+            var body = $(assignmentContent, rootel).val();
+            var file = filestorepath + "/" + sakai.mpassmodule_content.currentfilename;
+            alert(file);
+            var userlist = [];
+            for (var j = 0; j < selectedPeople.length; j++) {
+            	userlist.push(selectedPeople[j].userid);
+            }
+            $.ajax({
+                url: "/_user" + me.profile.path + "/content.create.html",
+                type: "POST",
+                data: {
+		    		"sakai:type": "assignment",
+		            "sakai:siteid": currentSite,
+		            "sakai:marker": tuid,
+		            "sakai:title": title,
+		            "sakai:body": body,
+		            "sakai:file": file,
+		            "sakai:sharedusers": userlist,
+		            "_charset_":"utf-8"
+                },
+                success: function(data){
+                	alert(data);
+                	json.currenttask = $.evalJSON(data).content;
+                	// Inform selected users about reflection
+                	if (typeof json.currenttask !== "undefined" && userlist.length > 0) {
+                		inviteForSharedContent(userlist, json.currenttask);
+                	}
+                    // Close dialog container.
+            		closeAssignmentDialog();
+                    // Get the reflections.
+            		getAssignments();
+                },
+                error: function(xhr, textStatus, thrownError){
+                    if (xhr.status === 401) {
+                        alert("You are not allowed to add assignments.");
+                    }
+                    else {
+                        alert("Failed to save.");
+                    }
+                }
+            });
+        }
+        else {
+            alert("Please fill in all the fields.");
+        }
+    };
+    
+    $(assignmentForm).submit(function(){
+    	var isLoggedIn = (me.user.anon && me.user.anon === true) ? false : true;
+        var allowAdd = true;
+        if (!isLoggedIn) {
+            // This should not even happen.. Somebody is tinkering with the HTML.
+        	allowAdd = false;
+            alert("Please register or log in to add your assignment.");
+        }
+        
+        if (allowAdd) {
+	        var filepath = $(assignmentFile).val();
+	        sakai.mpassmodule_content.currentfilename = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.length);
+	        alert(sakai.mpassmodule_content.currentfilename);
+	        $(assignmentFile).attr("name", sakai.mpassmodule_content.currentfilename);
+	        
+            addAssignment();
+	        return AIM.submit(this, {'onStart' : sakai.mpassmodule_content.startUpload, 'onComplete' : sakai.mpassmodule_content.completeAddUpload});
+        }
+    });
     
     
 /************************************
@@ -208,13 +305,36 @@ sakai.mpassmodule = function(tuid, showSettings){
         var path = "/_user" + me.profile.path + "/content";
 
         var url = "/var/search/reflections/flat.json?reflectiontypeid=" + i + "&sortOn=" + sortOn + "&sortOrder=" + sortOrder + 
-        			"&marker=" + tuid + "&siteid=" + sakai.site.currentsite.id + "&path=" + path;
+        			"&marker=" + tuid + "&siteid=" + currentSite + "&path=" + path;
         $.ajax({
             url: url,
             cache: false,
             success: function(data){
                 json.foundReflections = $.evalJSON(data);
                 showReflections(i);
+            },
+            error: function(xhr, textStatus, thrownError){
+                alert("Reflections: An error occured while receiving the reflections (" + xhr.status + ")");
+            }
+        });
+    };
+    
+    /**
+     * Gets the assignments from the service.
+     */
+    var getAssignments = function(){
+        var sortOn = "sakai:modified";
+        var sortOrder = "descending";
+        var path = "/_user" + me.profile.path + "/content";
+
+        var url = "/var/search/assignments/flat.json?sortOn=" + sortOn + "&sortOrder=" + sortOrder + 
+        			"&marker=" + tuid + "&siteid=" + currentSite + "&path=" + path;
+        $.ajax({
+            url: url,
+            cache: false,
+            success: function(data){
+                json.foundAssignments = $.evalJSON(data);
+                showAssignments();
             },
             error: function(xhr, textStatus, thrownError){
                 alert("Reflections: An error occured while receiving the reflections (" + xhr.status + ")");
@@ -250,7 +370,9 @@ sakai.mpassmodule = function(tuid, showSettings){
                     comment.reflId = comment["sakai:marker"];
                     comment.read = comment["sakai:read"];
                     comment.bodyTxt = comment["sakai:body"];
-                    comment.body = tidyInput(comment["sakai:body"]);
+                    if (typeof comment.bodyTxt !== "undefined") {
+                    	comment.body = tidyInput(comment.bodyTxt);
+                    }
                     comment.from = comment["sakai:from"];
                     if (comment.read == false) {
                     	countUnread++;
@@ -351,7 +473,7 @@ sakai.mpassmodule = function(tuid, showSettings){
     		$(mpassMainTaskBtnAsgn, rootel).hide();
     		$(mpassMainTaskBtnRefl + " .reflection_btn", rootel).attr("id", "mpass_main_reflection_btn_" + typeid);
     	}
-    	else if (typeid === "assignment") {
+    	else if (typeid == ID_ASSIGNMENTS) {
     		$(mpassMainTaskBtnRefl, rootel).hide();
     		$(mpassMainTaskBtnAsgn, rootel).show();
     	}
@@ -402,10 +524,56 @@ sakai.mpassmodule = function(tuid, showSettings){
         renderMainTasks(i);
     };
     
+    /**
+     * Show the assignments
+     */
+    var showAssignments = function(){
+    	if (typeof jsonDisplay.tasks === "undefined") {
+    		jsonDisplay.tasks = [];
+    		alert("new tasks");
+        }
+    	if (typeof jsonDisplay.tasks[ID_ASSIGNMENTS] === "undefined") {
+    		jsonDisplay.tasks[ID_ASSIGNMENTS] = [];
+    	}	
+        if (typeof  json.foundAssignments === "undefined") {
+        	json.foundAssignments.results = [];
+        }
+        // Loops through all the reflections and does the necessary changes to render the JSON-object
+        // Do not show more than maxNumberElementsPerPart reflections in the task navigation
+        var nrRefl = maxNumberElementsPerPart;
+        if (json.foundAssignments.results.length < nrRefl) {
+        	nrRefl = json.foundAssignments.results.length;
+        }
+        for (var j = 0; j < nrRefl; j++) {
+        	prepareTaskForJson(ID_ASSIGNMENTS, j);
+        }
+        jsonDisplay.currentpart = ID_ASSIGNMENTS;
+        jsonDisplay.elementsperpart = maxNumberElementsPerPart;
+        $(mpassAssignmentContent, rootel).html($.TemplateRenderer(mpassTaskContentTemplate, jsonDisplay));
+        // show or hide more button
+        if (json.foundAssignments.results.length > maxNumberElementsPerPart) {
+        	$(mpassTaskMoreBtn + ID_ASSIGNMENTS, rootel).show();
+        	for (var j = nrRefl; j < json.foundAssignments.results.length; j++) {
+        		prepareTaskForJson(ID_ASSIGNMENTS, j);
+        	}
+        }
+        else {
+        	$(mpassTaskMoreBtn + ID_ASSIGNMENTS, rootel).hide();
+        }
+        // show tasks in main task container
+        renderMainTasks(ID_ASSIGNMENTS);
+    };
+    
     
     var prepareTaskForJson = function(i, j) {
     	jsonDisplay.tasks[i][j] = {};
-        var task = json.foundReflections.results[j].post;
+    	var task = {};
+    	if (i == ID_ASSIGNMENTS) {
+    		 task = json.foundAssignments.results[j].post;
+    	}
+    	else {
+    		task = json.foundReflections.results[j].post;
+    	}
         // Checks if the date is already parsed to a date object
         // TODO: Get jcr:created
         var tempDate = task["sakai:created"];
@@ -421,7 +589,14 @@ sakai.mpassmodule = function(tuid, showSettings){
         task.id = task["sakai:id"];
         task.title = task["sakai:title"];
         task.bodyTxt = task["sakai:body"];
-        task.body = tidyInput(task["sakai:body"]);
+        if (typeof task.bodyTxt !== "undefined") {
+        	task.body = tidyInput(task.bodyTxt);
+        }
+        task.file = task["sakai:file"];
+        if (typeof task.file !== "undefined") {
+        	task.filename = task.file.substring(task.file.lastIndexOf("/") + 1, task.file.length);
+        	task.fileicon = getFileIcon(task.filename);
+        }
         task.sharedusers = task["sakai:sharedusers"];
         task.typeid = task["sakai:type"].replace("reflection", "");
 
@@ -489,6 +664,9 @@ sakai.mpassmodule = function(tuid, showSettings){
     	if (content["sakai:type"].indexOf("reflection") == 0) {
     		msg = createReflectionMessage(content);
     	}
+    	else if (content["sakai:type"] == "assignment") {
+    		msg = createAssignmentMessage(content);
+    	}
         if (typeof msg["subject"] !== "undefined" && typeof msg["body"] !== "undefined") {
         	// have to send the message to each selected user separately,
         	// sending a message to an user array or a group is not implemented yet
@@ -536,17 +714,63 @@ sakai.mpassmodule = function(tuid, showSettings){
     	return msg;
     };
     
-    var checkReflectionSharedButton = function(){
-    	if ($(reflectionSharedButton).is(':visible')) {
-    		if (selectedPeople.length == 0) {
-    			$(reflectionPrivateButton).attr('checked','checked');
-    		} else {
-    			// remember selected users for re-editing
-    			json.currenttask["sakai:sharedusers"] = [];
-    			for (var i = 0; i < selectedPeople.length; i++) {
-    				json.currenttask["sakai:sharedusers"].push(selectedPeople[i].userid);
-                }
+    var createAssignmentMessage = function(content){
+    	var msg = [];
+    	var username = me.profile.firstName + " " + me.profile.lastName;
+    	var asgnTitle = content["sakai:title"];
+    	var title = sakai.api.i18n.Widgets.getValueForKey("mpassmodule", "default", "SHARE_ASSIGNMENT_TITLE");
+    	var subtitle = sakai.api.i18n.Widgets.getValueForKey("mpassmodule", "default", "WIDGET_TITLE_TASK") 
+    			+ " 1.1 - La r&eacute;flexion p&eacute;dagogique";
+    	msg["subject"] = title.replace(/\$\{user\}/gi, username).replace(/\$\{title\}/gi, asgnTitle);
+    	var asgnFile = content["sakai:file"];
+    	var asgnFilename = "";
+    	var asgnFileicon = "";
+    	if (typeof asgnFile !== "undefined") {
+    		asgnFilename = asgnFile.substring(asgnFile.lastIndexOf("/") + 1, asgnFile.length);
+    		asgnFileicon = getFileIcon(asgnFilename);
+    	}
+    	var asgnId = content["sakai:id"];
+    	var asgnBody = content["sakai:body"];
+    	var asgnCreated = content["sakai:created"];
+    	
+    	if (typeof asgnId !== "undefined" && typeof asgnTitle !== "undefined") {
+    		var body = "<input id=\"inbox-mpass-content-id\" type=\"hidden\" value=\"" + asgnId + "\"/>" +
+    				"<div class=\"assignment_task\">" + taskSharedText + "</div><div class=\"assignment_msg\">" +
+    				"<div class=\"assignment_header\"><div id=\"inbox-mpass-content-title\" class=\"assignment_title\">" 
+    				+ asgnTitle + "</div>";
+    		if (typeof asgnCreated !== "undefined") {
+    			try {
+    	        	var tempDate = parseDate(asgnCreated);
+    	        	var date = formatDate(tempDate);
+    	        	body += "<div class=\"assignment_created\">" + date + "</div>";
+    	        } catch (ex) { 
+    	        	// do not add date to message	   
+    	        }
     		}
+    		if (typeof subtitle !== "undefined") {
+	        	body += "<div class=\"assignment_subtitle\">" + subtitle + "</div>";
+    		}
+    		if (typeof asgnFile !== "undefined") {
+    			body += "<div class=\"assignment_file\"><img alt=\"assignment_file\" src=\"" + asgnFileicon +
+    					"\" /><a href=\"" + asgnFile + "\" target=\"_blank\">" + asgnFilename + "</a></div>";
+    		}
+    		body += "</div><div class=\"assignment_body\">" + asgnBody + "</div></div>";
+    		msg["body"] = body;
+    	}
+    	return msg;
+    };
+    
+    var checkDialogForSharedUsers = function(){
+    	if (selectedPeople.length == 0 && $(reflectionSharedButton).is(':visible')) {
+			$(reflectionPrivateButton).attr('checked','checked');
+    	}
+    	if (selectedPeople.length > 0 && ($(reflectionSharedButton).is(':visible') ||
+    			$(assignmentAskComments).is(':visible'))) {
+    		// remember selected users for re-editing
+			json.currenttask["sakai:sharedusers"] = [];
+			for (var i = 0; i < selectedPeople.length; i++) {
+				json.currenttask["sakai:sharedusers"].push(selectedPeople[i].userid);
+            }
     	}
     };
     
@@ -565,6 +789,7 @@ sakai.mpassmodule = function(tuid, showSettings){
             }
         }
     };
+    
     /**
      * selects a person
      * @param {Object} personIndex
@@ -584,6 +809,13 @@ sakai.mpassmodule = function(tuid, showSettings){
         else if(!selectAll){
         	unselectPerson(json.foundPeople.results[personId]);
         }
+    };
+    
+    /**
+     * set action of form to upload files in right directory
+     */
+    var prepareAssignmentForm = function() {
+    	$(assignmentForm).attr("action", filestorepath);
     };
     
     
@@ -617,6 +849,28 @@ sakai.mpassmodule = function(tuid, showSettings){
         $(reflectionContent, rootel).val("");
     };
     
+    /**
+     * Show add assignment dialog
+     */
+    var showAssignmentDialog = function(assignment) {
+		$(assignmentDialogContainer, rootel).show();
+    };
+    
+    /**
+     * Close assignment dialog
+     */
+    var closeAssignmentDialog = function(){
+    	// Hide the form.
+		$(assignmentDialogContainer, rootel).hide();
+        // Clear the text fields.
+        $(assignmentTitle, rootel).val("");
+        $(assignmentFile, rootel).val("");
+        $(assignmentContent, rootel).val("");
+    };
+    
+    /**
+     * Show select users for sharing dialog
+     */
     var showSharedusersDialog = function(){
         if (typeof json.foundPeople === "undefined") {
         	alert("users should be there already");
@@ -628,8 +882,8 @@ sakai.mpassmodule = function(tuid, showSettings){
         }
     };
     
-    /**reflectionDialogContainer
-     * Close sharedusers dialog
+    /**
+     * Close dialog for user selection
      */
     var closeSharedusersDialog = function(){
     	// Hide the form.
@@ -692,6 +946,22 @@ sakai.mpassmodule = function(tuid, showSettings){
         return str;
     };
     
+    var getFileIcon = function(file) {
+    	var imgpath = "/devwidgets/mpassmodule/images/";
+    	var arr = file.split(".");
+    	var extension = arr[arr.length - 1].toLowerCase();
+    	if (extension == "doc" || extension == "docx")
+    		return imgpath + "file_doc.png";
+    	else if (extension == "ppt" || extension == "pptx")
+    		return imgpath + "file_ppt.png";
+    	else if (extension == "pdf" || extension == "ps")
+    		return imgpath + "file_pdf.png";
+    	else if (extension == "jpg" || extension == "jpeg" || extension == "gif" || extension == "png")
+    		return imgpath + "file_images.png";
+    	else 
+    		return imgpath + "file_icon.png";
+    }
+    
     var toggleContainerWidth = function() {
     	var btn = $(mpassToggleWidthButton);
     	var mpm = $(mpassmodule);
@@ -705,7 +975,6 @@ sakai.mpassmodule = function(tuid, showSettings){
     	btn.blur();
     	var ie6 = $.browser.msie && $.browser.version.substr(0,1)<7;
     	if (btn.attr('class') == 'collapse') {
-//    		setCookie('mpass_navigation_menu_collapse','false',30,'/','','');
     		if (ie6) {
     			sidemenu_openposition(btn,con,nav,mpm);
     		}else {
@@ -714,7 +983,6 @@ sakai.mpassmodule = function(tuid, showSettings){
     			mpm.animate({width:430},s-50);
     		}
     	}else{
-//    		setCookie('mpass_navigation_menu_collapse','true',30,'/','','');
     		if (ie6) {
     			sidemenu_closeposition(btn,con,nav,mpm);
     		}else {
@@ -750,7 +1018,7 @@ sakai.mpassmodule = function(tuid, showSettings){
 			getReflections(id);
     	}
     	else if (id === "assignment") {
-    		renderMainTasks(id);
+    		getAssignments();
     	}
     	else if (id === "feedback") {
     		renderMainTasks(id);
@@ -763,8 +1031,8 @@ sakai.mpassmodule = function(tuid, showSettings){
 		if (id >= 0 && id <= 3) {
 			getReflections(id);
     	}
-		else if (id === "assignment") {
-    		renderMainTasks(id);
+		else if (id == ID_ASSIGNMENTS) {
+			getAssignments();
     	}
     	else if (id === "feedback") {
     		renderMainTasks(id);
@@ -780,6 +1048,13 @@ sakai.mpassmodule = function(tuid, showSettings){
 		selectedPeople = [];
     	json.currenttask = [];
     	showReflectionDialog(i, null);
+	});
+	
+    /** Bind add assignment button to open reflection dialog */
+	$(".assignment_btn a", rootel).live('click', function(){
+		selectedPeople = [];
+    	json.currenttask = [];
+    	showAssignmentDialog(null);
 	});
 	
 	/** Bind shared or private button for tasks */
@@ -849,10 +1124,23 @@ sakai.mpassmodule = function(tuid, showSettings){
         getAllUsers(SHOW_USER_SELECTION_DIALOG);
     });
 	
+    /** Bind cancel and close button of assignment dialog */
+	$(assignmentDialogCancel, rootel).bind('click', function(){
+		closeAssignmentDialog();
+	});
+	$(assignmentDialogClose, rootel).bind('click', function(){
+		closeAssignmentDialog();
+	});
+	
+	/** Bind ask for comments button in assignment dialog */
+    $(assignmentAskComments + " a", rootel).bind('click', function(e, ui){
+        getAllUsers(SHOW_USER_SELECTION_DIALOG);
+    });
+	
     /** Bind submit button of shared users dialog */
     $(sharedusersDialogSubmit, rootel).bind('click', function(e, ui){
     	closeSharedusersDialog();
-    	checkReflectionSharedButton();
+    	checkDialogForSharedUsers();
     });
 	
     /** Bind cancel and close button of shared users dialog */
@@ -874,13 +1162,104 @@ sakai.mpassmodule = function(tuid, showSettings){
      * Function that will be launched if the widget is loaded
      */
     var init = function(){
+    	prepareAssignmentForm();
     	getAllUsers(DO_NOTHING);
     	renderReflectionParts();
+    	getAssignments();
     	
         $("#mpassmodule_main_container").show();
     };
     
     init();
+};
+
+/**
+ * This method gets called the second we upload a new file
+ */
+sakai.mpassmodule_content.startUpload = function(){
+	return true;
+};
+
+/**
+ * When the file has been saved we will get a response back from JCR.
+ * @param {Object} response
+ */
+sakai.mpassmodule_content.completeAddUpload = function(response){
+    // Replace any <pre> tags the response might contain.
+    response = response.replace(/<pre[^>]*>/ig,"").replace(/<\/pre[^>]*>/ig,"");
+    
+//    var tosave = {
+//        "_name": sakai.mpassmodule_content.currentfilename
+//    };
+//    // We edit the profile.json file with the new profile picture.
+//    var stringtosave = $.toJSON(tosave);
+//    // We edit the me object in sdata.
+//    // This saves a request and will be checked in the doInit function later on.
+////    sakai.data.me.profile.picture = stringtosave;
+//
+//    // the object we wish to insert into the profile.json file.
+//    var data = {"assignmentfile":stringtosave,"_charset_":"utf-8"};
+//    alert(data);
+//    $.ajax({
+//        url: "/_user" + sakai.data.me.profile.path + "/content/assignmentfile.json",
+//        type : "POST",
+//        data : data,
+//        success : function(data) {
+//    		alert(data);
+//            // we have saved the profile, now do the widgets other stuff.
+//            // do rest
+//        },
+//        error: function(xhr, textStatus, thrownError) {
+//            alert("An error has occured");
+//        }
+//    });
+};
+
+/**
+ * Helper for file upload - I frame so we do not refresh the site
+ */ 
+var AIM = {
+    frame : function(c) {
+        var n = 'f' + Math.floor(Math.random() * 99999);
+        var d = document.createElement('DIV');
+        d.innerHTML = '<iframe style="display:none" src="about:blank" id="'+n+'" name="'+n+'" onload="AIM.loaded(\''+n+'\')"></iframe>';
+        document.body.appendChild(d);
+
+        var i = document.getElementById(n);
+        if (c && typeof(c.onComplete) === 'function') {
+            i.onComplete = c.onComplete;
+        }
+        return n;
+    },
+    form : function(f, name) {
+        f.setAttribute('target', name);
+    },
+    submit : function(f, c) {
+        AIM.form(f, AIM.frame(c));
+        if (c && typeof(c.onStart) === 'function') {
+            return c.onStart();
+        } else {
+            return true;
+        }
+    },
+    loaded : function(id) {
+        var i = document.getElementById(id);
+        var d = null;
+        if (i.contentDocument) {
+            d = i.contentDocument;
+        } else if (i.contentWindow) {
+            d = i.contentWindow.document;
+        } else {
+            d = window.frames[id].document;
+        }
+        if (d.location.href === "about:blank") {
+            return;
+        }
+
+        if (typeof(i.onComplete) === 'function') {
+            i.onComplete(d.body.innerHTML);
+        }
+    }
 };
 
 sdata.widgets.WidgetLoader.informOnLoad("mpassmodule");

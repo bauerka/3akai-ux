@@ -315,23 +315,32 @@
 
 
 /** MPASS SPECIFICATIONS **/
-.message-body .reflection_task
+.message-body .reflection_task, .message-body .assignment_task
 { background: #eff2f4; font-size:0.8em; padding:10px; margin:10px 30px; }
 
-.message-body .reflection_msg
+.message-body .reflection_msg, .message-body .assignment_msg
 { background: #eff2f4; padding:10px; margin:20px 0 10px 0; }
 
-.message-body .reflection_header
+.message-body .reflection_header, .message-body .assignment_header
 { clear:both; margin:0 0 10px 0; }
 
-.message-body .reflection_title
+.message-body .reflection_title, .message-body .assignment_title
 { font-weight:bold; float:left; }
 
-.message-body .reflection_created
+.message-body .reflection_created, .message-body .assignment_created
 { font-size:0.8em; text-align:right; color:#666;}
 
-.message-body .reflection_subtitle
+.message-body .reflection_subtitle, .message-body .assignment_subtitle
 { font-size:0.8em; color:#666; }
+
+.message-body .assignment_file 
+{padding:7px 0 0 0;}
+
+.message-body .assignment_file img 
+{margin:0 5px 0 0;}
+
+.message-body .assignment_file a 
+{vertical-align:top;}
 
 .message-options .mpass_comment
 { font-weight:bold; font-size:0.9em; color:#666; margin-bottom:3px; }

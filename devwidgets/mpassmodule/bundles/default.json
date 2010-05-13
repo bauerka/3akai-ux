@@ -16,13 +16,18 @@
 "BTN_MORE": "Plus ...",
 "SAVE": "Enregistrer",
 "CANCEL": "Annuler",
-"TITLE": "Titre",
+"TITLE": "Titre ",
+"FILE": "Fichier ",
+"DESCRIPTION": "Description ",
+"SELECT": "Sélectionner",
 "SELECT_USERS": "Sélectionner des utilisateurs",
-"REFLECTION": "Réflexion",
+"REFLECTION": "Réflexion ",
 "COMMENT": "commentaire ...",
 "COMMENTS": "commentaires ...",
 "COMMENTS_CLOSE": "Fermer les commentaires",
+"ASK_FOR_COMMENTS": "Demander des commentaires",
 "PRIVATE": "Privé",
 "SHARED": "Partagé",
-"SHARE_REFLECTION_TITLE": "Demande de votre commentaire pour la réflexion \"${title}\""
+"SHARE_REFLECTION_TITLE": "Demande de votre commentaire pour la réflexion \"${title}\"",
+"SHARE_ASSIGNMENT_TITLE": "Demande de votre commentaire pour le travail \"${title}\""
 }
