@@ -496,6 +496,8 @@ sakai.inbox = function() {
             message.category = "Message";
         } else if (message["sakai:category"] === "mpass"){
             message.category = "MPASS";
+        } else if (message["sakai:category"] === "comment"){
+            message.category = "Commentaire";
         } else if (message["sakai:category"] === "announcement"){
             message.category = "Announcement";
         } else if (message["sakai:category"] === "invitation"){
@@ -1316,7 +1318,7 @@ sakai.inbox = function() {
     	// Get resource id and comment
     	var contentId = $(inboxMpassContentId).val();
     	var comment = $(inboxMpassCommentArea).val();
-    	var subject = "Comment for \"" + $(inboxMpassContentTitle).val() + "\"";
+    	var subject = "Commentaire pour \"" + $(inboxMpassContentTitle).html() + "\"";
     	var to = selectedMessage["sakai:from"];
     	var message = {
             "sakai:type": "internal",
@@ -1336,7 +1338,8 @@ sakai.inbox = function() {
             type: "POST",
             data: message,
             success: function(data){
-                alert(data);
+        		$(inboxMpassCommentArea).val("");
+        		filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.mpass, "all", inboxFilterMpass);
             },
             error: function(xhr, textStatus, thrownError){
                 if (xhr.status === 401) {
