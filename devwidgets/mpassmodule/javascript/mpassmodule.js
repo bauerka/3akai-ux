@@ -35,12 +35,18 @@ sakai.mpassmodule = function(tuid, showSettings){
     var currentSite = sakai.site.currentsite.id;
     var numberReflectionParts = 4;
     var maxNumberElementsPerPart = 2;
+    var startDragY = 0;
+    var startDragHeight = 0;
+    var startDragWidthBtn = 0;
     var selectedPeople = [];
     var filestorepath = "/_user" + me.profile.path + "/public/file";
     
     var mpass = "#mpass";
     var mpassmodule = mpass + "module";
+    var mpassmoduleMainContainer = mpassmodule + "_main_container";
+    var mpassmoduleMainTaskContainer = mpassmodule + "_main_task_container";
     var mpassToggleWidthButton = mpass + "_toggle_width_btn";
+    var mpassToggleHeightButton = mpass + "_toggle_height_pseudo_btn";
     var mpassReflection = mpass + "_reflection";
     var mpassReflectionContainer = mpassReflection + "_container";
     var mpassReflectionContainerTemplate = mpassReflectionContainer + "_template";
@@ -50,6 +56,7 @@ sakai.mpassmodule = function(tuid, showSettings){
     
     var mpassTaskPartTitle = "#task_part_title_";
     var mpassTaskHeaderLink = "#task_header_link_";
+    var mpassTaskContentContainer = "#task_content_container";
     var mpassTaskContentTemplate = mpass + "_task_content_template";
     var mpassTaskMoreBtn = mpass + "_task_more_";
     var mpassTaskCommentsCount = "#task_comments_count_";
@@ -811,13 +818,6 @@ sakai.mpassmodule = function(tuid, showSettings){
         }
     };
     
-    /**
-     * set action of form to upload files in right directory
-     */
-    var prepareAssignmentForm = function() {
-    	$(assignmentForm).attr("action", filestorepath);
-    };
-    
     
 /************************************
 *	DIALOGS
@@ -964,6 +964,8 @@ sakai.mpassmodule = function(tuid, showSettings){
     
     var toggleContainerWidth = function() {
     	var btn = $(mpassToggleWidthButton);
+    	var btnHeight = $(mpassToggleHeightButton);
+    	var btnHeight2 = $("#mpass_toggle_height_btn");
     	var mpm = $(mpassmodule);
     	var nav = $('#navigation_menu_wrap'); 
     		if (typeof nav === "undefined")
@@ -976,34 +978,50 @@ sakai.mpassmodule = function(tuid, showSettings){
     	var ie6 = $.browser.msie && $.browser.version.substr(0,1)<7;
     	if (btn.attr('class') == 'collapse') {
     		if (ie6) {
-    			sidemenu_openposition(btn,con,nav,mpm);
+    			sidemenu_openposition(btn,con,nav,mpm,btnHeight,btnHeight2);
     		}else {
     			nav.animate({width:230,opacity:'show'},s);
     			con.animate({marginLeft:221,paddingLeft:10},s);
     			mpm.animate({width:430},s-50);
+    			btnHeight.animate({left:+175},s);
+    			btnHeight2.animate({left:+175},s);
     		}
     	}else{
     		if (ie6) {
-    			sidemenu_closeposition(btn,con,nav,mpm);
+    			sidemenu_closeposition(btn,con,nav,mpm,btnHeight,btnHeight2);
     		}else {
     			nav.animate({width:0,opacity:'hide'},s);
     			con.animate({marginLeft:0,paddingLeft:0},s);
     			mpm.animate({width:660},s);
+    			btnHeight.animate({left:+290},s);
+    			btnHeight2.animate({left:+290},s);
     		}
     	}
     	btn.toggleClass('collapse');
     };
     
-    var sidemenu_closeposition = function(btn,con,nav,mpm) {
+    var sidemenu_closeposition = function(btn,con,nav,mpm,btnHeight) {
     	nav.css('display','none').css('width','0px');
     	con.css('margin-left','0px').css('padding-left','0px');
     	mpm.css('width','660px');
+    	btnHeight.css('left','+290px');
+    	btnHeight2.css('left','+290px');
     };
     var sidemenu_openposition = function(btn,con,nav,mpm) {
     	nav.css('display','blo').css('width','230px');
     	con.css('margin-left','221px').css('padding-left','10px');
     	mpm.css('width','430px');
+    	btnHeight.css('left','+175px');
+    	btnHeight2.css('left','+175px');
     };
+    
+    var dragDropContainerHeight = function() {
+    	var diff = parseInt($(mpassToggleHeightButton).css("top").replace(/px/gi,""), 10);
+    	$(mpassTaskContentContainer).css("height", (startDragHeight + diff) + "px");
+    	var containerH = parseInt($(mpassmodule).css("height").replace(/px/gi,""), 10);
+    	var posY = parseInt((containerH / 2) - 40, 10);
+    	$("#mpass_toggle_width_container").css("top", posY + "px");
+    }
     
     
 /************************************
@@ -1011,7 +1029,7 @@ sakai.mpassmodule = function(tuid, showSettings){
 ************************************/    
     
     /** Bind the task headers */
-	$("a[id^='" + mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length) + "']", rootel).live('click', function(){
+	$("a[id^='" + mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length) + "']", rootel).live('click', function(e, ui){
 		// get task type id and get the corresponding data
 		var id = $(this).attr("id").replace(mpassTaskHeaderLink.substring(1,mpassTaskHeaderLink.length), "");
 		if (id >= 0 && id <= 3) {
@@ -1026,7 +1044,7 @@ sakai.mpassmodule = function(tuid, showSettings){
 	});
 	
 	/** Bind the more button in the tasks */
-	$(".task_more", rootel).live('click', function(){
+	$(".task_more", rootel).live('click', function(e, ui){
 		var id = $(this).attr("id").replace(mpassTaskMoreBtn.substring(1,mpassTaskMoreBtn.length), "");
 		if (id >= 0 && id <= 3) {
 			getReflections(id);
@@ -1040,7 +1058,7 @@ sakai.mpassmodule = function(tuid, showSettings){
 	});
     
     /** Bind add reflection button to open reflection dialog */
-	$(".reflection_btn a", rootel).live('click', function(){
+	$(".reflection_btn a", rootel).live('click', function(e, ui){
 		// get reflection part/type id and set title of dialog box
 		var i = $(this).parents(".reflection_btn:first").attr("id").replace(mpassReflectionBtn
 				.substring(1,mpassReflectionBtn.length), "")
@@ -1051,49 +1069,49 @@ sakai.mpassmodule = function(tuid, showSettings){
 	});
 	
     /** Bind add assignment button to open reflection dialog */
-	$(".assignment_btn a", rootel).live('click', function(){
+	$(".assignment_btn a", rootel).live('click', function(e, ui){
 		selectedPeople = [];
     	json.currenttask = [];
     	showAssignmentDialog(null);
 	});
 	
 	/** Bind shared or private button for tasks */
-	$(".task_element_ispublic", rootel).live('click', function(){
+	$(".task_element_ispublic", rootel).live('click', function(e, ui){
 		var index = $(this).parents("table:first").attr("id").replace("main_", "").replace("taskside_", "").split("_");
 		json.currenttask = jsonDisplay.tasks[index[0]][index[1]];
 		getAllUsers(SHOW_USER_SELECTION_DIALOG);
 	});
-	$(".task_element_open_ispublic", rootel).live('click', function(){
+	$(".task_element_open_ispublic", rootel).live('click', function(e, ui){
 		var index = $(this).parents(".task_element_open:first").attr("id").replace("main_open_", "").split("_");
 		json.currenttask = jsonDisplay.tasks[index[0]][index[1]];
 		getAllUsers(SHOW_USER_SELECTION_DIALOG);
 	});
 	
 	/** Bind title in task side bar*/ 
-	$(".taskside_element_title", rootel).live('click', function(){
+	$(".taskside_element_title", rootel).live('click', function(e, ui){
 		alert("scroll to reflection");
 	});
 	
 	/** Bind task title in main container to open and close element */
-	$(".main_element_title", rootel).live('click', function(){
+	$(".main_element_title", rootel).live('click', function(e, ui){
 		var ids = $(this).parents(".task_element_table:first").attr("id").replace("main_", "");
 		$(this).parents("table:first").hide();
 		$("#main_open_" + ids).show();
 	});
-	$(".task_element_open_title", rootel).live('click', function(){
+	$(".task_element_open_title", rootel).live('click', function(e, ui){
 		var ids = $(this).parents(".task_element_open:first").attr("id").replace("main_open_", "");
 		$(this).parents(".task_element_open:first").hide();
 		$("#main_" + ids).show();
 	});
 	
 	/** Bind open and comments in main container */
-	$(".task_element_open_comments_count").live('click', function(){
+	$(".task_element_open_comments_count").live('click', function(e, ui){
 		var id = $(this).attr("id").replace(mpassTaskCommentsCount.substring(1,mpassTaskCommentsCount.length), "");
 		$(this).hide();
 		$(mpassTaskCommentsClose + id).show();
 		$(mpassMainTaskCommentContent + id).show();
 	});
-	$(".task_element_open_comments_close").live('click', function(){
+	$(".task_element_open_comments_close").live('click', function(e, ui){
 		var id = $(this).attr("id").replace(mpassTaskCommentsClose.substring(1,mpassTaskCommentsClose.length), "");
 		$(this).hide();
 		$(mpassMainTaskCommentContent + id).hide();
@@ -1112,10 +1130,10 @@ sakai.mpassmodule = function(tuid, showSettings){
     });
 	
     /** Bind cancel and close button of reflection dialog */
-	$(reflectionDialogCancel, rootel).bind('click', function(){
+	$(reflectionDialogCancel, rootel).bind('click', function(e, ui){
 		closeReflectionDialog();
 	});
-	$(reflectionDialogClose, rootel).bind('click', function(){
+	$(reflectionDialogClose, rootel).bind('click', function(e, ui){
 		closeReflectionDialog();
 	});
 	
@@ -1144,25 +1162,46 @@ sakai.mpassmodule = function(tuid, showSettings){
     });
 	
     /** Bind cancel and close button of shared users dialog */
-	$(sharedusersDialogCancel, rootel).bind('click', function(){
+	$(sharedusersDialogCancel, rootel).bind('click', function(e, ui){
 		closeSharedusersDialog();
 	});
-	$(sharedusersDialogClose, rootel).bind('click', function(){
+	$(sharedusersDialogClose, rootel).bind('click', function(e, ui){
 		closeSharedusersDialog();
 	});
-	
+
 	/** Bind toggle width and height buttons */
-	$(mpassToggleWidthButton).bind('click', function(){
+	$(mpassToggleWidthButton).bind('click', function(e, ui){
 		toggleContainerWidth();
 	});
-	
-	
+	$(mpassToggleHeightButton).draggable({ axis: 'y' });
+	$(mpassToggleHeightButton).bind('dragstart', function (e, ui){
+		var strY = $(mpassToggleHeightButton).css("top").replace(/px/gi,"");
+		var strB = $(mpassToggleWidthButton).css("top").replace(/px/gi,"");
+		var strH = $(mpassTaskContentContainer).css("height").replace(/px/gi,"");
+		startDragY = parseInt(strY, 10);
+		startDragWidthBtn = parseInt(strB, 10);
+		startDragHeight = parseInt(strH, 10);
+	});
+	$(mpassToggleHeightButton).bind('dragstop', function (e, ui){
+		$(mpassToggleHeightButton).css("top", startDragY + "px");
+	});
+	$(mpassToggleHeightButton).bind('drag', function(e, ui){
+		dragDropContainerHeight();
+	});
 	
     /**
      * Function that will be launched if the widget is loaded
      */
     var init = function(){
-    	prepareAssignmentForm();
+    	// set height of content 
+    	if (parseInt($(mpassTaskContentContainer).css("height").replace(/px/gi,""), 10) > 800)
+    		$(mpassTaskContentContainer).css("height", "800px");
+    	// set y position of toggleWithButton
+    	var containerH = parseInt($(mpassmodule).css("height").replace(/px/gi,""), 10);
+    	var posY = parseInt((containerH / 2) - 40, 10);
+    	$("#mpass_toggle_width_container").css("top", posY + "px");
+    	$(assignmentForm).attr("action", filestorepath);
+
     	getAllUsers(DO_NOTHING);
     	renderReflectionParts();
     	getAssignments();

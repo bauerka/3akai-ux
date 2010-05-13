@@ -25,12 +25,14 @@
 .mpassmodule .fl-widget-content {padding:10px;}
 .mpassmodule .widget-titlebar-inner .widget_title {padding-left:20px;}
 
-#mpass_toggle_width_container {float:left;position:relative;left:+4px;top:+250px;}
+#mpass_toggle_width_container {float:left;position:relative;left:+4px;}
 #mpass_toggle_width_container div {width:9px;height:81px;cursor:pointer;background:url('/devwidgets/mpassmodule/images/icon_toggle_arrow_left.png') top left no-repeat;}
 #mpass_toggle_width_container .collapse {background:url('/devwidgets/mpassmodule/images/icon_toggle_arrow_right.png') top left no-repeat;}
+#mpass_toggle_height_btn {float:left;width:81px;height:8px;cursor:pointer;background:url('/devwidgets/mpassmodule/images/icon_toggle_arrow_updown.png') top left no-repeat;position:relative;left:+175px;top:+1px;}
+#mpass_toggle_height_pseudo_btn {width:81px;height:8px;cursor:pointer;background:transparent;position:relative;left:+175px;top:+1px;}
 
-.content_separator {background:url("/dev/_images/content_tr.gif") no-repeat scroll right top transparent;margin:0;padding:0 5px 0 0;}
-.content_separator_inner {background:url("/dev/_images/content_tl.gif") no-repeat scroll 0 0 transparent;height:6px;margin:0;}
+.content_separator {background:url("/devwidgets/mpassmodule/images/content_sep_right.png") no-repeat scroll right top transparent;margin:0;padding:0 5px 0 0;}
+.content_separator_inner {background:url("/devwidgets/mpassmodule/images/content_sep_left.png") no-repeat scroll 0 0 transparent;height:9px;margin:0;}
 
 /* Main Container */
 #mpassmodule_main_container label {padding:2px 0;margin-bottom:2px;}
@@ -55,7 +57,7 @@
 /* Taskcontent */
 #task_title {}
 .taskcontainer {float:left;width:430px;}
-#task_content_container  {max-height:800px;overflow:auto;}
+#task_content_container  {overflow:auto;}
 .task_content_description {color:#333;font-size:8pt;}
 .task_content_description ul li {margin-left:15px;}
 
