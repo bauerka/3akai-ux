@@ -205,8 +205,11 @@ sakai.mpassmodule = function(tuid, showSettings){
         if (allowAdd) {
         	var title = $(assignmentTitle, rootel).val();
             var body = $(assignmentContent, rootel).val();
-            var file = filestorepath + "/" + sakai.mpassmodule_content.currentfilename;
-            alert(file);
+            var file = "";
+            if (typeof sakai.mpassmodule_content.currentfilename !== "undefined" && 
+            		sakai.mpassmodule_content.currentfilename != "") {
+            	file = filestorepath + "/" + sakai.mpassmodule_content.currentfilename;
+            }
             var userlist = [];
             for (var j = 0; j < selectedPeople.length; j++) {
             	userlist.push(selectedPeople[j].userid);
@@ -225,7 +228,6 @@ sakai.mpassmodule = function(tuid, showSettings){
 		            "_charset_":"utf-8"
                 },
                 success: function(data){
-                	alert(data);
                 	json.currenttask = $.evalJSON(data).content;
                 	// Inform selected users about reflection
                 	if (typeof json.currenttask !== "undefined" && userlist.length > 0) {
@@ -253,22 +255,21 @@ sakai.mpassmodule = function(tuid, showSettings){
     
     $(assignmentForm).submit(function(){
     	var isLoggedIn = (me.user.anon && me.user.anon === true) ? false : true;
-        var allowAdd = true;
         if (!isLoggedIn) {
             // This should not even happen.. Somebody is tinkering with the HTML.
-        	allowAdd = false;
             alert("Please register or log in to add your assignment.");
+            return false;
         }
-        
-        if (allowAdd) {
-	        var filepath = $(assignmentFile).val();
-	        sakai.mpassmodule_content.currentfilename = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.length);
-	        alert(sakai.mpassmodule_content.currentfilename);
-	        $(assignmentFile).attr("name", sakai.mpassmodule_content.currentfilename);
-	        
-            addAssignment();
-	        return AIM.submit(this, {'onStart' : sakai.mpassmodule_content.startUpload, 'onComplete' : sakai.mpassmodule_content.completeAddUpload});
-        }
+        if ($(assignmentTitle, rootel).val() == "" ) {
+        	$('#assignment_title_empty').show();
+            return false;
+    	}
+        var filepath = $(assignmentFile).val();
+        sakai.mpassmodule_content.currentfilename = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.length);
+        $(assignmentFile).attr("name", sakai.mpassmodule_content.currentfilename);
+
+        addAssignment();
+        return AIM.submit(this, {'onStart' : sakai.mpassmodule_content.startUpload, 'onComplete' : sakai.mpassmodule_content.completeAddUpload});
     });
     
     
@@ -310,7 +311,6 @@ sakai.mpassmodule = function(tuid, showSettings){
         var sortOn = "sakai:modified";
         var sortOrder = "descending";
         var path = "/_user" + me.profile.path + "/content";
-
         var url = "/var/search/reflections/flat.json?reflectiontypeid=" + i + "&sortOn=" + sortOn + "&sortOrder=" + sortOrder + 
         			"&marker=" + tuid + "&siteid=" + currentSite + "&path=" + path;
         $.ajax({
@@ -497,7 +497,6 @@ sakai.mpassmodule = function(tuid, showSettings){
     var showReflections = function(i){
     	if (typeof jsonDisplay.tasks === "undefined") {
     		jsonDisplay.tasks = [];
-    		alert("new tasks");
         }
     	if (typeof jsonDisplay.tasks[i] === "undefined") {
     		jsonDisplay.tasks[i] = [];
@@ -537,7 +536,6 @@ sakai.mpassmodule = function(tuid, showSettings){
     var showAssignments = function(){
     	if (typeof jsonDisplay.tasks === "undefined") {
     		jsonDisplay.tasks = [];
-    		alert("new tasks");
         }
     	if (typeof jsonDisplay.tasks[ID_ASSIGNMENTS] === "undefined") {
     		jsonDisplay.tasks[ID_ASSIGNMENTS] = [];
@@ -853,6 +851,7 @@ sakai.mpassmodule = function(tuid, showSettings){
      * Show add assignment dialog
      */
     var showAssignmentDialog = function(assignment) {
+    	$('#assignment_title_empty', rootel).hide();
 		$(assignmentDialogContainer, rootel).show();
     };
     
@@ -866,6 +865,7 @@ sakai.mpassmodule = function(tuid, showSettings){
         $(assignmentTitle, rootel).val("");
         $(assignmentFile, rootel).val("");
         $(assignmentContent, rootel).val("");
+        return false;
     };
     
     /**
@@ -1089,7 +1089,7 @@ sakai.mpassmodule = function(tuid, showSettings){
 	
 	/** Bind title in task side bar*/ 
 	$(".taskside_element_title", rootel).live('click', function(e, ui){
-		alert("scroll to reflection");
+//		alert("scroll to reflection");
 	});
 	
 	/** Bind task title in main container to open and close element */
@@ -1107,9 +1107,31 @@ sakai.mpassmodule = function(tuid, showSettings){
 	/** Bind open and comments in main container */
 	$(".task_element_open_comments_count").live('click', function(e, ui){
 		var id = $(this).attr("id").replace(mpassTaskCommentsCount.substring(1,mpassTaskCommentsCount.length), "");
+		var taskids = $(this).parents(".task_element_open:first").attr("id").replace("main_open_", "").split("_");
+		var task = jsonDisplay.tasks[taskids[0]][taskids[1]];
 		$(this).hide();
 		$(mpassTaskCommentsClose + id).show();
 		$(mpassMainTaskCommentContent + id).show();
+		// update json comment file and change number of unread comments
+		if (typeof task.comments !== "undefined") {
+			for (var i = 0; i < task.comments.length; i++) {
+				var comment = task.comments[i];
+				if (!comment.read) {
+					$.ajax({
+						type: "POST",
+						url: comment["jcr:path"] + ".json",
+						data: { "sakai:read": "true" },
+						success: function(data) {
+							$(commentUnread + id).html(0);
+							$(commentMainUnread + id).html(0);
+						},
+			            error: function(xhr, textStatus, thrownError) {
+							alert("update comment read property: Error occured  (" + xhr.status + ")");
+			            }
+					});
+				}
+			}
+		}
 	});
 	$(".task_element_open_comments_close").live('click', function(e, ui){
 		var id = $(this).attr("id").replace(mpassTaskCommentsClose.substring(1,mpassTaskCommentsClose.length), "");
@@ -1216,6 +1238,10 @@ sakai.mpassmodule = function(tuid, showSettings){
  * This method gets called the second we upload a new file
  */
 sakai.mpassmodule_content.startUpload = function(){
+	if ($(assignmentTitle).val() == "" ) {
+		alert("Please insert a title.");
+		return false;
+	}
 	return true;
 };
 
