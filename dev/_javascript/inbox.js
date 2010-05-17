@@ -1339,7 +1339,9 @@ sakai.inbox = function() {
             data: message,
             success: function(data){
         		$(inboxMpassCommentArea).val("");
-        		filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.mpass, "all", inboxFilterMpass);
+        		filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.mpass, "all", inboxFilterMpass);	
+        		// update the modified date of the MPASS content
+        		updateMpassContentModified(contentId, to);
             },
             error: function(xhr, textStatus, thrownError){
                 if (xhr.status === 401) {
@@ -1351,6 +1353,30 @@ sakai.inbox = function() {
             }
         });
     });
+    
+    var updateMpassContentModified = function(contentId, userId) {
+    	var postParameters = {
+            "sakai:modified": new Date() // TODO: check if it works with new Date()
+        };
+    	// TODO: create servlet which allows update of foreign content 
+    	// "normal" update of content throws AccessDeniedException
+//        $.ajax({
+//            type: "POST",
+//            url: "/_user/...reflection.json",
+//            data: postParameters,
+//            success: function(data) {
+//                alert("updated");
+//            },
+//            error: function(xhr, textStatus, thrownError){
+//                if (xhr.status === 401) {
+//                    alert("You are not allowed to modify this content.");
+//                }
+//                else {
+//                    alert("Failed to save.");
+//                }
+//            }
+//        });
+    }
 
 
     /**
