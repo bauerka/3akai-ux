@@ -1,0 +1,12 @@
+{
+    "description":"MPASS Support Navigation Widget",
+    "id":"mpasssupport",
+    "img":"/devwidgets/mpasssupport/images/icon.png",
+    "i18n": {
+        "default": "/devwidgets/mpasssupport/bundles/default.json"
+    },
+    "name":"MPASS Support Navigation",
+    "showinsidebar":true,
+    "hasSettings": false,
+    "url":"/devwidgets/mpasssupport/mpasssupport.html"
+}

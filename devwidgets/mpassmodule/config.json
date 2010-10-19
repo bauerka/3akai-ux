@@ -1,0 +1,15 @@
+{
+    "userpages": true,
+    "userdashboard": true,
+    "grouppages": true,
+    "groupdashboard": true,
+    "description":"MPASS Module",
+    "id":"mpassmodule",
+    "i18n": {
+        "default": "/devwidgets/mpassmodule/bundles/default.json"
+    },
+    "name":"T\u00e2ches actuelles",
+    "showinsakaigoodies":true,
+    "hasSettings": true,
+    "url":"/devwidgets/mpassmodule/mpassmodule_task.html"
+}

@@ -70,6 +70,7 @@ sakai.inbox = function() {
     var inboxFilterClass = inboxClass + "_filter";
     var inboxFilterInbox = inboxFilter + "_inbox";
     var inboxFilterMessages = inboxFilter + "_messages";
+    var inboxFilterMpass = inboxFilter + "_mpass";
     var inboxFilterAnnouncements = inboxFilter + "_announcements";
     var inboxFilterChats = inboxFilter + "_chats";
     var inboxFilterInvitations = inboxFilter + "_invitations";
@@ -103,6 +104,7 @@ sakai.inbox = function() {
     var inboxSubfolder = inboxID + "_subfolder";
     var inboxSubfolderChats = inboxSubfolder + "_chats";
     var inboxSubfolderMessages = inboxSubfolder + "_messages";
+    var inboxSubfolderMpass = inboxSubfolder + "_mpass";
     var inboxSubfolderInvitations = inboxSubfolder + "_invitations";
     var inboxSubfolderAnnouncements = inboxSubfolder + "_announcements";
 
@@ -156,6 +158,16 @@ sakai.inbox = function() {
 
     var inboxComposeNewPanel = inboxComposeNew + "_panel";
     var inboxComposeForm = ".compose-form";
+    
+    // MPASS message
+    var inboxMpass = inboxID + "-mpass";
+    var inboxMpassComment = inboxMpass + "-comment";
+    var inboxMpassContent = inboxMpass + "-content";
+    var inboxMpassCommentContainer = inboxMpassComment + "-container";
+    var inboxMpassCommentSend = inboxMpassComment + "-send";
+    var inboxMpassCommentArea = inboxMpassComment + "area";
+    var inboxMpassContentId = inboxMpassContent + "-id";
+    var inboxMpassContentTitle = inboxMpassContent + "-title";
 
     // Errors and messages
     var inboxGeneralMessages = inboxID + "_generalmessages";
@@ -186,6 +198,7 @@ sakai.inbox = function() {
      */
 
     var unreadMessages = 0;
+    var unreadMpass = 0;
     var unreadInvitations = 0;
     var unreadAnnouncements = 0;
     var unreadChats = 0;
@@ -483,6 +496,10 @@ sakai.inbox = function() {
 
         if (message["sakai:category"] === "message" || message["sakai:category"] === undefined){
             message.category = "Message";
+        } else if (message["sakai:category"] === "mpass"){
+            message.category = "MPASS";
+        } else if (message["sakai:category"] === "comment"){
+            message.category = "Commentaire";
         } else if (message["sakai:category"] === "announcement"){
             message.category = "Announcement";
         } else if (message["sakai:category"] === "invitation"){
@@ -529,7 +546,8 @@ sakai.inbox = function() {
         if (!getAll) {
             for (var i = 0, k = response.results.length; i < k; i++) {
 
-                //if (box === "inbox" && cats === "" && response.results[i]["sakai:category"] === "chat") {
+                //if ((box === "inbox" && cats === "" && response.results[i]["sakai:category"] === "chat") || 
+                // (box === "inbox" && cats === "" && response.results[i]["sakai:category"] === "comment")) {
                 //    response.results.splice(i, 1);
                     // We are modifying the array we are iterating. We need to adjust the length otherwise we end up with undefined array elements
                 //    k--;
@@ -637,6 +655,8 @@ sakai.inbox = function() {
         if (selectedCategory){
             if (selectedCategory === "Message"){
                 cats = "message";
+            } else if (selectedCategory === "MPASS"){
+                cats = "mpass";
             } else if (selectedCategory === "Announcement"){
                 cats = "announcement";
             } else if (selectedCategory === "Invitation"){
@@ -708,6 +728,8 @@ sakai.inbox = function() {
                 for (var i = 0, j = data.count.length; i < j; i++){
                     if (data.count[i].group === "message"){
                         unreadMessages = data.count[i].count;
+                    } else if (data.count[i].group === "mpass"){
+                        unreadMpass = data.count[i].count;
                     } else if (data.count[i].group === "announcement"){
                         unreadAnnouncements = data.count[i].count;
                     } else if (data.count[i].group === "invitation"){
@@ -733,6 +755,12 @@ sakai.inbox = function() {
             $("#inbox_unread_nr_messages").text(sakai.api.Security.saneHTML("(" + unreadMessages + ")"));
         } else {
             $("#inbox_unread_nr_messages").text("");
+        }
+        
+        if (unreadMpass > 0){
+            $("#inbox_unread_nr_mpass").text("(" + unreadMpass + ")");
+        } else {
+            $("#inbox_unread_nr_mpass").text("");
         }
 
         if (unreadAnnouncements > 0){
@@ -799,6 +827,8 @@ sakai.inbox = function() {
 
                 if (message["sakai:category"] === "message"){
                     unreadMessages -= 1;
+                } else if (message["sakai:category"] === "mpass"){
+                    unreadMpass -= 1;
                 } else if (message["sakai:category"] === "invitation"){
                     unreadInvitations -= 1;
                 } else if (message["sakai:category"] === "announcement"){
@@ -827,6 +857,8 @@ sakai.inbox = function() {
             $(".message-options").show();
             $("#inbox_message_previous_messages").hide();
             $("#inbox_message_replies").html("");
+            
+            $("#inbox_message_option_reply").show();
 
             // Hide invitation links
             $("#inbox-invitation-accept").hide();
@@ -834,6 +866,9 @@ sakai.inbox = function() {
             $("#inbox-sitejoin-accept").hide();
             $("#inbox-sitejoin-deny").hide();
             $("#inbox-sitejoin-already").hide();
+            
+            // Hide MPASS Container
+            $(inboxMpassCommentContainer).hide();
 
             showPane(inboxPaneMessage);
             // if reply form if visible reset reply form and hide it
@@ -898,6 +933,12 @@ sakai.inbox = function() {
                     });
                 }
             }
+            else if (message["sakai:category"] === "mpass"){
+            	$("#inbox_message_option_reply").hide();
+            	$(inboxSpecificMessageCompose).hide();
+            	$(inboxMpassCommentArea).empty();
+            	$(inboxMpassCommentContainer).show();
+            }	
 
             // This message has some replies attached to it.
             if (message["sakai:previousmessage"]) {
@@ -1098,6 +1139,7 @@ sakai.inbox = function() {
 
             // Update unread number on left hand side
             var deletedUnreadMessages = 0;
+            var deletedUnreadMpass = 0;
             var deletedUnreadAnnouncements = 0;
             var deletedUnreadInvitations = 0;
 
@@ -1107,6 +1149,8 @@ sakai.inbox = function() {
                         if (allMessages[i]["sakai:read"] === "false" && allMessages[i]["sakai:category"]){
                             if (allMessages[i]["sakai:category"] === "message"){
                                 deletedUnreadMessages++;
+                            } else if (allMessages[i]["sakai:category"] === "mpass"){
+                                deletedUnreadMpass++;
                             } else if (allMessages[i]["sakai:category"] === "invitation"){
                                 deletedUnreadInvitations++;
                             } else if (allMessages[i]["sakai:category"] === "announcement"){
@@ -1117,6 +1161,7 @@ sakai.inbox = function() {
                 }
             }
             unreadMessages -= deletedUnreadMessages;
+            unreadMpass -= deletedUnreadMpass;
             unreadAnnouncements -= deletedUnreadAnnouncements;
             unreadInvitations -= deletedUnreadInvitations;
             updateUnreadNumbers();
@@ -1209,6 +1254,10 @@ sakai.inbox = function() {
     $(inboxFilterMessages).click(function() {
         openedBox = "messages";
         $.bbq.pushState({"box": "messages"},2);
+    });
+    $(inboxFilterMpass).click(function() {
+        openedBox = "mpass";
+        $.bbq.pushState({"box": "mpass"},2);
     });
     $(inboxFilterAnnouncements).click(function() {
         openedBox = "announcements";
@@ -1321,6 +1370,70 @@ sakai.inbox = function() {
         // Clear all the input fieldst
         clearInputFields();
     });
+    
+    $(inboxMpassCommentSend).click(function() {
+    	// Get resource id and comment
+    	var contentId = $(inboxMpassContentId).val();
+    	var comment = $(inboxMpassCommentArea).val();
+    	var subject = "Commentaire pour \"" + $(inboxMpassContentTitle).html() + "\"";
+    	var to = selectedMessage["sakai:from"];
+    	var message = {
+            "sakai:type": "internal",
+            "sakai:category": "comment",
+            "sakai:from": sakai.data.me.user.userid,
+            "sakai:to": to,
+            "sakai:marker": contentId,
+            "sakai:subject": subject,
+            "sakai:body": comment,
+            "sakai:messagebox": "outbox",
+            "sakai:sendstate": "pending",
+            "_charset_":"utf-8"
+        };
+        var url = "/_user" + sakai.data.me.profile.path + "/message.create.html";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: message,
+            success: function(data){
+        		$(inboxMpassCommentArea).val("");
+        		filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.mpass, "all", inboxFilterMpass);	
+        		// update the modified date of the MPASS content
+        		updateMpassContentModified(contentId, to);
+            },
+            error: function(xhr, textStatus, thrownError){
+                if (xhr.status === 401) {
+                    alert("You are not allowed to add comments.");
+                }
+                else {
+                    alert("Failed to save.");
+                }
+            }
+        });
+    });
+    
+    var updateMpassContentModified = function(contentId, userId) {
+    	var postParameters = {
+            "sakai:modified": new Date() // TODO: check if it works with new Date()
+        };
+    	// TODO: create servlet which allows update of foreign content 
+    	// "normal" update of content throws AccessDeniedException
+//        $.ajax({
+//            type: "POST",
+//            url: "/_user/...reflection.json",
+//            data: postParameters,
+//            success: function(data) {
+//                alert("updated");
+//            },
+//            error: function(xhr, textStatus, thrownError){
+//                if (xhr.status === 401) {
+//                    alert("You are not allowed to modify this content.");
+//                }
+//                else {
+//                    alert("Failed to save.");
+//                }
+//            }
+//        });
+    }
 
     $(window).bind('hashchange', function(e) {
         $(inboxTable + " " + inboxArrow).remove();
@@ -1359,6 +1472,11 @@ sakai.inbox = function() {
                     $(inboxSubfolderClass).hide();
                     filterMessages(sakai.config.Messages.Types.sent, "", "all", inboxFilterSent);
                     $(inboxTableHeaderFromContent).text("To");
+                    break;
+                case "mpass":
+                    $(inboxSubfolderClass).hide();
+                    filterMessages(sakai.config.Messages.Types.inbox, sakai.config.Messages.Categories.mpass, "all", inboxFilterMpass);                    
+                    $(inboxSubfolderMpass).show();
                     break;
                 case "announcements":
                     $(inboxSubfolderClass).hide();

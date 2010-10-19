@@ -1,0 +1,46 @@
+/*
+ * Licensed to the Sakai Foundation (SF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The SF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+
+
+/* WIDGET CONTAINER */
+.mpassnavigation
+{ margin:0; padding: 0 0 0 0; }
+
+/* TITLEBAR */
+.mpassnavigation .navigation_titlebar
+{ background:transparent url(/dev/_images/block_tr.png) no-repeat scroll right top; padding: 0 10px 0 0; height:50px; }
+.mpassnavigation .navigation_titlebar_inner
+{ background:transparent url(/dev/_images/block_tl.png) no-repeat scroll left top; padding: 5px 0 0 17px; height:45px; }
+.mpassnavigation .navigation_title
+{ background:transparent url(/devwidgets/mpassnavigation/images/tasks_icon.png) no-repeat scroll left top; color:#878A8C; font-size:1em; padding-left: 25px; }
+
+/* CONTENT */
+.mpassnavigation .navigation_content
+{ border-left: 3px solid #D4DADE; border-right: 3px solid #D4DADE; padding: 10px 5px 10px 20px; margin: 0; }
+.mpassnavigation .navigation_content ul
+{ margin:0; padding:0; }
+.mpassnavigation .navigation_content ul li
+{ list-style-type:none; padding:5px 0;}
+.mpassnavigation .navigation_content ul li a
+{ color: #058EC4; font-weight: normal; font-size: 10pt; }
+
+/* BOTTOM */
+.mpassnavigation .navigation_bottom
+{ background:transparent url(/dev/_images/content_bl.png) no-repeat scroll left bottom; height: 5px; padding: 0 0 0 10px; }
+.mpassnavigation .navigation_bottom_inner
+{ background:transparent url(/dev/_images/content_br.png) no-repeat scroll right bottom; height: 5px; }

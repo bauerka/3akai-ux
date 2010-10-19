@@ -94,6 +94,7 @@
 
                             <ul>
                                 <li><a href="javascript:;" class="inbox_filter" id="inbox_filter_messages">__MSG__MESSAGES__</a> <span id="inbox_unread_nr_messages"></span></li>
+                                <li><a href="javascript:;" class="inbox_filter" id="inbox_filter_mpass">__MSG__MPASS__</a> <span id="inbox_unread_nr_mpass"></span></li>
                                 <li><a href="javascript:;" class="inbox_filter" id="inbox_filter_announcements">__MSG__ANNOUNCEMENTS__</a> <span id="inbox_unread_nr_announcements"></span></li>
                                 <li><a href="javascript:;" class="inbox_filter" id="inbox_filter_chats">__MSG__CHATS__</a> <span id="inbox_unread_nr_chats"></span></li>
                                 <li><a href="javascript:;" class="inbox_filter" id="inbox_filter_invitations">__MSG__INVITATIONS__</a> <span id="inbox_unread_nr_invitations"></span></li>
@@ -138,6 +139,7 @@
                                 <div class="inbox-heading inbox_inbox_header" id="inbox_inbox">
                                     __MSG__INBOX__
                                     <span id="inbox_subfolder_messages" class="inbox_subfolder" style="display:none">&raquo; __MSG__MESSAGES__</span>
+                                    <span id="inbox_subfolder_mpass" class="inbox_subfolder" style="display:none">&raquo; __MSG__MPASS__</span>
                                     <span id="inbox_subfolder_chats" class="inbox_subfolder" style="display:none">&raquo; __MSG__CHATS__</span>
                                     <span id="inbox_subfolder_invitations" class="inbox_subfolder" style="display:none">&raquo; __MSG__INVITATIONS__</span>
                                     <span id="inbox_subfolder_announcements" class="inbox_subfolder" style="display:none">&raquo; __MSG__ANNOUNCEMENTS__</span>
@@ -285,6 +287,11 @@
                                         <div id="inbox_message_body"></div>
 
                                         <div class="message-options">
+                                            <div id="inbox-mpass-comment-container" style="display:none">
+                                                <p class="mpass_comment">__MSG__MPASS_COMMENT__</p>
+                                                <textarea id="inbox-mpass-commentarea"></textarea>
+                                                <div class="greybutton"><a id="inbox-mpass-comment-send" href="javascript:;" class="button-default submit_button inbox_bold">__MSG__MPASS_SEND_COMMENT__</a>
+                                            </div></div>
                                             <span id="inbox-sitejoin-accept" style="display:none"><a href="javascript:;" id="inbox_message_accept_sitejoin">__MSG__ACCEPT_SITEJOIN__</a> |</span>
                                             <span id="inbox-sitejoin-deny" style="display:none"><a href="javascript:;" id="inbox_message_deny_sitejoin">__MSG__DENY_SITEJOIN__</a> |</span>
                                             <span id="inbox-sitejoin-already" style="display:none; color: #666">__MSG__YOU_HAVE_REPLIED_TO_THIS_REQUEST_TO_JOIN_THIS_SITE__ |</span>

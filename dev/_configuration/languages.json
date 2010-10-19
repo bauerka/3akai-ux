@@ -21,6 +21,11 @@
         "displayName": "English (United States)"
     },
     {
+        "country": "CA",
+        "language": "fr",
+        "displayName": "Français (Canada)"
+    },
+    {
         "country": "JP",
         "language": "ja",
         "displayName": "日本語"

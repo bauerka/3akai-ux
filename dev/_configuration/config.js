@@ -119,6 +119,10 @@ sakai.config = {
         USER_CHANGELOCALE_SERVICE: "/rest/user/changelocale/__USERID__",
         USER_CHANGEPASS_SERVICE: "/system/userManager/user/__USERID__.changePassword.html",
         USER_EXISTENCE_SERVICE: "/system/userManager/user.exists.html?userid=__USERID__",
+        
+        // MPASS
+        MPASS_URL: "~mpass",
+        PUBLIC_MPASS_URL: "/dev/public_mpass.html",
 
         // PREFIXES
         GROUP_PREFIX: "/_group",
@@ -483,6 +487,11 @@ sakai.config = {
                 image: "_images/sakai_grey.png",
                 URL: "/dev/_skins/original/original.html"
             },
+            mpass: {
+                name: "MPASS theme",
+                image: "_images/sakai_grey.png",
+                URL: "/dev/_skins/mpass/mpass.html"
+            },
             camuniversity: {
                 name: "Cambridge University theme",
                 image: "/dev/_skins/camuniversity/images/camuniversity.png",
@@ -500,6 +509,7 @@ sakai.config = {
         },
         Categories: {
             message: "Message",
+            mpass: "MPASS",
             announcement: "Announcement",
             chat: "Chat",
             invitation: "Invitation"

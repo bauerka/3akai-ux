@@ -1,0 +1,130 @@
+/*
+ * Licensed to the Sakai Foundation (SF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The SF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+
+/* MPASS CSS */
+.fl-col-fixed .content_container {margin-left:221px;}
+
+.mpassmodule hr {background:transparent;border-top:1px solid #ccc;margin:10px 10px;}
+.mpassmodule h4 {color: #666;}
+.mpassmodule .fl-widget-titlebar {cursor:auto;}
+.mpassmodule .fl-widget-content {padding:10px;}
+.mpassmodule .widget-titlebar-inner .widget_title {padding-left:20px;}
+
+#mpass_toggle_width_container {float:left;position:relative;left:+4px;}
+#mpass_toggle_width_container div {width:9px;height:81px;cursor:pointer;background:url('/devwidgets/mpassmodule/images/icon_toggle_arrow_left.png') top left no-repeat;}
+#mpass_toggle_width_container .collapse {background:url('/devwidgets/mpassmodule/images/icon_toggle_arrow_right.png') top left no-repeat;}
+#mpass_toggle_height_btn {float:left;width:81px;height:8px;cursor:pointer;background:url('/devwidgets/mpassmodule/images/icon_toggle_arrow_updown.png') top left no-repeat;position:relative;left:+175px;top:+1px;}
+#mpass_toggle_height_pseudo_btn {width:81px;height:8px;cursor:pointer;background:transparent;position:relative;left:+175px;top:+1px;}
+
+.content_separator {background:url("/devwidgets/mpassmodule/images/content_sep_right.png") no-repeat scroll right top transparent;margin:0;padding:0 5px 0 0;}
+.content_separator_inner {background:url("/devwidgets/mpassmodule/images/content_sep_left.png") no-repeat scroll 0 0 transparent;height:9px;margin:0;}
+
+/* Main Container */
+#mpassmodule_main_container label {padding:2px 0;margin-bottom:2px;}
+
+/* Buttons */
+.mpass_buttonBar {float:left;margin-top:2px;}
+.mpass_button {float:left;margin-top:-2px !important;}
+
+/* Tasklist */
+#mpassmodule_tasklist {margin:0 30px;}
+#mpassmodule_tasklist  li {padding: 15px 0;}
+.mpass_tasklist_element {list-style-type:none;display:block;clear:both;}
+.mpass_tasklist_element div {float:left;}
+.mpass_tasklist_element .listfield_week {background:url('/devwidgets/mpassmodule/images/icon_semaine.gif') top left no-repeat;width:30px;height:18px;text-align:center;font-weight:bold;color:#333;padding-top:12px;}
+.mpass_tasklist_element .listfield_title {margin-left:15px;}
+.mpass_tasklist_element .listfield_task a {color:#058EC4;font-weight:bold;}
+.mpass_tasklist_element .listfield_tasktitle {font-size:0.8em;display:block;clear:both;}
+.mpass_tasklist_element .listfield_comments {background:url('/devwidgets/mpassmodule/images/icon_note.gif') top left no-repeat;width:35px;float:right;padding:2px 0 0 30px;}
+.mpass_tasklist_element .listfield_comments .comments_total {float:right; padding:0 5px;}
+.mpass_tasklist_element .listfield_comments .comments_new {font-weight:bold;}
+
+/* Taskcontent */
+#task_title {}
+.taskcontainer {float:left;width:430px;}
+#task_content_container  {overflow:auto;}
+.task_content_description {color:#333;font-size:8pt;}
+.task_content_description ul li {margin-left:15px;}
+
+.task_titlebox {background: #d5dbdf; padding:5px;}
+.task_titlebox h4 a {color: #666;}
+.task_btn {font-size:0.8em; text-align:right; padding:2px;}
+.task_btn a {border:1px solid #999; -moz-border-radius:5px; -webkit-border-radius:5px; padding:2px;}
+.task_content {background: #eff2f4; padding:5px;}
+.task_element_table {width:195px;padding:0;margin:0 0 5px 0;}
+.task_element_table td {border:0;padding:0;margin:0;}
+.taskside_element_title {width:130px;font-weight:bold;}
+.task_element_date {font-size:0.8em;text-align:right;color:#666;}
+.task_element_ispublic {font-size:0.7em;cursor:pointer;}
+.task_element_comments {width:60px;}
+.task_element_comments_container {background: url('/devwidgets/mpassmodule/images/icon_note_grey.png') top left no-repeat; border:1px solid #999; -moz-border-radius:5px; -webkit-border-radius:5px;}
+.task_element_comments_container div {color:#666;font-size:0.9em;}
+.task_element_comments_unread {float:left;width:34px;font-weight:bold;text-align:right;padding-top:1px;}
+.task_element_comments_total {text-align:right;padding:1px 2px 0 0;}
+
+#mpass_main_task_titlebox h4 {float:left;}
+#mpass_main_task_titlebox {min-height:1.2em;}
+#mpass_main_task_content {padding:10px;}
+#mpass_main_task_content .task_element_table {width:100%;}
+#mpass_main_task_content .task_element_title {font-weight:bold;}
+#mpass_main_task_content .task_element_title a {vertical-align:top;}
+#mpass_main_task_content .task_element_ispublic {width:15px;}
+#mpass_main_task_content .task_element_comments {width:60px;}
+#mpass_main_task_content .task_element_date {width:75px;}
+.task_file_container {padding:7px 0;}
+.task_file_container img {margin:0 5px 0 0;}
+.task_file_container a {vertical-align:top;}
+.task_element_open {margin:10px 0;}
+.task_element_open_title {font-weight:bold;float:left;}
+.task_element_open_info {text-align:right;width:90px;float:right;}
+.task_element_open_ispublic {float:left;}
+.task_element_open_date {font-size:0.8em;text-align:right;color:#666;}
+.task_element_open_header {display:block;clear:both;}
+.task_element_open_content {display:block;clear:both;font-size:0.9em;color:#333;}
+.task_element_open_comments {font-size:0.8em;color:#666;}
+.task_comment_element{background:#fff;padding:5px;margin:7px 0;clear:both;min-height:50px;}
+.task_comment_element_user_image {float:left;margin-right:5px;}
+.task_comment_element_header {margin:0 0 5px 0;}
+.task_comment_element_user {float:left;font-weight:bold;color:#058EC4;}
+.task_comment_element_date{font-size:0.8em;text-align:right;color:#666;}
+
+/* Tasknavigation */
+.mpass_tasknavigation {width:230px; float:right;}
+#mpass_reflection_container {padding: 10px 10px 0 10px;}
+.mpass_tasknavigation .reflection_container {margin:0 0 10px 0;}
+.mpass_tasknavigation .assignment_container {margin:0 0 10px 0;}
+.mpass_tasknavigation .feedback_container {margin:0 0 10px 0;}
+.mpass_tasknavigation .task_more {text-align:right;color:#333;font-size:0.8em;}
+
+/* Dialog Container */
+.dialog_header h1 {font-size:1.1em; padding: 15px 20px; display:block;}
+.dialog_content h4 {margin-bottom:10px; color:#666;}
+.add_content_container input {margin-bottom: 10px; width:450px;}
+.content_dialog_container textarea {clear:both;width:100%;}
+.content_error_msg {color:#f00;font-size:0.9em;margin-bottom:10px;}
+#reflection_share_options_container input {margin:15px 0 0 0;width:20px;}
+#reflection_share_options_container label {margin:15px 30px 0 0;}
+#assignment_dialog_header {margin-bottom:0;}
+#assignment_dialog_subheader {font-size:0.8em; margin-bottom:10px;}
+#assignment_ask_comments {margin-top:10px;font-weight:bold;font-size:0.9em;}
+
+/* Shared Users Dialog */
+#sharedusers_dialog_container ul {margin:0;}
+#sharedusers_dialog_container li {list-style-type:none;float:left;width:220px;margin:2px;}
+#sharedusers_content_container li img {float:left;}
+#sharedusers_content_container li.selected {background: #d5dbdf;}

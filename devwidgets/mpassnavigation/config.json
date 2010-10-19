@@ -1,0 +1,11 @@
+{
+    "description":"MPASS General Navigation Widget",
+    "id":"mpassnavigation",
+    "i18n": {
+        "default": "/devwidgets/mpassnavigation/bundles/default.json"
+    },
+    "name":"MPASS General Navigation",
+    "showinsidebar":true,
+    "hasSettings": false,
+    "url":"/devwidgets/mpassnavigation/mpassnavigation.html"
+}
